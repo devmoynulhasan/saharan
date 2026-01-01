@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/sin_in_controller.dart';
+import 'package:saharan/app/modules/authentication/screen/forgot_password.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -123,6 +124,7 @@ class SignIn extends StatelessWidget {
               onTap: () {
                 // Forgot password navigation
                 // Get.toNamed(AppRoutes.FORGOT_PASSWORD);
+                Get.to(ForgotPassword());
               },
               child: Text(
                 "Forgot Password?",

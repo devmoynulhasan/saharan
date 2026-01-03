@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:saharan/app/modules/authentication/screen/sin_up_conform_password.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
 class SignUpVarifyOtp extends StatelessWidget {
@@ -33,7 +34,7 @@ class SignUpVarifyOtp extends StatelessWidget {
                                 BoxShadow(
                                   color: Color(0xFFF6F978).withOpacity(0.1),
                                   spreadRadius: 7,
-                                )
+                                ),
                               ],
                               shape: BoxShape.circle,
                               color: Color(0xFF053030),
@@ -41,28 +42,20 @@ class SignUpVarifyOtp extends StatelessWidget {
                             child: Center(
                               child: Icon(
                                 Icons.arrow_back_ios_new,
-                                color: Color(0xFFF6F978),
+                                color: Color(0xFFF6F978), // Directly setting the icon color
                                 size: 20,
                               ),
                             ),
                           ),
                         ),
                         SizedBox(width: 15),
-                        Text(
-                          "Forgot Password",
-                          style: GoogleFonts.orbitron(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
 
-                Expanded(
 
+                Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -150,7 +143,7 @@ class SignUpVarifyOtp extends StatelessWidget {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       // Resend OTP logic here
-                                    //  Get.to( ForgotConformPassword());
+                                     Get.to( SinUpConformPassword());
                                       print("Resend OTP tapped");
                                     },
                                 )

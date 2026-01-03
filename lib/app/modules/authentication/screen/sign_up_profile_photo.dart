@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:saharan/app/modules/authentication/controller/sign_up_profile_photo_controller.dart';
 import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
+import 'package:saharan/app/modules/authentication/widget/sign_up_profile_photo_weg.dart';
 
 
 
@@ -35,18 +34,20 @@ class SignUpProfilePhoto extends StatelessWidget {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFF6F978).withOpacity(0.1),
+                          spreadRadius: 7,
+                        )
+                      ],
                       shape: BoxShape.circle,
-                      color: Color(0xFF0A3D3E),
-                      border: Border.all(
-                        color: Color(0xFF1A5556),
-                        width: 1,
-                      ),
+                      color: Color(0xFF053030),
                     ),
                     child: Center(
                       child: Icon(
                         Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                        size: 18,
+                        color: Color(0xFFF6F978),
+                        size: 20,
                       ),
                     ),
                   ),
@@ -80,120 +81,7 @@ class SignUpProfilePhoto extends StatelessWidget {
                 SizedBox(height: 60),
 
                 // Profile Photo Circle with Image
-                Center(
-                  child: Obx(() {
-                    return Stack(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 180,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xFF005a5c).withOpacity(0.6),
-                            border: Border.all(
-                              color: Color(0xFF1A5556),
-                              width: 2,
-                            ),
-                            image: controller.selectedImage.value != null
-                                ? DecorationImage(
-                              image: FileImage(controller.selectedImage.value!),
-                              fit: BoxFit.cover,
-                            )
-                                : null,
-                          ),
-                          child: controller.selectedImage.value == null
-                              ? Center(
-                            child: Icon(
-                              Icons.person_outline,
-                              size: 80,
-                              color: Color(0xFF1A5556),
-                            ),
-                          )
-                              : null,
-                        ),
-
-                        // Remove button if image is selected
-                        if (controller.selectedImage.value != null)
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: GestureDetector(
-                              onTap: controller.removeImage,
-                              child: Container(
-                                padding: EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xFFF6F978),
-                                ),
-                                child: Icon(
-                                  Icons.close,
-                                  size: 20,
-                                  color: Color(0xFF0A3D3E),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    );
-                  }),
-                ),
-
-                SizedBox(height: 32),
-
-                // Upload Photo Button
-                Center(
-                  child: GestureDetector(
-                    onTap: controller.pickImage,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: Color(0xFFF6F978),
-                          width: 2,
-                        ),
-                      ),
-                      child: Text(
-                        "Upload Photo",
-                        style: GoogleFonts.manrope(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFF6F978),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Spacer(),
-
-                // Skip for now button
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      // Skip action - navigate to next screen
-                      print("Skip for now tapped");
-                       Get.to(SinInScreen());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text(
-                        "Skip for now",
-                        style: GoogleFonts.sourceSans3(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFF6F978),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 16),
+               Sign_Up_profile_Photo_Widget(controller: controller),
 
                 // Get Started Button (Enabled/Disabled based on image)
                 Obx(() {
@@ -252,3 +140,4 @@ class SignUpProfilePhoto extends StatelessWidget {
     );
   }
 }
+

@@ -8,7 +8,6 @@ class GradientBackground extends StatelessWidget {
     required this.child,
   });
 
-  // Gradient decoration টা static method হিসেবে
   static BoxDecoration get gradientDecoration {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -25,6 +24,8 @@ class GradientBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: double.infinity,
       decoration: gradientDecoration,
       child: child,
     );

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/authentication/widget/sign_in_weg.dart';
 import 'package:saharan/app/modules/authentication/screen/sign_up_screen.dart';
+import 'package:saharan/app/modules/home/view/home_screen.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
 class SinInScreen extends StatelessWidget {
@@ -80,7 +81,7 @@ class SinInScreen extends StatelessWidget {
                           // Sign In Button
                           GestureDetector(
                             onTap: () {
-                              // Sign in action
+                             Get.to(HomeScreen());
                               print("Sign In tapped");
                             },
                             child: Container(

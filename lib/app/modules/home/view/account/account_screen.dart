@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/account_screen_controller.dart';
+import 'package:saharan/app/modules/home/widget/account_more_support.dart';
 import 'package:saharan/app/modules/home/widget/account_profile_weg.dart';
+import 'package:saharan/app/modules/home/widget/accout_more_tools.dart';
+import 'package:saharan/resource/app_images/app_images.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -40,6 +43,155 @@ class AccountScreen extends StatelessWidget {
 
                     // Profile section - Remove Obx from here
                     account_profile(controller: controller),
+                    SizedBox(height:15 ,),
+                    Row(
+                      children: [
+                        Text('More Tools',style: GoogleFonts.sourceSans3(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFFFFFFF)
+                        ),)
+                      ],
+                    ),
+                    SizedBox(height: 8,),
+
+                    Account_Mote_Tools(),
+                    SizedBox(height: 12,),
+                    Row(
+                      children: [
+                        Text('More Info & Support',style: GoogleFonts.sourceSans3(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFFFFFFF)
+                        ),)
+                      ],
+                    ),
+                    SizedBox(height: 8,),
+
+                    Account_More_Support(),
+
+                    SizedBox(height: 12,),
+                    Row(
+                      children: [
+                        Text('Others',style: GoogleFonts.sourceSans3(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFFFFFFF)
+                        ),)
+                      ],
+                    ),
+                    SizedBox(height: 8,),
+              Container(
+                width: double.infinity,
+                height: 120,
+                decoration: BoxDecoration(
+                    color: Color(0xFF0A3D3E),
+                    borderRadius: BorderRadius.all(Radius.circular(16))
+                ),
+                child:Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AssetPaths.privacy,
+                                height: 24,
+                                width: 24,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Privacy Policy',
+                                style: GoogleFonts.sourceSans3(
+                                    fontSize: 16,
+                                    color: Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset(
+                            AssetPaths.back_icon,
+                            height: 24,
+                            width: 7,
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Divider(color: Color(0xFF215051),),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AssetPaths.terms,
+                                height: 24,
+                                width: 24,
+
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Terms & Conditions',
+                                style: GoogleFonts.sourceSans3(
+                                    fontSize: 16,
+                                    color: Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset(
+                            AssetPaths.back_icon,
+                            height: 24,
+                            width: 7,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ) ,
+              ),
+                    SizedBox(height:45 ,),
+                    Container(
+                      padding: EdgeInsets.all(22),
+                      width: double.infinity,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF0A3D3E),
+                          borderRadius: BorderRadius.all(Radius.circular(16))
+                      ),
+                      child:Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AssetPaths.logout,
+                                height: 24,
+                                width: 24,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Sign Out',
+                                style: GoogleFonts.sourceSans3(
+                                    fontSize: 16,
+                                    color: Color(0xFFEF4444),
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ) ,
+                    ),
+
+
                   ],
                 ),
               ),
@@ -50,4 +202,7 @@ class AccountScreen extends StatelessWidget {
     );
   }
 }
+
+
+
 

@@ -17,30 +17,32 @@ class AccountScreen extends StatelessWidget {
       body: GradientBackground(
         child: Padding(
           padding: EdgeInsets.all(15),
-          child: SafeArea(
-            child: Column(
-              children: [
-                // Header
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Account",
-                        style: GoogleFonts.orbitron(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Color(0xFFEEEEF0),
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    // Header
+                    Row(
+                      children: [
+                        Text(
+                          "Account",
+                          style: GoogleFonts.orbitron(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Color(0xFFEEEEF0),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 24),
+                      ],
+                    ),
+                    SizedBox(height: 24),
 
-                // Profile section
-                Obx(() => account_profile(controller: controller)),
-              ],
+                    // Profile section - Remove Obx from here
+                    account_profile(controller: controller),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

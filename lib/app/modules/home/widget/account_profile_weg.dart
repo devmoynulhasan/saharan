@@ -23,10 +23,10 @@ class account_profile extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Row(
           children: [
-            // Profile Picture
+            // Profile Picture - Obx দিয়ে wrap করা
             GestureDetector(
               onTap: controller.pickImage,
-              child: Container(
+              child: Obx(() => Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
@@ -39,18 +39,27 @@ class account_profile extends StatelessWidget {
                     controller.pickedImage.value!,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        controller.profileImage.value,
-                        fit: BoxFit.cover,
+                      // Error হলে placeholder icon দেখাবে
+                      return Container(
+                        color: Colors.grey[700],
+                        child: Icon(
+                          Icons.person,
+                          size: 35,
+                          color: Colors.white70,
+                        ),
                       );
                     },
                   )
-                      : Image.asset(
-                    controller.profileImage.value,
-                    fit: BoxFit.cover,
+                      : Container(
+                    color: Colors.grey[700],
+                    child: Icon(
+                      Icons.person,
+                      size: 35,
+                      color: Colors.white70,
+                    ),
                   ),
                 ),
-              ),
+              )),
             ),
             SizedBox(width: 16),
             // Name and Email

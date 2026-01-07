@@ -20,6 +20,13 @@ class AssetPaths{
   static const String logout ='assets/images/Logout.png';
   static const String back_icon ='assets/images/account_back_icon.png';
 
+  //Favourites
+
+  static const String arsenal ='assets/images/favorite_arsenal.png';
+  static const String brington ='assets/images/favourite_brington.png';
+  static const String liverpool ='assets/images/favourite_liverpool.png';
+
+
 
 
 

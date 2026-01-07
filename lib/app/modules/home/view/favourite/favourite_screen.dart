@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/favourite_controller.dart';
+import 'package:saharan/app/modules/home/widget/favorites_league_weg.dart';
+import 'package:saharan/app/modules/home/widget/favortes_team_weg.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
@@ -31,7 +33,7 @@ class FavouriteScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
 
                 // Toggle Buttons
                 Container(
@@ -71,8 +73,8 @@ class FavouriteScreen extends StatelessWidget {
                 // Content based on selected tab
                 Expanded(
                   child: Obx(() => controller.selectedIndex.value == 0
-                      ? _buildTeamContent()
-                      : _buildLeagueContent()),
+                      ? FavoriteTeam()
+                      : FavoritesLeague()),
                 ),
               ],
             ),
@@ -108,28 +110,6 @@ class FavouriteScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildTeamContent() {
-    return Center(
-      child: Text(
-        "Team Favorites",
-        style: GoogleFonts.sourceSans3(
-          color: Colors.white,
-          fontSize: 18,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLeagueContent() {
-    return Center(
-      child: Text(
-        "League Favorites",
-        style: GoogleFonts.sourceSans3(
-          color: Colors.white,
-          fontSize: 18,
-        ),
-      ),
-    );
-  }
 }
+
+

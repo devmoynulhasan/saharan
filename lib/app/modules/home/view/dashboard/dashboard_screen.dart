@@ -12,7 +12,7 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       body: GradientBackground(
         child: SafeArea(
-          child: SingleChildScrollView( // এটা add করুন
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -77,13 +77,13 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 10),
-                          Expanded( // এটা add করুন
+                          Expanded(
                             child: Center(
                               child: SfRadialGauge(
                                 axes: <RadialAxis>[
                                   RadialAxis(
                                     minimum: 0,
-                                    maximum: 110,
+                                    maximum: 100,
                                     startAngle: 180,
                                     endAngle: 0,
                                     showLabels: false,
@@ -91,18 +91,16 @@ class DashboardScreen extends StatelessWidget {
                                     axisLineStyle: AxisLineStyle(
                                       thickness: 42,
                                       color: Color(0xFF00595b),
-                                     // cornerStyle: CornerStyle.bothCurve,
                                     ),
                                     pointers: <GaugePointer>[
                                       RangePointer(
                                         value: 75,
-                                       // cornerStyle: CornerStyle.bothCurve,
                                         width: 42,
                                         color: Color(0xFFf6f978),
-
                                       ),
                                     ],
                                     annotations: <GaugeAnnotation>[
+                                      // Center annotation (75%)
                                       GaugeAnnotation(
                                         widget: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -134,6 +132,19 @@ class DashboardScreen extends StatelessWidget {
                                         ),
                                         angle: 90,
                                         positionFactor: 0.4,
+                                      ),
+                                      // Right side annotation (25%)
+                                      GaugeAnnotation(
+                                        widget: Text(
+                                          '25%',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        angle: 0, // ডান পাশে
+                                        positionFactor: 0.8,
                                       ),
                                     ],
                                   ),
@@ -185,7 +196,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20), // আরো content add করার জন্য space
+                  SizedBox(height: 20),
                 ],
               ),
             ),

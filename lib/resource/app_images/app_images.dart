@@ -25,6 +25,11 @@ class AssetPaths{
   static const String arsenal ='assets/images/favorite_arsenal.png';
   static const String brington ='assets/images/favourite_brington.png';
   static const String liverpool ='assets/images/favourite_liverpool.png';
+  static const String champoints_league ='assets/images/favorites_champion_leagus.png';
+  static const String serie ='assets/images/favorites_serie.png';
+  static const String bundesliga ='assets/images/favorites_bundesligs.png';
+  static const String eurooa_league ='assets/images/favorites_europa_leangue.png';
+
 
 
 

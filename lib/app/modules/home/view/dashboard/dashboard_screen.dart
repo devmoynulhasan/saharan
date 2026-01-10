@@ -98,6 +98,16 @@ class DashboardScreen extends StatelessWidget {
                                         width: 42,
                                         color: Color(0xFFf6f978),
                                       ),
+                                      // Marker pointer added here
+                                      MarkerPointer(
+                                        value: 75,
+                                        markerType: MarkerType.circle,
+                                        markerHeight: 20,
+                                        markerWidth: 20,
+                                        color: Colors.white,
+                                        borderWidth: 3,
+                                        borderColor: Color(0xFFf6f978),
+                                      ),
                                     ],
                                     annotations: <GaugeAnnotation>[
                                       // Center annotation (75%)
@@ -143,7 +153,7 @@ class DashboardScreen extends StatelessWidget {
                                             color: Colors.white,
                                           ),
                                         ),
-                                        angle: 0, // ডান পাশে
+                                        angle: 0,
                                         positionFactor: 0.8,
                                       ),
                                     ],

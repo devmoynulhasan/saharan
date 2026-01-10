@@ -30,7 +30,11 @@ class AssetPaths{
   static const String bundesliga ='assets/images/favorites_bundesligs.png';
   static const String eurooa_league ='assets/images/favorites_europa_leangue.png';
 
+  //Budget
 
+  static const String premier_league ='assets/images/budget_premier_league.png';
+  static const String manchester_united ='assets/images/budget_manchester_united.png';
+  static const String newcastle_united ='assets/images/budget_newcastel_united.png';
 
 
 

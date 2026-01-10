@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
 class FavoritesLeague extends StatelessWidget {

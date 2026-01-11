@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/widget/budget_chart_range_weg.dart';
+import 'package:saharan/app/modules/home/widget/setting_show_modal-bottomsheet_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -35,18 +36,22 @@ class BudgetScreen extends StatelessWidget {
                         ),
                         // Notification Icon
                         GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Icon(
-                              Icons.settings,
-                              color: Colors.white,
-                              size: 24,
-                            ),
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return SettingShowModalBottomSheetWeg();
+                              },
+                            );
+
+
+                          },
+                          child: Icon(
+                            Icons.settings,
+                            color: Colors.white,
+                            size: 24,
                           ),
                         ),
                       ],
@@ -483,4 +488,6 @@ class BudgetScreen extends StatelessWidget {
     );
   }
 }
+
+
 

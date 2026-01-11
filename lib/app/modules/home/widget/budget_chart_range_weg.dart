@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class Budget_Chart_Range_Weg extends StatelessWidget {
-  const Budget_Chart_Range_Weg({
-    super.key,
-  });
+class Budget_Chart_Range_Weg extends StatefulWidget {
+  const Budget_Chart_Range_Weg({super.key});
 
+  @override
+  State<Budget_Chart_Range_Weg> createState() => _Budget_Chart_Range_WegState();
+}
+
+class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 320, // height কমানো হয়েছে
+      height: 320,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFF0A3D3E),
@@ -24,19 +27,25 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text("Weekly Budget ",style: GoogleFonts.orbitron(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: Color(0xFFEEEEF0),
-
-                    ),)
-                  ],
+                Text(
+                  "Weekly Budget ",
+                  style: GoogleFonts.orbitron(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Color(0xFFEEEEF0),
+                  ),
                 ),
-                // Notification Icon
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return BudgetSetupSheet();
+                      },
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.all(8),
                     child: Icon(
@@ -70,7 +79,6 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
                           width: 42,
                           color: Color(0xFFf6f978),
                         ),
-                        // Marker pointer added here
                         MarkerPointer(
                           value: 75,
                           markerType: MarkerType.circle,
@@ -82,7 +90,6 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
                         ),
                       ],
                       annotations: <GaugeAnnotation>[
-                        // Center annotation (75%)
                         GaugeAnnotation(
                           widget: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -115,7 +122,6 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
                           angle: 90,
                           positionFactor: 0.4,
                         ),
-                        // Right side annotation (25%)
                         GaugeAnnotation(
                           widget: Text(
                             '25%',
@@ -150,8 +156,7 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
                     ),
                     Text(
                       "Used",
-                      style: TextStyle(
-                          fontSize: 14, color: Colors.white70),
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
                   ],
                 ),
@@ -167,14 +172,214 @@ class Budget_Chart_Range_Weg extends StatelessWidget {
                     ),
                     Text(
                       "Limit",
-                      style: TextStyle(
-                          fontSize: 14, color: Colors.white70),
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
                   ],
                 ),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// Separate StatefulWidget for the Bottom Sheet
+class BudgetSetupSheet extends StatefulWidget {
+  const BudgetSetupSheet({super.key});
+
+  @override
+  State<BudgetSetupSheet> createState() => _BudgetSetupSheetState();
+}
+
+class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
+  final TextEditingController _budgetController = TextEditingController();
+  bool _isButtonEnabled = false;
+  int? _selectedPreset;
+
+  @override
+  void initState() {
+    super.initState();
+    _budgetController.addListener(() {
+      setState(() {
+        _isButtonEnabled = _budgetController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _budgetController.dispose();
+    super.dispose();
+  }
+
+  void _selectPreset(int amount) {
+    setState(() {
+      _selectedPreset = amount;
+      _budgetController.text = amount.toString();
+      _isButtonEnabled = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 450,
+      width: double.infinity,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Color(0xFF0A3D3E),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Budget Set Up',
+                style: GoogleFonts.orbitron(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0XFFFFFFFF),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Divider(color: Color(0xFF215051)),
+          SizedBox(height: 10),
+          TextFormField(
+            controller: _budgetController,
+            keyboardType: TextInputType.number,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              hintText: 'Enter budget amount',
+              hintStyle: TextStyle(color: Colors.white54),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Color(0xFF215051)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Text(
+                'Quick Presets',
+                style: GoogleFonts.sourceSans3(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildPresetButton(50000),
+              _buildPresetButton(100000),
+              _buildPresetButton(200000),
+            ],
+          ),
+          SizedBox(height: 20),
+          Container(
+            height: 52,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: _isButtonEnabled
+                  ? Color(0xFFF6F978)
+                  : Color(0xFF215051),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _isButtonEnabled
+                    ? Color(0xFFF6F978)
+                    : Color(0xFF215051),
+                //disabledBackgroundColor: Color(0xFF215051),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: _isButtonEnabled
+                  ? () {
+                // Save budget logic here
+                Navigator.pop(context);
+              }
+                  : null,
+              child: Text(
+                'Set Budget',
+                style: TextStyle(
+                  color: _isButtonEnabled
+                      ? Color(0xFF0A3D3E)
+                      : Colors.white54,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPresetButton(int amount) {
+    bool isSelected = _selectedPreset == amount;
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => _selectPreset(amount),
+        child: Container(
+          height: 60,
+          margin: EdgeInsets.symmetric(horizontal: 4),
+          decoration: BoxDecoration(
+            color: Color(0xFF0A3D3E),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isSelected ? Color(0xFFF6F978) : Color(0xFF215051),
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${amount ~/ 1000}k',
+                  style: TextStyle(
+                    color: isSelected ? Color(0xFFF6F978) : Color(0xFFFFFFFF),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  'UGX',
+                  style: TextStyle(
+                    color: isSelected ? Color(0xFFF6F978) : Color(0xFFFFFFFF),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/authentication/widget/sign_in_weg.dart';
 import 'package:saharan/app/modules/authentication/screen/sign_up_screen.dart';
+import 'package:saharan/app/modules/authentication/controller/sin_in_controller.dart';
 import 'package:saharan/app/modules/home/view/home_screen.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
@@ -12,6 +13,8 @@ class SinInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignInController());
+
     return Scaffold(
       body: GradientBackground(
         child: SafeArea(
@@ -81,8 +84,42 @@ class SinInScreen extends StatelessWidget {
                           // Sign In Button
                           GestureDetector(
                             onTap: () {
-                             Get.to(HomeScreen());
-                              print("Sign In tapped");
+                              if (controller.formKey.currentState!.validate()) {
+                                // Validation successful
+                                String email = controller.emailTEController.text;
+                                String password = controller.passwordTEController.text;
+
+                                print("Email: $email");
+                                print("Password: $password");
+                                print("Remember Me: ${controller.rememberMe.value}");
+
+                                // Navigate to home screen
+                                Get.offAll(() => HomeScreen());
+
+                                // Show success message
+                                Get.snackbar(
+                                  'Success',
+                                  'Signed in successfully',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Color(0xFFF6F978),
+                                  colorText: Color(0xFF0A3D3E),
+                                  margin: EdgeInsets.all(16),
+                                  borderRadius: 12,
+                                  duration: Duration(seconds: 2),
+                                );
+                              } else {
+                                // Validation failed
+                                Get.snackbar(
+                                  'Error',
+                                  'Please fill all fields correctly',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  margin: EdgeInsets.all(16),
+                                  borderRadius: 12,
+                                  duration: Duration(seconds: 2),
+                                );
+                              }
                             },
                             child: Container(
                               width: double.infinity,
@@ -90,6 +127,14 @@ class SinInScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Color(0xFFF6F978),
                                 borderRadius: BorderRadius.circular(28),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFFF6F978).withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
                               ),
                               child: Center(
                                 child: Text(
@@ -108,9 +153,8 @@ class SinInScreen extends StatelessWidget {
 
                           // Sign Up Link
                           Center(
-                            child: Column(
-                              //alignment: WrapAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   "Don't have an account? ",
@@ -122,7 +166,7 @@ class SinInScreen extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(SignUpScreen());
+                                    Get.to(() => SignUpScreen());
                                   },
                                   child: Text(
                                     "Sign Up",
@@ -130,6 +174,8 @@ class SinInScreen extends StatelessWidget {
                                       fontSize: 16,
                                       color: Color(0xFFF6F978),
                                       fontWeight: FontWeight.w700,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Color(0xFFF6F978),
                                     ),
                                   ),
                                 ),

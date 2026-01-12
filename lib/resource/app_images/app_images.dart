@@ -36,6 +36,10 @@ class AssetPaths{
   static const String manchester_united ='assets/images/budget_manchester_united.png';
   static const String newcastle_united ='assets/images/budget_newcastel_united.png';
 
+  // Matches
+
+  static const String match_icon ='assets/images/matches_icon.png';
+
 
 
 

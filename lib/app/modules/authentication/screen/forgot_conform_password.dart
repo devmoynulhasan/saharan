@@ -10,7 +10,6 @@ class ForgotConformPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Controller initialize করুন
     final ForgotConformPasswordController controller = Get.put(ForgotConformPasswordController());
 
     return Scaffold(
@@ -72,4 +71,3 @@ class ForgotConformPassword extends StatelessWidget {
     );
   }
 }
-

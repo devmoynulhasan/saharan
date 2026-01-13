@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/forgot_password_controller.dart';
-import 'package:saharan/app/modules/authentication/screen/forgot_verify_account.dart';
 
 class Forgot_Weg extends StatelessWidget {
   const Forgot_Weg({
@@ -117,8 +116,13 @@ class Forgot_Weg extends StatelessWidget {
 
             // Email/Phone Input Field
             Obx(() {
-              return
-                TextField(
+              return TextField(
+                controller: controller.isEmailSelected.value
+                    ? controller.emailController
+                    : controller.phoneController,
+                keyboardType: controller.isEmailSelected.value
+                    ? TextInputType.emailAddress
+                    : TextInputType.phone,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: controller.isEmailSelected.value
@@ -162,40 +166,33 @@ class Forgot_Weg extends StatelessWidget {
             Spacer(),
 
             // Continue Button
-            Container(
-              width: double.infinity,
-              height: 52,
-              decoration: BoxDecoration(
-                color: Color(0xFFF6F978),
-                borderRadius: BorderRadius.circular(26),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  // Continue action
-                },
-                child: GestureDetector(
-                  onTap:(){
-                    Get.to(ForgotVerifyAccount());
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Continue",
-                        style: GoogleFonts.manrope(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0A3D3E),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward,
+            GestureDetector(
+              onTap: controller.continueToOTP,
+              child: Container(
+                width: double.infinity,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF6F978),
+                  borderRadius: BorderRadius.circular(26),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Continue",
+                      style: GoogleFonts.manrope(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                         color: Color(0xFF0A3D3E),
-                        size: 20,
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Color(0xFF0A3D3E),
+                      size: 20,
+                    ),
+                  ],
                 ),
               ),
             ),

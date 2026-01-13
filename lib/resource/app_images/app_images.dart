@@ -39,6 +39,10 @@ class AssetPaths{
   // Matches
 
   static const String match_icon ='assets/images/matches_icon.png';
+  static const String laliga ='assets/images/matches_laliga.png';
+  static const String baundesliga ='assets/images/matches_bundesliga.png';
+//  static const String match_icon ='assets/images/matches_icon.png';
+ // static const String match_icon ='assets/images/matches_icon.png';
 
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saharan/app/modules/authentication/controller/sin_up_profile_controller.dart';
 import 'package:saharan/app/modules/authentication/screen/sign_up_profile_photo.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
@@ -9,6 +10,8 @@ class SignUpProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SignUpProfileController controller = Get.put(SignUpProfileController());
+
     return Scaffold(
       body: GradientBackground(
         child: SafeArea(
@@ -44,7 +47,8 @@ class SignUpProfile extends StatelessWidget {
                 ),
 
                 SizedBox(height: 24),
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "First Name",
@@ -55,6 +59,7 @@ class SignUpProfile extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     TextFormField(
+                      controller: controller.firstNameController, // Controller যোগ করুন
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: 'Write your first name',
@@ -75,7 +80,7 @@ class SignUpProfile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height:24 ,),
+                    SizedBox(height: 24),
                     Text(
                       "Last Name",
                       style: TextStyle(
@@ -85,6 +90,7 @@ class SignUpProfile extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     TextFormField(
+                      controller: controller.lastNameController, // Controller যোগ করুন
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: 'Write your last name',
@@ -108,47 +114,40 @@ class SignUpProfile extends StatelessWidget {
                   ],
                 ),
 
-
-                // Your content here
-
                 Spacer(),
 
                 // Bottom Button
                 GestureDetector(
                   onTap: () {
-                   // Get.to( SignUpProfilePhoto());
+                    if (controller.validateProfile()) {
+                      Get.to(() => SignUpProfilePhoto());
+                    }
                   },
-                  child:
-                  Container(
+                  child: Container(
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
                       color: Color(0xFFF6F978),
                       borderRadius: BorderRadius.circular(26),
                     ),
-                    child: TextButton(
-                      onPressed: () {
-                        Get.to( SignUpProfilePhoto());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Next",
-                            style: GoogleFonts.manrope(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF0A3D3E),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Next",
+                          style: GoogleFonts.manrope(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             color: Color(0xFF0A3D3E),
-                            size: 20,
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xFF0A3D3E),
+                          size: 20,
+                        ),
+                      ],
                     ),
                   ),
                 ),

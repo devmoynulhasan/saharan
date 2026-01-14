@@ -160,6 +160,9 @@ class SignUpScreen extends StatelessWidget {
                 // Email/Phone Input Field
                 Obx(() {
                   return TextField(
+                    controller: controller.isEmailSelected.value
+                        ? controller.emailController
+                        : controller.phoneController,
                     style: GoogleFonts.sourceSans3(
                       color: Colors.white,
                       fontSize: 14,
@@ -209,19 +212,31 @@ class SignUpScreen extends StatelessWidget {
                 Spacer(),
 
                 // Continue Button
-                GestureDetector(
-                  onTap: () {
-                     Get.to( SignUpVarifyOtp());
-                    print("Continue tapped");
-                  },
+                Obx(() => GestureDetector(
+                  onTap: controller.isLoading.value ? null : controller.onContinue,
                   child: Container(
                     width: double.infinity,
                     height: 56,
                     decoration: BoxDecoration(
-                      color: Color(0xFFF6F978),
+                      color: controller.isLoading.value
+                          ? Color(0xFFF6F978).withOpacity(0.5)
+                          : Color(0xFFF6F978),
                       borderRadius: BorderRadius.circular(28),
                     ),
-                    child: Row(
+                    child: controller.isLoading.value
+                        ? Center(
+                      child: SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF0A3D3E),
+                          ),
+                        ),
+                      ),
+                    )
+                        : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
@@ -241,7 +256,7 @@ class SignUpScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                )),
 
                 SizedBox(height: 20),
 

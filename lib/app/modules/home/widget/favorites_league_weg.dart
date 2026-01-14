@@ -1,93 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saharan/app/modules/home/widget_controller/favorites_league-Controller_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
+// Import your controller file
+// import 'package:saharan/app/modules/home/widget_controller/favorites_league_controller.dart';
 
 class FavoritesLeague extends StatelessWidget {
-  const FavoritesLeague({
-    super.key,
-  });
+  FavoritesLeague({super.key});
+
+  // Initialize controller
+  final FavoritesLeagueController controller = Get.put(FavoritesLeagueController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Your favorite league section
-          Text(
-            "Your favorite league",
-            style: GoogleFonts.sourceSans3(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Your favorite league section
+            Text(
+              "Your favorite league",
+              style: GoogleFonts.sourceSans3(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-
-          // Horizontal scroll for favorite leagues
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildFavoriteLeagueCard(
-                  "FIFA World Cup 2026",
-                  AssetPaths.champoints_league,
-                  true,
+            SizedBox(height: 16),
+      
+            // Horizontal scroll for favorite leagues
+            Obx(() => controller.favoriteLeagues.isEmpty
+                ? Container(
+              height: 140,
+              child: Center(
+                child: Text(
+                  "No favorite leagues yet",
+                  style: TextStyle(color: Colors.grey),
                 ),
-                SizedBox(width: 12),
-                _buildFavoriteLeagueCard(
-                  "Premier League",
-                  AssetPaths.serie,
-                  true,
-                ),
-                SizedBox(width: 12),
-                _buildFavoriteLeagueCard(
-                  "LaLiga",
-                  AssetPaths.bundesliga,
-                  true,
-                ),
-              ],
+              ),
+            )
+                : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: controller.favoriteLeagues.map((league) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: _buildFavoriteLeagueCard(
+                      league.name,
+                      _getLogoPath(league.logoPath),
+                      true,
+                    ),
+                  );
+                }).toList(),
+              ),
+            )),
+      
+            SizedBox(height: 24),
+      
+            // You may also like section
+            Text(
+              "You may also like",
+              style: GoogleFonts.sourceSans3(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-
-          SizedBox(height: 24),
-
-          // You may also like section
-          Text(
-            "You may also like",
-            style: GoogleFonts.sourceSans3(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 16),
-
-          // List of leagues
-          _buildLeagueListItem(
-            "Champions League",
-            AssetPaths.champoints_league,
-            false,
-          ),
-          SizedBox(height: 12),
-          _buildLeagueListItem(
-            "Serie A",
-            AssetPaths.serie,
-            false,
-          ),
-          SizedBox(height: 12),
-          _buildLeagueListItem(
-            "Bundesliga",
-            AssetPaths.bundesliga,
-            false,
-          ),
-          SizedBox(height: 12),
-          _buildLeagueListItem(
-            "Europa League",
-            AssetPaths.eurooa_league,
-            false,
-          ),
-        ],
+            SizedBox(height: 16),
+      
+            // List of leagues (non-favorite leagues)
+            Obx(() => Column(
+              children: controller.allLeagues.map((league) {
+                bool isFav = controller.isFavorite(league.name);
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: _buildLeagueListItem(
+                    league.name,
+                    _getLogoPath(league.logoPath),
+                    isFav,
+                  ),
+                );
+              }).toList(),
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -95,24 +93,28 @@ class FavoritesLeague extends StatelessWidget {
   // Favorite league card (horizontal scroll)
   Widget _buildFavoriteLeagueCard(String name, String logoPath, bool isFavorite) {
     return Container(
-      width: 140,
+      width: 160,
+      height: 180,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(0xFF0a3d3e),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Logo and favorite icon
+          // Logo and favorite icon row
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Logo
               Container(
-                height: 50,
-                width: 50,
+                height: 60,
+                width: 60,
                 decoration: BoxDecoration(
-                  color: Color(0xFF0a3d3e),
-                  shape: BoxShape.circle,
+                 // color: Colors.black,
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 padding: EdgeInsets.all(8),
                 child: Image.asset(
@@ -120,27 +122,30 @@ class FavoritesLeague extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
+              // Favorite icon
+              GestureDetector(
+                onTap: () => controller.toggleFavorite(name),
+                child: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: Color(0xFFF6F978),
+                  size: 28,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: 8),
-          // Favorite icon
-          Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: Color(0xFFF6F978),
-            size: 24,
-          ),
-          SizedBox(height: 8),
-          // League name
-          Text(
-            name,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.sourceSans3(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+          // League name at bottom
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              name,
+              style: GoogleFonts.sourceSans3(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -185,9 +190,7 @@ class FavoritesLeague extends StatelessWidget {
           ),
           // Favorite icon
           GestureDetector(
-            onTap: () {
-              // Toggle favorite logic
-            },
+            onTap: () => controller.toggleFavorite(name),
             child: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
               color: Color(0xFF68B5B6),
@@ -197,5 +200,14 @@ class FavoritesLeague extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Helper method to get logo path
+  String _getLogoPath(String path) {
+    if (path.contains("champoints_league")) return AssetPaths.champoints_league;
+    if (path.contains("serie")) return AssetPaths.serie;
+    if (path.contains("bundesliga")) return AssetPaths.bundesliga;
+    if (path.contains("eurooa_league")) return AssetPaths.eurooa_league;
+    return AssetPaths.champoints_league;
   }
 }

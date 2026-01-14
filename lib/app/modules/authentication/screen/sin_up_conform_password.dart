@@ -100,7 +100,9 @@ class SinUpConformPassword extends StatelessWidget {
                 SizedBox(height: 8),
                 Obx(() {
                   return TextFormField(
+                    controller: controller.passwordController,
                     obscureText: !controller.isPasswordVisible.value,
+
                     style: GoogleFonts.sourceSans3(
                       color: Colors.white,
                       fontSize: 14,
@@ -165,7 +167,9 @@ class SinUpConformPassword extends StatelessWidget {
                 SizedBox(height: 8),
                 Obx(() {
                   return TextFormField(
+                    controller: controller.confirmPasswordController,
                     obscureText: !controller.isConfirmPasswordVisible.value,
+
                     style: GoogleFonts.sourceSans3(
                       color: Colors.white,
                       fontSize: 14,
@@ -221,8 +225,9 @@ class SinUpConformPassword extends StatelessWidget {
                 // Set New Password Button
                 GestureDetector(
                   onTap: () {
-                     Get.to( SignUpProfile());
-                    print("Set New Password tapped");
+                    if (controller.validatePasswords()) {
+                      Get.to(() => SignUpProfile());
+                    }
                   },
                   child: Container(
                     width: double.infinity,

@@ -23,16 +23,26 @@ class Team {
 class FavoritesTeamController extends GetxController {
   var selectedIndex = 0.obs;
 
-  // Favorite teams (উপরের horizontal scroll এ দেখাবে)
-  var favoriteTeams = <Team>[].obs;
-
-  // All teams (নিচের list এ দেখাবে)
-  var allTeams = <Team>[
+  // All teams এর main list
+  var _allTeamsList = <Team>[
     Team(name: "Brington", logoPath: "AssetPaths.brington"),
     Team(name: "Liverpool", logoPath: "AssetPaths.liverpool"),
     Team(name: "Arsenal", logoPath: "AssetPaths.arsenal"),
     Team(name: "Newcastle United", logoPath: "AssetPaths.brington"),
-  ].obs;
+  ];
+
+  // Favorite teams (উপরের horizontal scroll এ দেখাবে)
+  var favoriteTeams = <Team>[].obs;
+
+  // All teams (নিচের list এ দেখাবে - শুধু non-favorite teams)
+  var allTeams = <Team>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Initially all teams are non-favorite
+    allTeams.value = List.from(_allTeamsList);
+  }
 
   void selectLeague(int index) {
     selectedIndex.value = index;
@@ -44,13 +54,19 @@ class FavoritesTeamController extends GetxController {
     int favoriteIndex = favoriteTeams.indexWhere((team) => team.name == teamName);
 
     if (favoriteIndex != -1) {
-      // Remove from favorites
+      // Remove from favorites এবং নিচের list এ add করো
+      Team removedTeam = favoriteTeams[favoriteIndex];
       favoriteTeams.removeAt(favoriteIndex);
+
+      // নিচের list এ আবার add করো
+      allTeams.add(removedTeam);
     } else {
-      // Add to favorites
+      // নিচের list থেকে remove করো এবং favorites এ add করো
       int teamIndex = allTeams.indexWhere((team) => team.name == teamName);
       if (teamIndex != -1) {
-        favoriteTeams.add(allTeams[teamIndex]);
+        Team selectedTeam = allTeams[teamIndex];
+        allTeams.removeAt(teamIndex);
+        favoriteTeams.add(selectedTeam);
       }
     }
   }

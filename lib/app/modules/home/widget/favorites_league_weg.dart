@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/home/widget_controller/favorites_league-Controller_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
-// Import your controller file
-// import 'package:saharan/app/modules/home/widget_controller/favorites_league_controller.dart';
 
 class FavoritesLeague extends StatelessWidget {
   FavoritesLeague({super.key});
@@ -55,7 +53,8 @@ class FavoritesLeague extends StatelessWidget {
                   );
                 }).toList(),
               ),
-            )),
+            )
+            ),
       
             SizedBox(height: 24),
       
@@ -94,7 +93,7 @@ class FavoritesLeague extends StatelessWidget {
   Widget _buildFavoriteLeagueCard(String name, String logoPath, bool isFavorite) {
     return Container(
       width: 160,
-      height: 180,
+      height: 120,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(0xFF0a3d3e),

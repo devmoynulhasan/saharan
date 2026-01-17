@@ -57,7 +57,6 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Container(
-                    height: 320, // height কমানো হয়েছে
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0xFF0A3D3E),
@@ -76,93 +75,86 @@ class DashboardScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Expanded(
-                            child: Center(
-                              child: SfRadialGauge(
-                                axes: <RadialAxis>[
-                                  RadialAxis(
-                                    minimum: 0,
-                                    maximum: 100,
-                                    startAngle: 180,
-                                    endAngle: 0,
-                                    showLabels: false,
-                                    showTicks: false,
-                                    axisLineStyle: AxisLineStyle(
-                                      thickness: 42,
-                                      color: Color(0xFF00595b),
-                                    ),
-                                    pointers: <GaugePointer>[
-                                      RangePointer(
-                                        value: 75,
-                                        width: 42,
-                                        color: Color(0xFFf6f978),
-                                      ),
-                                      // Marker pointer added here
-                                      MarkerPointer(
-                                        value: 75,
-                                        markerType: MarkerType.circle,
-                                        markerHeight: 20,
-                                        markerWidth: 20,
-                                        color: Colors.white,
-                                        borderWidth: 3,
-                                        borderColor: Color(0xFFf6f978),
-                                      ),
-                                    ],
-                                    annotations: <GaugeAnnotation>[
-                                      // Center annotation (75%)
-                                      GaugeAnnotation(
-                                        widget: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              '75%',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              '400 UGX',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Left more',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white70,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        angle: 90,
-                                        positionFactor: 0.4,
-                                      ),
-                                      // Right side annotation (25%)
-                                      GaugeAnnotation(
-                                        widget: Text(
-                                          '25%',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        angle: 0,
-                                        positionFactor: 0.8,
-                                      ),
-                                    ],
+                          SizedBox(height: 20),
+                          // Radial Gauge
+                          Container(
+                            height: 200,
+                            child: SfRadialGauge(
+                              axes: <RadialAxis>[
+                                RadialAxis(
+                                  minimum: 0,
+                                  maximum: 100,
+                                  startAngle: 180,
+                                  endAngle: 0,
+                                  showLabels: false,
+                                  showTicks: false,
+                                  axisLineStyle: AxisLineStyle(
+                                    thickness: 40,
+                                    color: Color(0xFF00595b),
                                   ),
-                                ],
-                              ),
+                                  pointers: <GaugePointer>[
+                                    RangePointer(
+                                      value: 75,
+                                      width: 40,
+                                      color: Color(0xFFf6f978),
+                                    ),
+                                  ],
+                                  annotations: <GaugeAnnotation>[
+                                    // Center annotation
+                                    GaugeAnnotation(
+                                      widget: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            '75%',
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            '400 UGX',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            'Left more',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white70,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      angle: 90,
+                                      positionFactor: 0.1,
+                                    ),
+                                    // Right side annotation (25%)
+                                    GaugeAnnotation(
+                                      widget: Text(
+                                        '25%',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      angle: 0,
+                                      positionFactor: 0.65,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 20),
+                          // Used and Limit
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -171,15 +163,18 @@ class DashboardScreen extends StatelessWidget {
                                   Text(
                                     "1600 UGX",
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
                                   ),
+                                  SizedBox(height: 4),
                                   Text(
                                     "Used",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.white70),
+                                      fontSize: 14,
+                                      color: Colors.white70,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -188,17 +183,71 @@ class DashboardScreen extends StatelessWidget {
                                   Text(
                                     "2000 UGX",
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
                                   ),
+                                  SizedBox(height: 4),
                                   Text(
                                     "Limit",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.white70),
+                                      fontSize: 14,
+                                      color: Colors.white70,
+                                    ),
                                   ),
                                 ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Divider(
+                            color: Color(0xFF00595B),
+                            thickness: 1,
+                          ),
+                          SizedBox(height: 16),
+                          // Safe and Adjust Limit
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 44,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF184647),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Safe',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Adjust Limit',
+                                      style: TextStyle(
+                                        color: Color(0xFFF6F978),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: Color(0xFFF6F978),
+                                      size: 16,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

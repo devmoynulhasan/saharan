@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saharan/app/modules/home/controller/account_screen_controller.dart';
+import 'package:saharan/app/modules/home/controller/account/account_screen_controller.dart';
 
 class account_profile extends StatelessWidget {
   const account_profile({

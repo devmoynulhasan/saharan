@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
-import 'package:saharan/app/modules/home/controller/account_screen_controller.dart';
+import 'package:saharan/app/modules/home/controller/account/account_screen_controller.dart';
 import 'package:saharan/app/modules/home/widget/account_more_support.dart';
 import 'package:saharan/app/modules/home/widget/account_profile_weg.dart';
 import 'package:saharan/app/modules/home/widget/accout_more_tools.dart';

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(height: 16),
 
                 // Back Button
-                 Row(
+                Row(
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -72,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
 
                 // Subtitle
                 Text(
-                  "Enter your email address or phone number to get started",
+                  "Enter your email address to get started",
                   style: GoogleFonts.sourceSans3(
                     fontSize: 14,
                     color: Color(0xFFB2B3BD),
@@ -81,133 +80,58 @@ class SignUpScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 32),
-
-                // Email/Phone Toggle Buttons
-                Obx(() {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: controller.selectEmail,
-                          child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: controller.isEmailSelected.value
-                                  ? Color(0xFFF6F978)
-                                  : Color(0xFF0A3D3E),
-                              borderRadius: BorderRadius.circular(22),
-                              border: Border.all(
-                                color: controller.isEmailSelected.value
-                                    ? Color(0xFFF6F978)
-                                    : Color(0xFF1A5556),
-                                width: 1,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Email Address",
-                                style: GoogleFonts.sourceSans3(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: controller.isEmailSelected.value
-                                      ? Color(0xFF0A3D3E)
-                                      : Color(0xFFB2B3BD),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: controller.selectPhone,
-                          child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: !controller.isEmailSelected.value
-                                  ? Color(0xFFF6F978)
-                                  : Color(0xFF0A3D3E),
-                              borderRadius: BorderRadius.circular(22),
-                              border: Border.all(
-                                color: !controller.isEmailSelected.value
-                                    ? Color(0xFFF6F978)
-                                    : Color(0xFF1A5556),
-                                width: 1,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Phone Number",
-                                style: GoogleFonts.sourceSans3(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: !controller.isEmailSelected.value
-                                      ? Color(0xFF0A3D3E)
-                                      : Color(0xFFB2B3BD),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }),
-
-                SizedBox(height: 24),
-
-                // Email/Phone Input Field
-                Obx(() {
-                  return TextField(
-                    controller: controller.isEmailSelected.value
-                        ? controller.emailController
-                        : controller.phoneController,
-                    style: GoogleFonts.sourceSans3(
-                      color: Colors.white,
+                Text(
+                  " Email Address ",
+                  style: GoogleFonts.sourceSans3(
+                    fontSize: 16,
+                    color: Color(0xFFFFFFFF),
+                    height: 1.5,
+                  ),
+                ),
+                SizedBox(height: 8,),
+                // Email Input Field
+                TextField(
+                  controller: controller.emailController,
+                  style: GoogleFonts.sourceSans3(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: "Enter your email address",
+                    hintStyle: GoogleFonts.sourceSans3(
+                      color: Color(0xFF507B7C),
                       fontSize: 14,
                     ),
-                    keyboardType: controller.isEmailSelected.value
-                        ? TextInputType.emailAddress
-                        : TextInputType.phone,
-                    decoration: InputDecoration(
-                      hintText: controller.isEmailSelected.value
-                          ? "Enter your email address"
-                          : "Enter your phone number",
-                      hintStyle: GoogleFonts.sourceSans3(
-                        color: Color(0xFF507B7C),
-                        fontSize: 14,
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFF0A3D3E).withOpacity(0.5),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Color(0xFF1A5556),
-                          width: 1,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Color(0xFF1A5556),
-                          width: 1,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Color(0xFFF6F978),
-                          width: 1.5,
-                        ),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
+                    filled: true,
+                    fillColor: Color(0xFF0A3D3E).withOpacity(0.5),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color(0xFF1A5556),
+                        width: 1,
                       ),
                     ),
-                  );
-                }),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color(0xFF1A5556),
+                        width: 1,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color(0xFFF6F978),
+                        width: 1.5,
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                  ),
+                ),
 
                 Spacer(),
 
@@ -236,7 +160,8 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                        : Row(
+                        :
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
@@ -261,34 +186,7 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(height: 20),
 
                 // Sign In Text
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Already have an account? ",
-                        style: GoogleFonts.sourceSans3(
-                          color: Color(0xFFB2B3BD),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          print("Sign In tapped");
-                          // Get.to( SignUpVarifyOtp());
-                        },
-                        child: Text(
-                          "Sign In",
-                          style: GoogleFonts.sourceSans3(
-                            color: Color(0xFFF6F978),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
 
                 SizedBox(height: 32),
               ],

@@ -164,10 +164,10 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
   }
 }
 
-// Binding (optional but recommended)
-class ChangePasswordBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<ChangePasswordController>(() => ChangePasswordController());
-  }
-}
+// // Binding (optional but recommended)
+// class ChangePasswordBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut<ChangePasswordController>(() => ChangePasswordController());
+//   }
+// }

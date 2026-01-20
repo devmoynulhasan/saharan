@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/authentication/widget/sign_in_weg.dart';
-import 'package:saharan/app/modules/authentication/screen/sign_up_screen.dart';
 import 'package:saharan/app/modules/authentication/controller/sin_in_controller.dart';
 import 'package:saharan/app/modules/home/view/home_screen.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
+import 'sin_up_create_new_account.dart';
 
 class SinInScreen extends StatelessWidget {
   const SinInScreen({super.key});
@@ -166,7 +166,7 @@ class SinInScreen extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() => SignUpScreen());
+                                    Get.to(() => SinUpCreateNewAccount());
                                   },
                                   child: Text(
                                     "Sign Up",

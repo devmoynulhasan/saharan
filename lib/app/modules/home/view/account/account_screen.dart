@@ -1,9 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/account/account_screen_controller.dart';
+import 'package:saharan/app/modules/home/view/account/privacy_policy.dart';
+import 'package:saharan/app/modules/home/view/account/terms_conditions.dart';
 import 'package:saharan/app/modules/home/widget/account_more_support.dart';
 import 'package:saharan/app/modules/home/widget/account_profile_weg.dart';
 import 'package:saharan/app/modules/home/widget/accout_more_tools.dart';
@@ -56,6 +57,7 @@ class AccountScreen extends StatelessWidget {
                     SizedBox(height: 8,),
 
                     Account_Mote_Tools(),
+
                     SizedBox(height: 12,),
                     Row(
                       children: [
@@ -93,65 +95,75 @@ class AccountScreen extends StatelessWidget {
                   child: Column(
                     children: [
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                AssetPaths.privacy,
-                                height: 24,
-                                width: 24,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Privacy Policy',
-                                style: GoogleFonts.sourceSans3(
-                                    fontSize: 16,
-                                    color: Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w600
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(PrivacyPolicy());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AssetPaths.privacy,
+                                  height: 24,
+                                  width: 24,
                                 ),
-                              ),
-                            ],
-                          ),
-                          Image.asset(
-                            AssetPaths.back_icon,
-                            height: 24,
-                            width: 7,
-                          )
-                        ],
+                                SizedBox(width: 10),
+                                Text(
+                                  'Privacy Policy',
+                                  style: GoogleFonts.sourceSans3(
+                                      fontSize: 16,
+                                      color: Color(0xFFFFFFFF),
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              AssetPaths.back_icon,
+                              height: 24,
+                              width: 7,
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(height: 10,),
                       Divider(color: Color(0xFF215051),),
                       SizedBox(height: 10,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                AssetPaths.terms,
-                                height: 24,
-                                width: 24,
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(TermsConditions());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AssetPaths.terms,
+                                  height: 24,
+                                  width: 24,
 
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Terms & Conditions',
-                                style: GoogleFonts.sourceSans3(
-                                    fontSize: 16,
-                                    color: Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w600
                                 ),
-                              ),
-                            ],
-                          ),
-                          Image.asset(
-                            AssetPaths.back_icon,
-                            height: 24,
-                            width: 7,
-                          )
-                        ],
+                                SizedBox(width: 10),
+                                Text(
+                                  'Terms & Conditions',
+                                  style: GoogleFonts.sourceSans3(
+                                      fontSize: 16,
+                                      color: Color(0xFFFFFFFF),
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              AssetPaths.back_icon,
+                              height: 24,
+                              width: 7,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -1,6 +1,9 @@
 class AssetPaths{
   static const String splash_image_one ='assets/images/splash_image_one.png';
   static const String splash_image_two ='assets/images/splash_image_two.png';
+  static const String google ='assets/images/sin_up_google.png';
+  static const String sinup_email ='assets/images/sin_up_email.png';
+  static const String apple ='assets/images/sin_up_apple.png';
   static const String favourite ='assets/images/favourite.png';
   static const String budget ='assets/images/budget.png';
   static const String matches ='assets/images/matches.png';

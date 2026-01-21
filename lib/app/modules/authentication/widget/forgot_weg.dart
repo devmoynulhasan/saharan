@@ -30,7 +30,7 @@ class Forgot_Weg extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Text(
-              "To get OTP verification code please enter your registered email or phone number",
+              "To get OTP verification code please enter your registered email address",
               style: TextStyle(
                 fontSize: 14,
                 color: Color(0xFFb1b2bd),
@@ -39,129 +39,56 @@ class Forgot_Weg extends StatelessWidget {
             ),
             SizedBox(height: 24),
 
-            // Email/Phone Toggle Buttons
-            Obx(() {
-              return Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: controller.selectEmail,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: controller.isEmailSelected.value
-                              ? Color(0xFFF6F978)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: controller.isEmailSelected.value
-                                ? Color(0xFFF6F978)
-                                : Color(0xFF0A3D3E),
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Email Address",
-                            style: GoogleFonts.sourceSans3(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: controller.isEmailSelected.value
-                                  ? Color(0xFF0A3D3E)
-                                  : Color(0xFFB2B3BD),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: controller.selectPhone,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: !controller.isEmailSelected.value
-                              ? Color(0xFFF6F978)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: !controller.isEmailSelected.value
-                                ? Color(0xFFF6F978)
-                                : Color(0xFF0A3D3E),
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Phone Number",
-                            style: GoogleFonts.sourceSans3(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: !controller.isEmailSelected.value
-                                  ? Color(0xFF0A3D3E)
-                                  : Color(0xFFB2B3BD),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }),
+            // Email Input Field
+            Text(
+              "Email address",
+              style: GoogleFonts.sourceSans3(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 8,),
 
-            SizedBox(height: 24),
-
-            // Email/Phone Input Field
-            Obx(() {
-              return TextField(
-                controller: controller.isEmailSelected.value
-                    ? controller.emailController
-                    : controller.phoneController,
-                keyboardType: controller.isEmailSelected.value
-                    ? TextInputType.emailAddress
-                    : TextInputType.phone,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: controller.isEmailSelected.value
-                      ? "Enter your email address"
-                      : "Enter your phone number",
-                  hintStyle: TextStyle(
-                    color: Color(0xFF507B7C),
-                    fontSize: 14,
-                  ),
-                  filled: true,
-                  fillColor: Color(0xFF0A3D3E).withOpacity(0.5),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Color(0xFF1A5556),
-                      width: 1,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Color(0xFF1A5556),
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Color(0xFFF6F978),
-                      width: 1.5,
-                    ),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
+            TextField(
+              controller: controller.emailController,
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: "Enter your email address",
+                hintStyle: TextStyle(
+                  color: Color(0xFF507B7C),
+                  fontSize: 14,
+                ),
+                filled: true,
+                fillColor: Color(0xFF0A3D3E).withOpacity(0.5),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Color(0xFF1A5556),
+                    width: 1,
                   ),
                 ),
-              );
-            }),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Color(0xFF1A5556),
+                    width: 1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Color(0xFFF6F978),
+                    width: 1.5,
+                  ),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+              ),
+            ),
 
             Spacer(),
 

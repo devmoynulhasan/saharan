@@ -41,6 +41,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   image_picker: ^1.2.1
   syncfusion_flutter_gauges: ^27.1.48
+  percent_indicator: ^4.2.5
 
 dev_dependencies:
   flutter_test:

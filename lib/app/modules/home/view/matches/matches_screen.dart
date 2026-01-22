@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/matches/matches_controller.dart';
+import 'package:saharan/app/modules/home/view/matches/matches_details.dart';
 import 'package:saharan/app/modules/home/widget/matches_full_half_time_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
@@ -276,6 +277,7 @@ class MatchesScreen extends GetView<MatchesController> {
               ),
               if (isExpanded) ...[
                 const Divider(color: Color(0xFF00595B)),
+
                 const MatchesFullTiimeHalfTime(),
               ],
             ],

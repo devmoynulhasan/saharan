@@ -44,8 +44,8 @@ class AssetPaths{
   static const String match_icon ='assets/images/matches_icon.png';
   static const String laliga ='assets/images/matches_laliga.png';
   static const String baundesliga ='assets/images/matches_bundesliga.png';
-//  static const String match_icon ='assets/images/matches_icon.png';
- // static const String match_icon ='assets/images/matches_icon.png';
+  static const String match_delels_clender ='assets/images/match_detels_clender.png';
+  static const String match_delels_emirates ='assets/images/match_detels_emirates.png';
 
 
 

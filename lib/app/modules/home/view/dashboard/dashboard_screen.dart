@@ -42,17 +42,17 @@ class DashboardScreen extends StatelessWidget {
                       // Notification Icon
                       GestureDetector(
                         onTap: () {},
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Icon(
-                            Icons.notifications_outlined,
-                            color: Colors.white,
-                            size: 24,
-                          ),
+                        child: Row(
+                          children: [
+                            Image.asset(AssetPaths.favourite,height: 24,width: 24,color: Colors.white,),
+                            SizedBox(width: 15,),
+                            Icon(
+                              Icons.notifications_outlined,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+
+                          ],
                         ),
                       ),
                     ],

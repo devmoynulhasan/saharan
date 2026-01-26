@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class HeadToHeadTab extends StatelessWidget {
@@ -5,110 +6,208 @@ class HeadToHeadTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Color(0xFF053030),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF053030),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Left - Team 1 Wins
+                  Column(
                     children: [
-                      Center(
-                        child: SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              // Background circle (dark green)
-                              SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: CircularProgressIndicator(
-                                  value: 1.0,
-                                  strokeWidth: 20,
-                                  backgroundColor: Colors.transparent,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    Color(0xFF0A4040),
-                                  ),
-                                ),
-                              ),
-                              // Cyan segment (left side)
-                              SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: CircularProgressIndicator(
-                                  value: 0.25, // 25% of circle
-                                  strokeWidth: 20,
-                                  backgroundColor: Colors.transparent,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    Color(0xFF00D4FF),
-                                  ),
-                                  strokeCap: StrokeCap.round,
-                                ),
-                              ),
-                              // Yellow segment (right side)
-                              Transform.rotate(
-                                angle: 1.57, // 90 degrees in radians
-                                child: SizedBox(
-                                  width: 200,
-                                  height: 200,
-                                  child: CircularProgressIndicator(
-                                    value: 0.50, // 50% of circle
-                                    strokeWidth: 20,
-                                    backgroundColor: Colors.transparent,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xFFF6F978),
-                                    ),
-                                    strokeCap: StrokeCap.round,
-                                  ),
-                                ),
-                              ),
-                              // Center text
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '22',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 48,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Total Played',
-                                    style: TextStyle(
-                                      color: Colors.white54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFFEBE9),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '07',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFEF4444),
                           ),
                         ),
                       ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Wins',
+                        style: TextStyle(fontSize: 14, color: Colors.redAccent),
+                      ),
                     ],
                   ),
-                )
 
+                  // Center - Draws
+                  Column(
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0A3D3E),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '03',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Draws',
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
+                  ),
+
+                  // Right - Team 2 Wins
+                  Column(
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE1F8EC),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '12',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF00796B),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Wins',
+                        style: TextStyle(fontSize: 14, color: Color(0xFF10B981)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10,),
+            Divider(color: Color(0xFF00595B),thickness: 2,),
+            SizedBox(height: 10,),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center, // এটা যোগ করুন
+                  children: [
+                    // Left Percentage
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        '33%',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+
+                    // Pie Chart
+                    Container(
+                      height: 200,
+                      width: 200, // width যোগ করুন
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          PieChart(
+                            PieChartData(
+                              sectionsSpace: 6,
+                              centerSpaceRadius: 60,
+                              startDegreeOffset: -90,
+                              borderData: FlBorderData(show: false),
+                              sections: [
+                                PieChartSectionData(
+                                  value: 30, // realistic value
+                                  color: Color(0xFFFAE80C), // Red
+                                  title: '',
+                                  radius: 25,
+                                  showTitle: false,
+                                ),
+                                PieChartSectionData(
+                                  value: 8,
+                                  color: Color(0xFF00595B),
+                                  title: '',
+                                  radius: 25,
+                                  showTitle: false,
+                                ),
+                                PieChartSectionData(
+                                  value: 12, // realistic value
+                                  color: Color(0xFF00B2EC), // Green
+                                  title: '',
+                                  radius: 25,
+                                  showTitle: false,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // মাঝখানে text
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '22',
+                                style: TextStyle(
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Total Played',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Right Percentage
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        '65%',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

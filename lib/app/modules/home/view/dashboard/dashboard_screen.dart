@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
+import 'package:saharan/app/modules/home/widget/budget_premier_league_weg.dart';
+import 'package:saharan/app/modules/home/widget/desbord/deshbord_spending_week_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -256,6 +258,53 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Text('Favorite team’s matches',style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),),
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+
+                  Deshbord_Spending_Week_Weg(),
+
+                  SizedBox(height: 20,),
+                  Column(
+                    children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text("Spending this week",style: GoogleFonts.sourceSans3(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Color(0xFFEEEEF0),
+
+                              ),)
+                            ],
+                          ),
+                          // Notification Icon
+                          GestureDetector(
+                              onTap: () {
+                               // Get.to(SeeAllSpendingHistory());
+                              },
+                              child: Text("See all",style: GoogleFonts.sourceSans3(
+                                  fontSize: 18,
+                                  color: Color(0xFFF6F978),
+                                  fontWeight: FontWeight.bold
+                              ),)
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+
+                  PremirerLeagueWeg(),
+
                 ],
               ),
             ),
@@ -265,3 +314,4 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
+

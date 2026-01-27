@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/matches/matches_controller.dart';
 import 'package:saharan/app/modules/home/view/matches/matches_details.dart';
-import 'package:saharan/app/modules/home/widget/matches_full_half_time_weg.dart';
+import 'package:saharan/app/modules/home/view/matches/matches_live.dart';
+import 'package:saharan/app/modules/home/widget/matches/matches_full_half_time_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
 
@@ -47,7 +48,8 @@ class MatchesScreen extends GetView<MatchesController> {
   }
 
   Widget _buildHeader() {
-    return Row(
+    return
+      Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
@@ -58,50 +60,60 @@ class MatchesScreen extends GetView<MatchesController> {
             color: const Color(0xFFEEEEF0),
           ),
         ),
-        Container(
-          height: 36,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
-            border: Border.all(
-              color: const Color(0xFFEF4444),
-              width: 1.5,
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
+        Row(mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEF4444),
-                  shape: BoxShape.circle,
+              GestureDetector(
+                onTap: (){
+                Get.to( MatchesLive() );
+                },
+                child: Container(
+                  height: 36,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    border: Border.all(
+                      color: const Color(0xFFEF4444),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFEF4444),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Live Now',
+                        style: TextStyle(
+                          color: Color(0xFFEF4444),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(width: 8),
-              const Text(
-                'Live Now',
-                style: TextStyle(
-                  color: Color(0xFFEF4444),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+              SizedBox(width: 15,),
+              GestureDetector(
+                onTap: () {
+                  // Add your filter/settings action here
+                },
+                child: Image.asset(
+                  AssetPaths.match_icon,
+                  height: 26,
+                  width: 26,
                 ),
               ),
             ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Add your filter/settings action here
-          },
-          child: Image.asset(
-            AssetPaths.match_icon,
-            height: 26,
-            width: 26,
-          ),
-        ),
+        )
       ],
     );
   }
@@ -110,6 +122,7 @@ class MatchesScreen extends GetView<MatchesController> {
     return Obx(() {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: List.generate(controller.weekDates.length, (index) {
             DateTime date = controller.weekDates[index];
@@ -127,13 +140,11 @@ class MatchesScreen extends GetView<MatchesController> {
                   width: 60,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: isToday
-                        ? const Color(0xFF0A3D3E)
-                        : isSelected
-                        ? const Color(0xFFF6F978).withOpacity(0.8)
+                    color: isSelected
+                        ? const Color(0xFFF6F978).withOpacity(0.2)
                         : const Color(0xFF0A3D3E),
                     border: Border.all(
-                      color: isSelected && !isToday
+                      color: isSelected
                           ? const Color(0xFFF6F978)
                           : Colors.transparent,
                       width: 1.5,
@@ -144,8 +155,10 @@ class MatchesScreen extends GetView<MatchesController> {
                     children: [
                       Text(
                         controller.formatDate(date, 'dd'),
-                        style: const TextStyle(
-                          color: Color(0xFFFFFFFF),
+                        style: TextStyle(
+                          color: isSelected
+                              ? const Color(0xFFF6F978)
+                              : const Color(0xFFFFFFFF),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -153,18 +166,22 @@ class MatchesScreen extends GetView<MatchesController> {
                       const SizedBox(height: 4),
                       Text(
                         controller.formatDate(date, 'EEE'),
-                        style: const TextStyle(
-                          color: Color(0xFF68B5B6),
+                        style: TextStyle(
+                          color: isSelected
+                              ? const Color(0xFFF6F978).withOpacity(0.7)
+                              : const Color(0xFF68B5B6),
                           fontSize: 12,
                         ),
                       ),
                       if (isToday)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
                           child: Text(
                             'Today',
                             style: TextStyle(
-                              color: Color(0xFF0A3D3E),
+                              color: isSelected
+                                  ? const Color(0xFFF6F978)
+                                  : const Color(0xFF68B5B6),
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
@@ -251,7 +268,7 @@ class MatchesScreen extends GetView<MatchesController> {
     });
   }
 
-  Widget _buildBundesligaSection() {
+  Widget  _buildBundesligaSection() {
     return Obx(() {
       bool isExpanded = controller.isBundesligaExpanded.value;
 

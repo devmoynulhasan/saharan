@@ -27,7 +27,8 @@ class AppRoutes {
   static const String SPLASHSCREEN = "/";
   static const String SININSCREEN = "/LogInScreen";
   static const String SIGNUP = "/signup";
-  static const String ACCOUNTSETTINGCHANGEPASSWORDSCREEN = "/AccountSettingChangePasswordScreen";
+  static const String ACCOUNTSETTINGCHANGEPASSWORDSCREEN = "/change-password";
   static const String MATCHLIVE = "/matches-live";
 
 }
+

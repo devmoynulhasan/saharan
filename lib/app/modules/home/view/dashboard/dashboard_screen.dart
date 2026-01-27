@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
-import 'package:saharan/app/modules/home/widget/budget_premier_league_weg.dart';
+import 'package:saharan/app/modules/home/widget/budget/budget_premier_league_weg.dart';
 import 'package:saharan/app/modules/home/widget/desbord/deshbord_spending_week_weg.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';

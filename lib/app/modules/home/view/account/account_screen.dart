@@ -5,9 +5,9 @@ import 'package:saharan/app/modules/authentication/widget/background_color.dart'
 import 'package:saharan/app/modules/home/controller/account/account_screen_controller.dart';
 import 'package:saharan/app/modules/home/view/account/privacy_policy.dart';
 import 'package:saharan/app/modules/home/view/account/terms_conditions.dart';
-import 'package:saharan/app/modules/home/widget/account_more_support.dart';
-import 'package:saharan/app/modules/home/widget/account_profile_weg.dart';
-import 'package:saharan/app/modules/home/widget/accout_more_tools.dart';
+import 'package:saharan/app/modules/home/widget/account/account_more_support.dart';
+import 'package:saharan/app/modules/home/widget/account/account_profile_weg.dart';
+import 'package:saharan/app/modules/home/widget/account/accout_more_tools.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
 class AccountScreen extends StatelessWidget {

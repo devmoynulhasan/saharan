@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
-import 'package:saharan/app/modules/home/widget/budget_premier_league_weg.dart';
+import 'package:saharan/app/modules/home/widget/budget/budget_premier_league_weg.dart';
 
 class SpendingHistory extends StatelessWidget {
   const SpendingHistory({super.key});

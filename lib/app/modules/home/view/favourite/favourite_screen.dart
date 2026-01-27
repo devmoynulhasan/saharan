@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/favourite_controller.dart';
-import 'package:saharan/app/modules/home/widget/favorites_league_weg.dart';
-import 'package:saharan/app/modules/home/widget/favortes_team_weg.dart';
+import 'package:saharan/app/modules/home/widget/favorite/favorites_league_weg.dart';
+import 'package:saharan/app/modules/home/widget/favorite/favortes_team_weg.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});

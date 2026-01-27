@@ -1,30 +1,34 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/home/controller/account/account_change_password_controller.dart';
 
-class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordController> {
+class AccountSettingChangePasswordScreen extends StatelessWidget {
+  const AccountSettingChangePasswordScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // Controller initialize করুন
+    final controller = Get.put(AccountChangePasswordController());
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Current Password",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Obx(() => TextFormField(
               controller: controller.currentPasswordController,
               obscureText: !controller.isCurrentPasswordVisible.value,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Enter current password',
                 suffixIcon: IconButton(
@@ -32,11 +36,11 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                     controller.isCurrentPasswordVisible.value
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    color: Color(0xFF68B5B6),
+                    color: const Color(0xFF68B5B6),
                   ),
                   onPressed: controller.toggleCurrentPasswordVisibility,
                 ),
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: const TextStyle(color: Colors.white54),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 border: OutlineInputBorder(
@@ -49,23 +53,23 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                  borderSide: const BorderSide(color: Color(0xFFF6F978), width: 2),
                 ),
               ),
             )),
-            SizedBox(height: 24),
-            Text(
+            const SizedBox(height: 24),
+            const Text(
               "New Password",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Obx(() => TextFormField(
               controller: controller.newPasswordController,
               obscureText: !controller.isNewPasswordVisible.value,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Enter new password',
                 suffixIcon: IconButton(
@@ -73,11 +77,11 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                     controller.isNewPasswordVisible.value
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    color: Color(0xFF68B5B6),
+                    color: const Color(0xFF68B5B6),
                   ),
                   onPressed: controller.toggleNewPasswordVisibility,
                 ),
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: const TextStyle(color: Colors.white54),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 border: OutlineInputBorder(
@@ -90,23 +94,23 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                  borderSide: const BorderSide(color: Color(0xFFF6F978), width: 2),
                 ),
               ),
             )),
-            SizedBox(height: 24),
-            Text(
+            const SizedBox(height: 24),
+            const Text(
               "Confirm Password",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Obx(() => TextFormField(
               controller: controller.confirmPasswordController,
               obscureText: !controller.isConfirmPasswordVisible.value,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Confirm new password',
                 suffixIcon: IconButton(
@@ -114,11 +118,11 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                     controller.isConfirmPasswordVisible.value
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    color: Color(0xFF68B5B6),
+                    color: const Color(0xFF68B5B6),
                   ),
                   onPressed: controller.toggleConfirmPasswordVisibility,
                 ),
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: const TextStyle(color: Colors.white54),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 border: OutlineInputBorder(
@@ -131,18 +135,18 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                  borderSide: const BorderSide(color: Color(0xFFF6F978), width: 2),
                 ),
               ),
             )),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             GestureDetector(
               onTap: controller.saveChanges,
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
-                  color: Color(0xFFF6F978),
+                  color: const Color(0xFFF6F978),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Center(
@@ -151,7 +155,7 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
                     style: GoogleFonts.manrope(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF0A3D3E),
+                      color: const Color(0xFF0A3D3E),
                     ),
                   ),
                 ),
@@ -163,11 +167,3 @@ class AccountSettingChangePasswordScreen extends GetView<AccountChangePasswordCo
     );
   }
 }
-
-// // Binding (optional but recommended)
-// class ChangePasswordBinding extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<ChangePasswordController>(() => ChangePasswordController());
-//   }
-// }

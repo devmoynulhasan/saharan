@@ -31,4 +31,3 @@ class AppRoutes {
   static const String MATCHLIVE = "/matches-live";
 
 }
-

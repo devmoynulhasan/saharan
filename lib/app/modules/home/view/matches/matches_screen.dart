@@ -204,7 +204,7 @@ class MatchesScreen extends GetView<MatchesController> {
 
       return AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        height: isExpanded ? 570 : 80,
+        height: isExpanded ? 570 : 90,
         width: double.infinity,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(12)),

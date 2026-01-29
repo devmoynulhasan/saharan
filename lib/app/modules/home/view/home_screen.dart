@@ -17,24 +17,25 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    DashboardScreen(),
     MatchesScreen(),
+    DashboardScreen(),
     BudgetScreen(),
     FavouriteScreen(),
     AccountScreen(),
   ];
 
   final List<String> _labels = [
-    'Dashboard',
     'Matches',
+    'Dashboard',
     'Budget',
     'Favourite',
     'Account',
   ];
 
   final List<String> _icons = [
-    AssetPaths.dashboard,
+
     AssetPaths.matches,
+    AssetPaths.dashboard,
     AssetPaths.budget,
     AssetPaths.favourite,
     AssetPaths.account,

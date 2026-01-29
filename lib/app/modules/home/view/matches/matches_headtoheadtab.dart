@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
+
 class HeadToHeadTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -220,7 +221,7 @@ class HeadToHeadTab extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  height: 150,
+                  height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Color(0xFF0A3D3E),
@@ -234,17 +235,13 @@ class HeadToHeadTab extends StatelessWidget {
                         // Date and Time Row
                         Row(
                           children: [
-                            Icon(
-                              Icons.calendar_today,
-                              color: Colors.white70,
-                              size: 20,
-                            ),
+                           Image.asset(AssetPaths.match_delels_clender,height: 26,width: 26,),
                             SizedBox(width: 10),
                             Text(
                               "7th Jan 2026, 02:00 AM",
                               style: TextStyle(
                                 color: Colors.white70,
-                                fontSize: 14,
+                                fontSize: 16,
                               ),
                             ),
                           ],
@@ -259,20 +256,8 @@ class HeadToHeadTab extends StatelessWidget {
                             Expanded(
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.shield,
-                                        color: Color(0xFF0A3D3E),
-                                        size: 24,
-                                      ),
-                                    ),
+                                  Center(
+                                    child:Image.asset(AssetPaths.newcastle_united,height: 26,width: 26,)
                                   ),
                                   SizedBox(width: 12),
                                   Expanded(
@@ -295,7 +280,7 @@ class HeadToHeadTab extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -309,20 +294,8 @@ class HeadToHeadTab extends StatelessWidget {
                             Expanded(
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.shield,
-                                        color: Colors.red,
-                                        size: 24,
-                                      ),
-                                    ),
+                                  Center(
+                                    child: Image.asset(AssetPaths.manchester_united,height: 26,width: 26,)
                                   ),
                                   SizedBox(width: 12),
                                   Expanded(
@@ -345,7 +318,115 @@ class HeadToHeadTab extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Container(
+                  height: 160,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF0A3D3E),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Date and Time Row
+                        Row(
+                          children: [
+                            Image.asset(AssetPaths.match_delels_clender,height: 26,width: 26,),
+                            SizedBox(width: 10),
+                            Text(
+                              "7th Jan 2026, 02:00 AM",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+
+                        // Teams Row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Newcastle United
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Center(
+                                      child:Image.asset(AssetPaths.newcastle_united,height: 26,width: 26,)
+                                  ),
+                                  SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      "Newcastle United",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Score
+                            Text(
+                              "0",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12),
+
+                        // Manchester United
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Center(
+                                      child: Image.asset(AssetPaths.manchester_united,height: 26,width: 26,)
+                                  ),
+                                  SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      "Manchester United",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Score
+                            Text(
+                              "0",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -355,6 +436,25 @@ class HeadToHeadTab extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 30,),
+            SizedBox(
+              height: 52,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF6F978),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  elevation: 0,
+                ),
+                child: Text(
+                  'Log this match',
+                  style: TextStyle(color: Colors.black,fontSize: 16),
+                ),
+              ),
             )
           ],
         ),

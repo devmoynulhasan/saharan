@@ -111,7 +111,7 @@ class RiskAnalysisTab extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 44),
+          SizedBox(height: 194),
 
           // Log This Match Button
           SizedBox(

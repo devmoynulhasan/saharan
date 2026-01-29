@@ -42,7 +42,12 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                       backgroundColor: Colors.transparent,
                       isScrollControlled: true,
                       builder: (BuildContext context) {
-                        return BudgetSetupSheet();
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: BudgetSetupSheet(),
+                        );
                       },
                     );
                   },
@@ -299,7 +304,7 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
               _buildPresetButton(200000),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 80),
           Container(
             height: 52,
             width: double.infinity,

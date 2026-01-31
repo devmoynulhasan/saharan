@@ -102,25 +102,16 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                   ],
                                   annotations: <GaugeAnnotation>[
-                                    // Center annotation
+                                    // Center এ 400 UGX এবং Left more
                                     GaugeAnnotation(
                                       widget: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                            '75%',
-                                            style: TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Text(
                                             '400 UGX',
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                           ),
@@ -137,7 +128,20 @@ class DashboardScreen extends StatelessWidget {
                                       angle: 90,
                                       positionFactor: 0.1,
                                     ),
-                                    // Right side annotation (25%)
+                                    // বাম দিকে 75% - yellow arc এর মাঝখানে
+                                    GaugeAnnotation(
+                                      widget: Text(
+                                        '75%',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      angle: 135,
+                                      positionFactor: 0.75,
+                                    ),
+                                    // ডান দিকে 25% - teal arc এর মাঝখানে
                                     GaugeAnnotation(
                                       widget: Text(
                                         '25%',
@@ -147,14 +151,15 @@ class DashboardScreen extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      angle: 0,
-                                      positionFactor: 0.65,
+                                      angle: 30,
+                                      positionFactor: 0.75,
                                     ),
                                   ],
                                 ),
                               ],
                             ),
                           ),
+
                           SizedBox(height: 20),
                           // Used and Limit
                           Row(
@@ -288,10 +293,10 @@ class DashboardScreen extends StatelessWidget {
                           ),
                           // Notification Icon
                           GestureDetector(
-                              onTap: () {
+                           onTap: () {
                                // Get.to(SeeAllSpendingHistory());
                               },
-                              child: Text("See all",style: GoogleFonts.sourceSans3(
+                           child: Text("See all",style: GoogleFonts.sourceSans3(
                                   fontSize: 18,
                                   color: Color(0xFFF6F978),
                                   fontWeight: FontWeight.bold
@@ -304,6 +309,7 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(height: 10,),
 
                   PremirerLeagueWeg(),
+
 
                 ],
               ),

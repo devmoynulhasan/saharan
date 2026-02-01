@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/home/controller/account/account_screen_controller.dart';
 import 'package:saharan/app/modules/home/view/account/privacy_policy.dart';
@@ -178,28 +179,33 @@ class AccountScreen extends StatelessWidget {
                           color: Color(0xFF0A3D3E),
                           borderRadius: BorderRadius.all(Radius.circular(16))
                       ),
-                      child:Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                AssetPaths.logout,
-                                height: 24,
-                                width: 24,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Sign Out',
-                                style: GoogleFonts.sourceSans3(
-                                    fontSize: 16,
-                                    color: Color(0xFFEF4444),
-                                    fontWeight: FontWeight.w600
+                      child:GestureDetector(
+                        onTap: (){
+                          Get.to( SinInScreen());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AssetPaths.logout,
+                                  height: 24,
+                                  width: 24,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                SizedBox(width: 10),
+                                Text(
+                                  'Sign Out',
+                                  style: GoogleFonts.sourceSans3(
+                                      fontSize: 16,
+                                      color: Color(0xFFEF4444),
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ) ,
                     ),
 

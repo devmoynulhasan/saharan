@@ -92,8 +92,8 @@ class FavoritesLeague extends StatelessWidget {
   // Favorite league card (horizontal scroll)
   Widget _buildFavoriteLeagueCard(String name, String logoPath, bool isFavorite) {
     return Container(
-      width: 160,
-      height: 120,
+      width: 200,
+      height: 100,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(0xFF0a3d3e),
@@ -109,8 +109,8 @@ class FavoritesLeague extends StatelessWidget {
             children: [
               // Logo
               Container(
-                height: 60,
-                width: 60,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                  // color: Colors.black,
                   borderRadius: BorderRadius.circular(8),

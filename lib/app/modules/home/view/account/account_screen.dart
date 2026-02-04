@@ -116,7 +116,7 @@ class AccountScreen extends StatelessWidget {
                                   style: GoogleFonts.sourceSans3(
                                       fontSize: 16,
                                       color: Color(0xFFFFFFFF),
-                                      fontWeight: FontWeight.w600
+                                      fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ],
@@ -170,13 +170,13 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ) ,
               ),
-                    SizedBox(height:45 ,),
-                    Container(
-                      padding: EdgeInsets.all(22),
+              SizedBox(height:45 ,),
+                Container(
+                    padding: EdgeInsets.all(22),
                       width: double.infinity,
                       height: 70,
                       decoration: BoxDecoration(
-                          color: Color(0xFF0A3D3E),
+                      color: Color(0xFF0A3D3E),
                           borderRadius: BorderRadius.all(Radius.circular(16))
                       ),
                       child:GestureDetector(
@@ -192,24 +192,22 @@ class AccountScreen extends StatelessWidget {
                                   AssetPaths.logout,
                                   height: 24,
                                   width: 24,
-                                ),
+                               ),
                                 SizedBox(width: 10),
                                 Text(
                                   'Sign Out',
                                   style: GoogleFonts.sourceSans3(
                                       fontSize: 16,
                                       color: Color(0xFFEF4444),
-                                      fontWeight: FontWeight.w600
+                                      fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ],
                             ),
                           ],
-                        ),
-                      ) ,
                     ),
-
-
+                   ) ,
+                  ),
                   ],
                 ),
               ),

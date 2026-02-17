@@ -45,6 +45,7 @@ class AccountScreen extends StatelessWidget {
 
                     // Profile section - Remove Obx from here
                     account_profile(controller: controller),
+
                     SizedBox(height:15 ,),
                     Row(
                       children: [

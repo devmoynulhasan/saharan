@@ -308,7 +308,10 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10,),
 
-                  PremirerLeagueWeg(),
+
+
+                   // PremirerLeagueWeg(),
+
 
                 ],
               ),

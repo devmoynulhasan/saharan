@@ -148,11 +148,19 @@ class MatchesLive extends StatelessWidget {
 
             SizedBox(height: 20,),
 
-            MatchLivePremierLeague(),
-
-            SizedBox(height: 20,),
-
-            MatchesLiveLaLiga(),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    MatchLivePremierLeague(),
+                    SizedBox(height: 20),
+                    MatchesLiveLaLiga(),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            )
 
           ],
         ),

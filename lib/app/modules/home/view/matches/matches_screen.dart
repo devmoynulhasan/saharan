@@ -64,7 +64,11 @@ class MatchesScreen extends GetView<MatchesController> {
             children: [
               GestureDetector(
                 onTap: (){
-                Get.to( MatchesLive() );
+
+                // Get.to(
+                //     MatchesLive()
+                // );
+
                 },
                 child: Container(
                   height: 36,

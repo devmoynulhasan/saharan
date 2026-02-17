@@ -37,19 +37,21 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      isScrollControlled: true,
-                      builder: (BuildContext context) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                          ),
-                          child: BudgetSetupSheet(),
-                        );
-                      },
-                    );
+
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   backgroundColor: Colors.transparent,
+                    //   isScrollControlled: true,
+                    //   builder: (BuildContext context) {
+                    //     return Padding(
+                    //       padding: EdgeInsets.only(
+                    //         bottom: MediaQuery.of(context).viewInsets.bottom,
+                    //       ),
+                    //       child: BudgetSetupSheet(),
+                    //     );
+                    //   },
+                    // );
+
                   },
                   child: Container(
                     padding: EdgeInsets.all(8),
@@ -83,15 +85,6 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                           value: 75,
                           width: 42,
                           color: Color(0xFFf6f978),
-                        ),
-                        MarkerPointer(
-                          value: 75,
-                          markerType: MarkerType.circle,
-                          markerHeight: 20,
-                          markerWidth: 20,
-                          color: Colors.white,
-                          borderWidth: 3,
-                          borderColor: Color(0xFFf6f978),
                         ),
                       ],
                       annotations: <GaugeAnnotation>[
@@ -319,14 +312,12 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 backgroundColor: _isButtonEnabled
                     ? Color(0xFFF6F978)
                     : Color(0xFF215051),
-                //disabledBackgroundColor: Color(0xFF215051),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
               onPressed: _isButtonEnabled
                   ? () {
-                // Save budget logic here
                 Navigator.pop(context);
               }
                   : null,

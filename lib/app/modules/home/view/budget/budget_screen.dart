@@ -41,14 +41,15 @@ class BudgetScreen extends StatelessWidget {
                         // Notification Icon
                         GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              builder: (BuildContext context) {
-                                return SettingShowModalBottomSheetWeg();
-                              },
-                            );
+
+                            // showModalBottomSheet(
+                            //   context: context,
+                            //   backgroundColor: Colors.transparent,
+                            //   isScrollControlled: true,
+                            //   builder: (BuildContext context) {
+                            //     return SettingShowModalBottomSheetWeg();
+                            //   },
+                            // );
 
 
                           },
@@ -82,7 +83,11 @@ class BudgetScreen extends StatelessWidget {
                             // Notification Icon
                             GestureDetector(
                               onTap: () {
-                                  Get.to(SeeAllSpendingHistory());
+
+
+                               //   Get.to(SeeAllSpendingHistory());
+
+
                               },
                               child: Text("See all",style: GoogleFonts.sourceSans3(
                                 fontSize: 18,

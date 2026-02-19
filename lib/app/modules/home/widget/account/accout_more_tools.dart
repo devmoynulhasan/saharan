@@ -25,7 +25,9 @@ class Account_Mote_Tools extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: (){
-                Get.to( SpendingHistory());
+
+               // Get.to( SpendingHistory());
+
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +99,9 @@ class Account_Mote_Tools extends StatelessWidget {
             SizedBox(height: 10,),
             GestureDetector(
               onTap: (){
-                Get.to(AccountSetting());
+
+                // Get.to(AccountSetting());
+
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

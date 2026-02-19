@@ -24,7 +24,9 @@ class Account_More_Support extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: (){
-                Get.to(AboutUs());
+
+               // Get.to(AboutUs());
+
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

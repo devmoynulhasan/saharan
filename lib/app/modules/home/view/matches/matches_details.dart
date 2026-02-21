@@ -33,23 +33,21 @@ class MatchesDetails extends StatelessWidget {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
+                      onTap: () => Get.back(),
                       child: Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0xFFF6F978).withOpacity(0.1),
+                              color: const Color(0xFFF6F978).withOpacity(0.1),
                               spreadRadius: 7,
                             )
                           ],
                           shape: BoxShape.circle,
-                          color: Color(0xFF053030),
+                          color: const Color(0xFF053030),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Icon(
                             Icons.arrow_back_ios_new,
                             color: Color(0xFFF6F978),
@@ -58,7 +56,7 @@ class MatchesDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Text(
                       "Match Details",
                       style: GoogleFonts.orbitron(
@@ -71,93 +69,77 @@ class MatchesDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Image.asset(
-                          AssetPaths.arsenal,
-                          height: 40,
-                          width: 40,
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Arsenal',
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                        )
-                      ],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(AssetPaths.arsenal, height: 40, width: 40),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Arsenal',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    'Not Started',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
                     ),
-                    Text(
-                      'Not Started',
-                      style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+                  ),
+                  Column(
+                    children: [
+                      Image.asset(AssetPaths.brington, height: 40, width: 40),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Brighton',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Obx(
+                    () => Row(
+                  children: [
+                    Expanded(
+                      child: CustomTab(
+                        text: 'Overview',
+                        isSelected: controller.selectedIndex.value == 0,
+                        onTap: () => controller.changeTab(0),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Image.asset(
-                          AssetPaths.brington,
-                          height: 40,
-                          width: 40,
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Brighton',
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                        )
-                      ],
-                    )
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: CustomTab(
+                        text: 'Head to Head',
+                        isSelected: controller.selectedIndex.value == 1,
+                        onTap: () => controller.changeTab(1),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: CustomTab(
+                        text: 'Risk Analysis',
+                        isSelected: controller.selectedIndex.value == 2,
+                        onTap: () => controller.changeTab(2),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Obx(() => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: CustomTab(
-                      text: 'Overview',
-                      isSelected: controller.selectedIndex.value == 0,
-                      onTap: () {
-                        controller.changeTab(0);
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: CustomTab(
-                      text: 'Head to Head',
-                      isSelected: controller.selectedIndex.value == 1,
-                      onTap: () {
-                        controller.changeTab(1);
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: CustomTab(
-                      text: 'Risk Analysis',
-                      isSelected: controller.selectedIndex.value == 2,
-                      onTap: () {
-                        controller.changeTab(2);
-                      },
-                    ),
-                  ),
-                ],
-              )),
-            ),
-            SizedBox(height: 24),
-            // Content based on selected tab
+            const SizedBox(height: 24),
             Expanded(
               child: Obx(() {
                 switch (controller.selectedIndex.value) {
@@ -201,7 +183,7 @@ class CustomTab extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFFF6F978) : const Color(0xFF0D3B3B),
           borderRadius: BorderRadius.circular(100),
-          border: Border.all(color: Color(0xFF215051))
+          border: Border.all(color: const Color(0xFF215051)),
         ),
         child: Center(
           child: Text(
@@ -220,5 +202,3 @@ class CustomTab extends StatelessWidget {
     );
   }
 }
-
-

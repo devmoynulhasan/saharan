@@ -16,7 +16,7 @@ class MatchesFullTiimeHalfTime extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-            //  Get.to(MatchesDetails());
+              Get.to(MatchesDetails());
 
             },
             child: Padding(
@@ -128,7 +128,7 @@ class MatchesFullTiimeHalfTime extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-              //Get.to(MatchesDetails());
+              Get.to(MatchesDetails());
 
             },
             child: Padding(
@@ -240,7 +240,7 @@ class MatchesFullTiimeHalfTime extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-             // Get.to(MatchesDetails());
+              Get.to(MatchesDetails());
 
             },
             child: Padding(
@@ -352,7 +352,7 @@ class MatchesFullTiimeHalfTime extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-            //  Get.to(MatchesDetails());
+              Get.to(MatchesDetails());
 
             },
             child: Padding(

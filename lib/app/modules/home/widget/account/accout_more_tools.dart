@@ -26,7 +26,7 @@ class Account_Mote_Tools extends StatelessWidget {
             GestureDetector(
               onTap: (){
 
-               // Get.to( SpendingHistory());
+               Get.to( SpendingHistory());
 
               },
               child: Row(
@@ -100,7 +100,7 @@ class Account_Mote_Tools extends StatelessWidget {
             GestureDetector(
               onTap: (){
 
-                // Get.to(AccountSetting());
+                 Get.to(AccountSetting());
 
               },
               child: Row(

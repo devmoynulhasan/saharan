@@ -310,7 +310,7 @@ class DashboardScreen extends StatelessWidget {
 
 
 
-                   // PremirerLeagueWeg(),
+                    PremirerLeagueWeg(),
 
 
                 ],

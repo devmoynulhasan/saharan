@@ -25,7 +25,7 @@ class Account_More_Support extends StatelessWidget {
             GestureDetector(
               onTap: (){
 
-               // Get.to(AboutUs());
+                Get.to(AboutUs());
 
               },
               child: Row(
@@ -62,7 +62,7 @@ class Account_More_Support extends StatelessWidget {
             SizedBox(height: 10,),
             GestureDetector(
               onTap: (){
-                //Get.to()
+              //  Get.to()
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -25,24 +25,44 @@ class AccountChangePasswordController extends GetxController {
 
   void saveChanges() {
     if (currentPasswordController.text.isEmpty) {
-      Get.snackbar('Error', 'Please enter current password');
+      Get.snackbar('Error', 'Please enter current password',
+        backgroundColor: const Color(0xFFEF4444).withOpacity(0.9),
+        colorText: Colors.white,
+      //  icon: const Icon(Icons.error, color: Colors.white),
+      );
       return;
     }
     if (newPasswordController.text.isEmpty) {
-      Get.snackbar('Error', 'Please enter new password');
+      Get.snackbar('Error', 'Please enter new password',
+        backgroundColor: const Color(0xFFEF4444).withOpacity(0.9),
+        colorText: Colors.white,
+        //icon: const Icon(Icons.error, color: Colors.white),
+      );
       return;
     }
     if (confirmPasswordController.text.isEmpty) {
-      Get.snackbar('Error', 'Please confirm password');
+      Get.snackbar('Error', 'Please confirm password',
+        backgroundColor: const Color(0xFFEF4444).withOpacity(0.9),
+        colorText: Colors.white,
+        //icon: const Icon(Icons.error, color: Colors.white),
+      );
       return;
     }
     if (newPasswordController.text != confirmPasswordController.text) {
-      Get.snackbar('Error', 'Passwords do not match');
+      Get.snackbar('Error', 'Passwords do not match',
+        backgroundColor: const Color(0xFFEF4444).withOpacity(0.9),
+        colorText: Colors.white,
+        //icon: const Icon(Icons.error, color: Colors.white),
+      );
       return;
     }
 
-    // Add your password change API call here
-    Get.snackbar('Success', 'Password changed successfully');
+    // Success
+    Get.snackbar('Success', 'Password changed successfully',
+      backgroundColor: const Color(0xFFF6F978).withOpacity(0.9),
+      colorText: const Color(0xFF0A3D3E),
+     // icon: const Icon(Icons.check_circle, color: Color(0xFF0A3D3E)),
+    );
   }
 
   @override

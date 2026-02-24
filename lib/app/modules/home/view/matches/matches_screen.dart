@@ -206,31 +206,37 @@ class MatchesScreen extends GetView<MatchesController> {
     return Obx(() {
       bool isExpanded = controller.isPremierLeagueExpanded.value;
 
-      return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        height: isExpanded ? 570 : 90,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          color: Color(0xFF0A3D3E),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              _buildLeagueHeader(
-                logoPath: AssetPaths.premier_league,
-                title: 'Premier League',
-                country: 'England',
-                matchCount: controller.getMatchCount('Premier League'),
-                isExpanded: isExpanded,
-                onToggle: controller.togglePremierLeague,
+      return ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: Color(0xFF0A3D3E),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // ← এটা জরুরি
+                children: [
+                  _buildLeagueHeader(
+                    logoPath: AssetPaths.premier_league,
+                    title: 'Premier League',
+                    country: 'England',
+                    matchCount: controller.getMatchCount('Premier League'),
+                    isExpanded: isExpanded,
+                    onToggle: controller.togglePremierLeague,
+                  ),
+                  if (isExpanded) ...[
+                    const Divider(color: Color(0xFF00595B)),
+                    const MatchesFullTiimeHalfTime(),
+                  ],
+                ],
               ),
-              if (isExpanded) ...[
-                const Divider(color: Color(0xFF00595B)),
-                const MatchesFullTiimeHalfTime(),
-              ],
-            ],
+            ),
           ),
         ),
       );
@@ -241,67 +247,78 @@ class MatchesScreen extends GetView<MatchesController> {
     return Obx(() {
       bool isExpanded = controller.isLaLigaExpanded.value;
 
-      return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        height: isExpanded ? 570 : 90,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          color: Color(0xFF0A3D3E),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              _buildLeagueHeader(
-                logoPath: AssetPaths.laliga,
-                title: 'LaLiga',
-                country: 'Spain',
-                matchCount: controller.getMatchCount('LaLiga'),
-                isExpanded: isExpanded,
-                onToggle: controller.toggleLaLiga,
+      return ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: Color(0xFF0A3D3E),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildLeagueHeader(
+                    logoPath: AssetPaths.laliga,
+                    title: 'LaLiga',
+                    country: 'Spain',
+                    matchCount: controller.getMatchCount('LaLiga'),
+                    isExpanded: isExpanded,
+                    onToggle: controller.toggleLaLiga,
+                  ),
+                  if (isExpanded) ...[
+                    const Divider(color: Color(0xFF00595B)),
+                    const MatchesFullTiimeHalfTime(),
+                  ],
+                ],
               ),
-              if (isExpanded) ...[
-                const Divider(color: Color(0xFF00595B)),
-                const MatchesFullTiimeHalfTime(),
-              ],
-            ],
+            ),
           ),
         ),
       );
     });
   }
 
-  Widget  _buildBundesligaSection() {
+  Widget _buildBundesligaSection() {
     return Obx(() {
       bool isExpanded = controller.isBundesligaExpanded.value;
 
-      return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        height: isExpanded ? 570 : 90,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          color: Color(0xFF0A3D3E),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              _buildLeagueHeader(
-                logoPath: AssetPaths.bundesliga,
-                title: 'Bundesliga',
-                country: 'Germany',
-                matchCount: controller.getMatchCount('Bundesliga'),
-                isExpanded: isExpanded,
-                onToggle: controller.toggleBundesliga,
+      return ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: Color(0xFF0A3D3E),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildLeagueHeader(
+                    logoPath: AssetPaths.bundesliga,
+                    title: 'Bundesliga',
+                    country: 'Germany',
+                    matchCount: controller.getMatchCount('Bundesliga'),
+                    isExpanded: isExpanded,
+                    onToggle: controller.toggleBundesliga,
+                  ),
+                  if (isExpanded) ...[
+                    const Divider(color: Color(0xFF00595B)),
+                    const MatchesFullTiimeHalfTime(),
+                  ],
+                ],
               ),
-              if (isExpanded) ...[
-                const Divider(color: Color(0xFF00595B)),
-
-                const MatchesFullTiimeHalfTime(),
-              ],
-            ],
+            ),
           ),
         ),
       );
@@ -324,46 +341,54 @@ class MatchesScreen extends GetView<MatchesController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  logoPath,
-                  height: 24,
-                  width: 24,
+          // ← Flexible যোগ করো
+          Flexible(
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  padding: const EdgeInsets.all(8),
+                  child: Image.asset(
+                    logoPath,
+                    height: 24,
+                    width: 24,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(width: 12),
+                Flexible( // ← Text overflow এর জন্য এটাও দাও
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        overflow: TextOverflow.ellipsis, // ← title বড় হলে কাটবে
+                        style: const TextStyle(
+                          color: Color(0xFFFFFFFF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        country,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFFB2B3BD),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    country,
-                    style: const TextStyle(
-                      color: Color(0xFFB2B3BD),
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
+          // Right side same থাকবে
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF184647),
                   borderRadius: BorderRadius.circular(100),
@@ -387,7 +412,7 @@ class MatchesScreen extends GetView<MatchesController> {
                   ],
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: onToggle,
                 child: Container(
@@ -401,7 +426,7 @@ class MatchesScreen extends GetView<MatchesController> {
                         ? Icons.keyboard_arrow_up
                         : Icons.keyboard_arrow_down,
                     color: const Color(0xFF68B5B6),
-                    size: 24,
+                    size: 23,
                   ),
                 ),
               ),

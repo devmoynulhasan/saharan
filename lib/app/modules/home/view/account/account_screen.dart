@@ -85,130 +85,104 @@ class AccountScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 8,),
-              Container(
-                width: double.infinity,
-                height: 120,
-                decoration: BoxDecoration(
-                    color: Color(0xFF0A3D3E),
-                    borderRadius: BorderRadius.all(Radius.circular(16))
-                ),
-                child:Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-
-                      GestureDetector(
-                        onTap: (){
-                          Get.to(PrivacyPolicy());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AssetPaths.privacy,
-                                  height: 24,
-                                  width: 24,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Privacy Policy',
-                                  style: GoogleFonts.sourceSans3(
-                                      fontSize: 16,
-                                      color: Color(0xFFFFFFFF),
-                                      fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              AssetPaths.back_icon,
-                              height: 24,
-                              width: 7,
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      Divider(color: Color(0xFF215051),),
-                      SizedBox(height: 10,),
-                      GestureDetector(
-                        onTap: (){
-                          Get.to(TermsConditions());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AssetPaths.terms,
-                                  height: 24,
-                                  width: 24,
-
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Terms & Conditions',
-                                  style: GoogleFonts.sourceSans3(
-                                      fontSize: 16,
-                                      color: Color(0xFFFFFFFF),
-                                      fontWeight: FontWeight.w600
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              AssetPaths.back_icon,
-                              height: 24,
-                              width: 7,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ) ,
-              ),
-              SizedBox(height:45 ,),
-                Container(
-                    padding: EdgeInsets.all(22),
+                    Container(
                       width: double.infinity,
-                      height: 70,
-                      decoration: BoxDecoration(
-                      color: Color(0xFF0A3D3E),
-                          borderRadius: BorderRadius.all(Radius.circular(16))
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF0A3D3E),
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
                       ),
-                      child:GestureDetector(
-                        onTap: (){
-                          Get.to( SinInScreen());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AssetPaths.logout,
-                                  height: 24,
-                                  width: 24,
-                               ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Sign Out',
-                                  style: GoogleFonts.sourceSans3(
-                                      fontSize: 16,
-                                      color: Color(0xFFEF4444),
-                                      fontWeight: FontWeight.w600,
+                      child: Column(
+                        children: [
+                          // ─── Privacy Policy ───
+                          InkWell(
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                            onTap: () => Get.to(PrivacyPolicy()),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(AssetPaths.privacy, height: 24, width: 24),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Privacy Policy',
+                                        style: GoogleFonts.sourceSans3(
+                                          fontSize: 16,
+                                          color: const Color(0xFFFFFFFF),
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  Image.asset(AssetPaths.back_icon, height: 24, width: 7),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          const Divider(color: Color(0xFF215051), height: 1),
+
+                          // ─── Terms & Conditions ───
+                          InkWell(
+                            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+                            onTap: () => Get.to(TermsConditions()),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(AssetPaths.terms, height: 24, width: 24),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Terms & Conditions',
+                                        style: GoogleFonts.sourceSans3(
+                                          fontSize: 16,
+                                          color: const Color(0xFFFFFFFF),
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Image.asset(AssetPaths.back_icon, height: 24, width: 7),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                SizedBox(height:45 ,),
+
+                    InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      onTap: () => Get.to(SinInScreen()),
+                      child: Container(
+                        padding: const EdgeInsets.all(22),
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF0A3D3E),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(AssetPaths.logout, height: 24, width: 24),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Sign Out',
+                              style: GoogleFonts.sourceSans3(
+                                fontSize: 16,
+                                color: const Color(0xFFEF4444),
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
+                        ),
+                      ),
                     ),
-                   ) ,
-                  ),
                   ],
                 ),
               ),

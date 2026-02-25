@@ -13,9 +13,9 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 320,
+      // height: 320, ← সরানো হয়েছে
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFF0A3D3E),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
@@ -24,38 +24,37 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ─── Header ───
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Weekly Budget ",
+                  "Weekly Budget",
                   style: GoogleFonts.orbitron(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
-                    color: Color(0xFFEEEEF0),
+                    color: const Color(0xFFEEEEF0),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   backgroundColor: Colors.transparent,
-                    //   isScrollControlled: true,
-                    //   builder: (BuildContext context) {
-                    //     return Padding(
-                    //       padding: EdgeInsets.only(
-                    //         bottom: MediaQuery.of(context).viewInsets.bottom,
-                    //       ),
-                    //       child: BudgetSetupSheet(),
-                    //     );
-                    //   },
-                    // );
-
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: const BudgetSetupSheet(),
+                        );
+                      },
+                    );
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
-                    child: Icon(
+                    padding: const EdgeInsets.all(8),
+                    child: const Icon(
                       Icons.edit_outlined,
                       color: Color(0xFFF6F978),
                       size: 24,
@@ -64,86 +63,103 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Center(
-                child: SfRadialGauge(
-                  axes: <RadialAxis>[
-                    RadialAxis(
-                      minimum: 0,
-                      maximum: 100,
-                      startAngle: 180,
-                      endAngle: 0,
-                      showLabels: false,
-                      showTicks: false,
-                      axisLineStyle: AxisLineStyle(
-                        thickness: 42,
-                        color: Color(0xFF00595b),
+
+            const SizedBox(height: 10),
+
+            // ─── Gauge ───
+            SizedBox(
+              height: 200,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SfRadialGauge(
+                    axes: <RadialAxis>[
+                      RadialAxis(
+                        minimum: 0,
+                        maximum: 100,
+                        startAngle: 180,
+                        endAngle: 0,
+                        showLabels: false,
+                        showTicks: false,
+                        axisLineStyle: const AxisLineStyle(
+                          thickness: 40,
+                          color: Color(0xFF00595B),
+                        ),
+                        pointers: <GaugePointer>[
+                          RangePointer(
+                            value: 75,
+                            width: 40,
+                            color: const Color(0xFFF6F978),
+                          ),
+                        ],
                       ),
-                      pointers: <GaugePointer>[
-                        RangePointer(
-                          value: 75,
-                          width: 42,
-                          color: Color(0xFFf6f978),
-                        ),
-                      ],
-                      annotations: <GaugeAnnotation>[
-                        GaugeAnnotation(
-                          widget: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '75%',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                '400 UGX',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                'Left more',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ],
+                    ],
+                  ),
+
+                  // ── Center: 400 UGX + Left more ──
+                  Positioned(
+                    bottom: 80,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text(
+                          '400 UGX',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          angle: 90,
-                          positionFactor: 0.4,
                         ),
-                        GaugeAnnotation(
-                          widget: Text(
-                            '25%',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                        Text(
+                          'Left more',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white70,
                           ),
-                          angle: 0,
-                          positionFactor: 0.8,
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  // ── 75% yellow arc ──
+                  Positioned(
+                    top: 20,
+                    left: 140,
+                    child: const Text(
+                      '75%',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF032526),
+                      ),
+                    ),
+                  ),
+
+                  // ── 25% teal arc ──
+                  Positioned(
+                    top: 60,
+                    right: 74,
+                    child: const Text(
+                      '25%',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10),
+
+            const SizedBox(height: 10),
+
+            // ─── Used & Limit ───
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
-                  children: [
+                  children: const [
                     Text(
                       "1600 UGX",
                       style: TextStyle(
@@ -159,7 +175,7 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                   ],
                 ),
                 Column(
-                  children: [
+                  children: const [
                     Text(
                       "2000 UGX",
                       style: TextStyle(
@@ -176,6 +192,8 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
                 ),
               ],
             ),
+
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -183,7 +201,7 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
   }
 }
 
-// Separate StatefulWidget for the Bottom Sheet
+// ─── Budget Setup Bottom Sheet ───
 class BudgetSetupSheet extends StatefulWidget {
   const BudgetSetupSheet({super.key});
 
@@ -225,8 +243,8 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
     return Container(
       height: 450,
       width: double.infinity,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
         color: Color(0xFF0A3D3E),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -236,6 +254,7 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // ─── Header ───
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -244,51 +263,55 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 style: GoogleFonts.orbitron(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFFFFFFFF),
+                  color: const Color(0xFFFFFFFF),
                 ),
               ),
               GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ),
+                child: const Icon(Icons.close, color: Colors.red),
               ),
             ],
           ),
-          SizedBox(height: 20),
-          Divider(color: Color(0xFF215051)),
-          SizedBox(height: 10),
+
+          const SizedBox(height: 20),
+          const Divider(color: Color(0xFF215051)),
+          const SizedBox(height: 10),
+
+          // ─── Input ───
           TextFormField(
             controller: _budgetController,
             keyboardType: TextInputType.number,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintText: 'Enter budget amount',
-              hintStyle: TextStyle(color: Colors.white54),
+              hintStyle: const TextStyle(color: Colors.white54),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Color(0xFF215051)),
+                borderSide: const BorderSide(color: Color(0xFF215051)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                borderSide:
+                const BorderSide(color: Color(0xFFF6F978), width: 2),
               ),
             ),
           ),
-          SizedBox(height: 20),
+
+          const SizedBox(height: 20),
+
+          // ─── Quick Presets ───
           Row(
             children: [
               Text(
                 'Quick Presets',
                 style: GoogleFonts.sourceSans3(
-                  color: Color(0xFFFFFFFF),
+                  color: const Color(0xFFFFFFFF),
                   fontSize: 16,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -297,35 +320,30 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
               _buildPresetButton(200000),
             ],
           ),
-          SizedBox(height: 80),
-          Container(
+
+          const SizedBox(height: 80),
+
+          // ─── Set Budget Button ───
+          SizedBox(
             height: 52,
             width: double.infinity,
-            decoration: BoxDecoration(
-              color: _isButtonEnabled
-                  ? Color(0xFFF6F978)
-                  : Color(0xFF215051),
-              borderRadius: BorderRadius.circular(12),
-            ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: _isButtonEnabled
-                    ? Color(0xFFF6F978)
-                    : Color(0xFF215051),
+                    ? const Color(0xFFF6F978)
+                    : const Color(0xFF215051),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
               onPressed: _isButtonEnabled
-                  ? () {
-                Navigator.pop(context);
-              }
+                  ? () => Navigator.pop(context)
                   : null,
               child: Text(
                 'Set Budget',
                 style: TextStyle(
                   color: _isButtonEnabled
-                      ? Color(0xFF0A3D3E)
+                      ? const Color(0xFF0A3D3E)
                       : Colors.white54,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -345,12 +363,14 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
         onTap: () => _selectPreset(amount),
         child: Container(
           height: 60,
-          margin: EdgeInsets.symmetric(horizontal: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            color: Color(0xFF0A3D3E),
+            color: const Color(0xFF0A3D3E),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isSelected ? Color(0xFFF6F978) : Color(0xFF215051),
+              color: isSelected
+                  ? const Color(0xFFF6F978)
+                  : const Color(0xFF215051),
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -361,7 +381,9 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 Text(
                   '${amount ~/ 1000}k',
                   style: TextStyle(
-                    color: isSelected ? Color(0xFFF6F978) : Color(0xFFFFFFFF),
+                    color: isSelected
+                        ? const Color(0xFFF6F978)
+                        : const Color(0xFFFFFFFF),
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -369,7 +391,9 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 Text(
                   'UGX',
                   style: TextStyle(
-                    color: isSelected ? Color(0xFFF6F978) : Color(0xFFFFFFFF),
+                    color: isSelected
+                        ? const Color(0xFFF6F978)
+                        : const Color(0xFFFFFFFF),
                     fontSize: 12,
                   ),
                 ),

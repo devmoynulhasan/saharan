@@ -19,11 +19,10 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  // App Bar Section
+                  // ─── App Bar ───
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Logo and Text
                       Row(
                         children: [
                           Image.asset(
@@ -31,7 +30,7 @@ class DashboardScreen extends StatelessWidget {
                             height: 50,
                             width: 50,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Image.asset(
                             AssetPaths.splash_image_two,
                             height: 40,
@@ -39,28 +38,34 @@ class DashboardScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Notification Icon
                       GestureDetector(
                         onTap: () {},
                         child: Row(
                           children: [
-                            Image.asset(AssetPaths.favourite,height: 24,width: 24,color: Colors.white,),
-                            SizedBox(width: 15,),
-                            Icon(
+                            Image.asset(
+                              AssetPaths.favourite,
+                              height: 24,
+                              width: 24,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 15),
+                            const Icon(
                               Icons.notifications_outlined,
                               color: Colors.white,
                               size: 24,
                             ),
-
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+
+                  const SizedBox(height: 20),
+
+                  // ─── Weekly Budget Card ───
                   Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF0A3D3E),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
@@ -77,96 +82,104 @@ class DashboardScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(height: 20),
-                          // Radial Gauge
-                          Container(
+                          const SizedBox(height: 20),
+
+                          // ─── Gauge with Stack ───
+                          SizedBox(
                             height: 200,
-                            child: SfRadialGauge(
-                              axes: <RadialAxis>[
-                                RadialAxis(
-                                  minimum: 0,
-                                  maximum: 100,
-                                  startAngle: 180,
-                                  endAngle: 0,
-                                  showLabels: false,
-                                  showTicks: false,
-                                  axisLineStyle: AxisLineStyle(
-                                    thickness: 40,
-                                    color: Color(0xFF00595b),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // Gauge
+                                SfRadialGauge(
+                                  axes: <RadialAxis>[
+                                    RadialAxis(
+                                      minimum: 0,
+                                      maximum: 100,
+                                      startAngle: 180,
+                                      endAngle: 0,
+                                      showLabels: false,
+                                      showTicks: false,
+                                      axisLineStyle: const AxisLineStyle(
+                                        thickness: 40,
+                                        color: Color(0xFF00595B),
+                                      ),
+                                      pointers: <GaugePointer>[
+                                        RangePointer(
+                                          value: 75,
+                                          width: 40,
+                                          color: const Color(0xFFF6F978),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+
+                                // ── Center: 400 UGX + Left more ──
+                                Positioned(
+                                  bottom: 60,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Text(
+                                        '400 UGX',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Left more',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  pointers: <GaugePointer>[
-                                    RangePointer(
-                                      value: 75,
-                                      width: 40,
-                                      color: Color(0xFFf6f978),
+                                ),
+
+                                // ── 75% yellow arc ভেতরে বাম দিকে ──
+                                // ── 75% yellow arc ভেতরে ──
+                                Positioned(
+                                  top: 20,
+                                  left: 140,  // 55 → 80 (আরো ডানে)
+                                  child: const Text(
+                                    '75%',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF032526),
                                     ),
-                                  ],
-                                  annotations: <GaugeAnnotation>[
-                                    // Center এ 400 UGX এবং Left more
-                                    GaugeAnnotation(
-                                      widget: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            '400 UGX',
-                                            style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          SizedBox(height: 4),
-                                          Text(
-                                            'Left more',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white70,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      angle: 90,
-                                      positionFactor: 0.1,
+                                  ),
+                                ),
+
+// ── 25% teal arc ভেতরে ──
+                                Positioned(
+                                  top: 60,
+                                  right: 74,  // একটু বামে
+                                  child: const Text(
+                                    '25%',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
-                                    // বাম দিকে 75% - yellow arc এর মাঝখানে
-                                    GaugeAnnotation(
-                                      widget: Text(
-                                        '75%',
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      angle: 135,
-                                      positionFactor: 0.75,
-                                    ),
-                                    // ডান দিকে 25% - teal arc এর মাঝখানে
-                                    GaugeAnnotation(
-                                      widget: Text(
-                                        '25%',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      angle: 30,
-                                      positionFactor: 0.75,
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
 
-                          SizedBox(height: 20),
-                          // Used and Limit
+                          const SizedBox(height: 20),
+
+                          // ─── Used & Limit ───
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
-                                children: [
+                                children: const [
                                   Text(
                                     "1600 UGX",
                                     style: TextStyle(
@@ -186,7 +199,7 @@ class DashboardScreen extends StatelessWidget {
                                 ],
                               ),
                               Column(
-                                children: [
+                                children: const [
                                   Text(
                                     "2000 UGX",
                                     style: TextStyle(
@@ -207,13 +220,15 @@ class DashboardScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
-                          Divider(
+
+                          const SizedBox(height: 20),
+                          const Divider(
                             color: Color(0xFF00595B),
                             thickness: 1,
                           ),
-                          SizedBox(height: 16),
-                          // Safe and Adjust Limit
+                          const SizedBox(height: 16),
+
+                          // ─── Safe & Adjust Limit ───
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -221,10 +236,10 @@ class DashboardScreen extends StatelessWidget {
                                 height: 44,
                                 width: 120,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF184647),
+                                  color: const Color(0xFF184647),
                                   borderRadius: BorderRadius.circular(100),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Safe',
                                     style: TextStyle(
@@ -238,7 +253,7 @@ class DashboardScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {},
                                 child: Row(
-                                  children: [
+                                  children: const [
                                     Text(
                                       'Adjust Limit',
                                       style: TextStyle(
@@ -262,57 +277,61 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+
+                  const SizedBox(height: 20),
+
+                  // ─── Favourite Team Matches ───
                   Row(
-                    children: [
-                      Text('Favorite team’s matches',style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),),
+                    children: const [
+                      Text(
+                        "Favorite team's matches",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15),
 
                   Deshbord_Spending_Week_Weg(),
 
-                  SizedBox(height: 20,),
-                  Column(
-                    children: [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text("Spending this week",style: GoogleFonts.sourceSans3(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Color(0xFFEEEEF0),
+                  const SizedBox(height: 20),
 
-                              ),)
-                            ],
+                  // ─── Spending This Week ───
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Spending this week",
+                        style: GoogleFonts.sourceSans3(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: const Color(0xFFEEEEF0),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Get.to(SeeAllSpendingHistory());
+                        },
+                        child: Text(
+                          "See all",
+                          style: GoogleFonts.sourceSans3(
+                            fontSize: 18,
+                            color: const Color(0xFFF6F978),
+                            fontWeight: FontWeight.bold,
                           ),
-                          // Notification Icon
-                          GestureDetector(
-                           onTap: () {
-                               // Get.to(SeeAllSpendingHistory());
-                              },
-                           child: Text("See all",style: GoogleFonts.sourceSans3(
-                                  fontSize: 18,
-                                  color: Color(0xFFF6F978),
-                                  fontWeight: FontWeight.bold
-                              ),)
-                          ),
-                        ],
-                      )
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 10,),
 
+                  const SizedBox(height: 10),
 
+                  PremirerLeagueWeg(),
 
-                    PremirerLeagueWeg(),
-
-
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -322,4 +341,3 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
-

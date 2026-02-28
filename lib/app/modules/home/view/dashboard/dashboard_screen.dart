@@ -155,7 +155,7 @@ class DashboardScreen extends StatelessWidget {
                                   ),
                                 ),
 
-// ── 25% teal arc ভেতরে ──
+
                                 Positioned(
                                   top: 60,
                                   right: 74,  // একটু বামে

@@ -42,14 +42,14 @@ class BudgetScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
 
-                            // showModalBottomSheet(
-                            //   context: context,
-                            //   backgroundColor: Colors.transparent,
-                            //   isScrollControlled: true,
-                            //   builder: (BuildContext context) {
-                            //     return SettingShowModalBottomSheetWeg();
-                            //   },
-                            // );
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return SettingShowModalBottomSheetWeg();
+                              },
+                            );
 
 
                           },
@@ -85,7 +85,7 @@ class BudgetScreen extends StatelessWidget {
                               onTap: () {
 
 
-                               //   Get.to(SeeAllSpendingHistory());
+                                  Get.to( SeeAllSpendingHistory());
 
 
                               },

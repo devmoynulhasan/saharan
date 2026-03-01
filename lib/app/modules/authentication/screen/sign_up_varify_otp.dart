@@ -6,13 +6,15 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:saharan/app/modules/authentication/controller/sin_up_otp_verify_controller.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
-
 class SignUpVarifyOtp extends StatelessWidget {
-  const SignUpVarifyOtp({super.key});
+  // ✅ email parameter যোগ করুন
+  final String email;
+  const SignUpVarifyOtp({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    final OtpVerifyController controller = Get.put(OtpVerifyController());
+    // ✅ Controller এ email pass করুন
+    final OtpVerifyController controller = Get.put(OtpVerifyController(email: email));
 
     return Scaffold(
       body: GradientBackground(
@@ -84,7 +86,8 @@ class SignUpVarifyOtp extends StatelessWidget {
                               text: "Enter the verification code we sent to your email ",
                             ),
                             TextSpan(
-                              text: "alex.647@gmail.com",
+                              // ✅ এখন dynamic email দেখাবে
+                              text: email,
                               style: TextStyle(
                                 color: Color(0xFFF6F978),
                                 fontWeight: FontWeight.w600,
@@ -95,18 +98,17 @@ class SignUpVarifyOtp extends StatelessWidget {
                       ),
                       SizedBox(height: 24),
 
-                      // OTP Input Field
                       PinCodeTextField(
                         controller: controller.otpController,
-                        length: 6,
+                        length: 4,
                         obscureText: false,
                         animationType: AnimationType.fade,
                         keyboardType: TextInputType.number,
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
                           borderRadius: BorderRadius.circular(5),
-                          fieldHeight: 50,
-                          fieldWidth: 40,
+                          fieldHeight: 60,
+                          fieldWidth: 60,
                           activeFillColor: Color(0xFF0A3D3E),
                           inactiveFillColor: Color(0xFF0A3D3E),
                           selectedFillColor: Color(0xFF0A3D3E),
@@ -123,7 +125,6 @@ class SignUpVarifyOtp extends StatelessWidget {
 
                       SizedBox(height: 24),
 
-                      // Resend OTP section
                       Center(
                         child: Obx(() => RichText(
                           text: TextSpan(
@@ -158,7 +159,6 @@ class SignUpVarifyOtp extends StatelessWidget {
 
                       Spacer(),
 
-                      // Loading indicator
                       Obx(() => controller.isLoading.value
                           ? Center(
                         child: CircularProgressIndicator(

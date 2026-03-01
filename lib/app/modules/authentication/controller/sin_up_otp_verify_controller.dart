@@ -4,11 +4,15 @@ import 'package:saharan/app/modules/authentication/screen/sin_up_conform_passwor
 
 class OtpVerifyController extends GetxController {
   final otpController = TextEditingController();
+
+  // ✅ email receive করার জন্য
+  final String email;
+  OtpVerifyController({required this.email});
+
   var isLoading = false.obs;
   var otpCode = ''.obs;
   var isOtpComplete = false.obs;
 
-  // Timer for resend OTP
   var canResend = false.obs;
   var resendTimer = 60.obs;
 
@@ -18,11 +22,9 @@ class OtpVerifyController extends GetxController {
     startResendTimer();
   }
 
-  // Start countdown timer for resend
   void startResendTimer() {
     canResend.value = false;
     resendTimer.value = 60;
-
     Future.delayed(Duration(seconds: 1), () {
       _decrementTimer();
     });
@@ -39,20 +41,16 @@ class OtpVerifyController extends GetxController {
     }
   }
 
-  // OTP input change
   void onOtpChanged(String value) {
     otpCode.value = value;
     isOtpComplete.value = value.length == 6;
-
-    // Auto verify when 6 digits entered
-    if (value.length == 6) {
+    if (value.length == 4) {
       verifyOtp();
     }
   }
 
-  // Verify OTP
   void verifyOtp() {
-    if (otpCode.value.length != 6) {
+    if (otpCode.value.length != 4) {
       Get.snackbar(
         'Error',
         'Please enter 6-digit OTP code',
@@ -68,13 +66,10 @@ class OtpVerifyController extends GetxController {
 
     isLoading.value = true;
 
-    // Simulate API call to verify OTP
     Future.delayed(Duration(seconds: 2), () {
       isLoading.value = false;
 
-      // Check if OTP is correct (for demo, any 6 digits will work)
-      // In real app, you would verify with backend
-      if (otpCode.value.length == 6) {
+      if (otpCode.value.length == 4) {
         Get.snackbar(
           'Success',
           'OTP verified successfully',
@@ -86,7 +81,6 @@ class OtpVerifyController extends GetxController {
           duration: Duration(seconds: 2),
         );
 
-        // Navigate to password screen
         Future.delayed(Duration(milliseconds: 500), () {
           Get.to(() => SinUpConformPassword());
         });
@@ -105,7 +99,6 @@ class OtpVerifyController extends GetxController {
     });
   }
 
-  // Resend OTP
   void resendOtp() {
     if (!canResend.value) {
       Get.snackbar(
@@ -123,7 +116,6 @@ class OtpVerifyController extends GetxController {
 
     isLoading.value = true;
 
-    // Simulate resend OTP API call
     Future.delayed(Duration(seconds: 1), () {
       isLoading.value = false;
 
@@ -138,12 +130,9 @@ class OtpVerifyController extends GetxController {
         duration: Duration(seconds: 2),
       );
 
-      // Reset OTP field
       otpController.clear();
       otpCode.value = '';
       isOtpComplete.value = false;
-
-      // Restart timer
       startResendTimer();
     });
   }

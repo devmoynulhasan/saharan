@@ -7,7 +7,6 @@ class SignUPController extends GetxController {
 
   final emailController = TextEditingController();
 
-  // Email validation
   bool isValidEmail(String email) {
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
@@ -15,7 +14,6 @@ class SignUPController extends GetxController {
     return emailRegex.hasMatch(email);
   }
 
-  // Continue button action
   void onContinue() {
     String email = emailController.text.trim();
 
@@ -47,12 +45,11 @@ class SignUPController extends GetxController {
       return;
     }
 
-    // Email valid - proceed to OTP
+    // ✅ শুধু একটি Get.to() রাখুন এবং email pass করুন
     isLoading.value = true;
-    // Simulate API call
     Future.delayed(Duration(seconds: 1), () {
       isLoading.value = false;
-      Get.to(() => SignUpVarifyOtp());
+      Get.to(() => SignUpVarifyOtp(email: email));
     });
   }
 

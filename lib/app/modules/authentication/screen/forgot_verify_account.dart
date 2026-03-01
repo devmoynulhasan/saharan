@@ -107,15 +107,15 @@ class ForgotVerifyAccount extends StatelessWidget {
                       }),
                       SizedBox(height: 24),
                       PinCodeTextField(
-                        length: 6,
+                        length: 4,
                         obscureText: false,
                         animationType: AnimationType.fade,
                         keyboardType: TextInputType.number,
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
                           borderRadius: BorderRadius.circular(5),
-                          fieldHeight: 50,
-                          fieldWidth: 40,
+                          fieldHeight: 60,
+                          fieldWidth: 60,
                           activeFillColor: Color(0xFF0A3D3E),
                           inactiveFillColor: Color(0xFF0A3D3E),
                           selectedFillColor: Color(0xFF0A3D3E),

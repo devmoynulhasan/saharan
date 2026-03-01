@@ -22,13 +22,13 @@ class ForgotOtpController extends GetxController {
     currentOtp.value = value;
 
     // Automatically navigate when OTP is complete
-    if (value.length == 6) {
+    if (value.length == 4) {
       verifyOTP();
     }
   }
 
   void verifyOTP() {
-    if (currentOtp.value.length == 6) {
+    if (currentOtp.value.length == 4) {
       // Here you can add your API call to verify OTP
       // For now, we'll just navigate to the next screen
       Get.to(() => ForgotConformPassword(), arguments: {

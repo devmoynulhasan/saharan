@@ -4,12 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/sign_up_controller.dart';
 import 'package:saharan/app/modules/authentication/screen/sign_up_varify_otp.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
+import 'package:saharan/resource/common_widgets/custom_button.dart';
+
+import '../controller/authentication_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+   // final AuthenticationController controller = Get.put(AuthenticationController());
+
     final SignUPController controller = Get.put(SignUPController());
 
     return Scaffold(
@@ -89,6 +95,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8,),
+
                 // Email Input Field
                 TextField(
                   controller: controller.emailController,
@@ -134,6 +141,16 @@ class SignUpScreen extends StatelessWidget {
                 ),
 
                 Spacer(),
+
+                // Obx(
+                //   ()=> CustomButton(
+                //       title: 'Continue',
+                //       isLoading: controller.isLoading.value,
+                //       onTap: () {
+                //         controller.createUser();
+                //       },
+                //   ),
+                // ),
 
                 // Continue Button
                 Obx(() => GestureDetector(

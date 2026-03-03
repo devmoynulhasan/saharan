@@ -7,7 +7,7 @@ import 'package:saharan/app/modules/authentication/widget/background_color.dart'
 import 'sign_up_profile.dart';
 
 class SinUpConformPassword extends StatelessWidget {
-  const SinUpConformPassword({super.key});
+  const SinUpConformPassword({super.key, required});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class SinUpConformPassword extends StatelessWidget {
 
                 // Title
                 Text(
-                  "Create New Password",
+                  "Secure Your Account",
                   style: GoogleFonts.orbitron(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
@@ -78,7 +78,7 @@ class SinUpConformPassword extends StatelessWidget {
 
                 // Subtitle
                 Text(
-                  "Your new password must be different from previously used passwords",
+                  "Create a strong password to protect your account",
                   style: GoogleFonts.sourceSans3(
                     fontSize: 14,
                     color: Color(0xFFB2B3BD),
@@ -90,7 +90,7 @@ class SinUpConformPassword extends StatelessWidget {
 
                 // New Password Field
                 Text(
-                  "New Password",
+                  "Password",
                   style: GoogleFonts.sourceSans3(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

@@ -1,6 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class Budget_Chart_Range_Weg extends StatefulWidget {
   const Budget_Chart_Range_Weg({super.key});
@@ -13,7 +13,6 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 320, ← সরানো হয়েছে
       width: double.infinity,
       decoration: const BoxDecoration(
         color: Color(0xFF0A3D3E),
@@ -66,128 +65,121 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
 
             const SizedBox(height: 10),
 
-            // ─── Gauge ───
-            SizedBox(
-              height: 200,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SfRadialGauge(
-                    axes: <RadialAxis>[
-                      RadialAxis(
-                        minimum: 0,
-                        maximum: 100,
-                        startAngle: 180,
-                        endAngle: 0,
-                        showLabels: false,
-                        showTicks: false,
-                        axisLineStyle: const AxisLineStyle(
-                          thickness: 40,
-                          color: Color(0xFF00595B),
-                        ),
-                        pointers: <GaugePointer>[
-                          RangePointer(
-                            value: 75,
-                            width: 40,
-                            color: const Color(0xFFF6F978),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+            // ─── Gauge Chart ───
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final double w = constraints.maxWidth;
+                final double h = 200.0;
+                const double strokeWidth = 45.0;
+                const double value = 0.75;
 
-                  // ── Center: 400 UGX + Left more ──
-                  Positioned(
-                    bottom: 80,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          '400 UGX',
+                final double cx = w / 2;
+                final double cy = h;
+                final double radius = w / 2 - strokeWidth / 2;
+
+                // 75% label position - yellow arc মাঝে
+                final double angle75 = pi + pi * (value / 2);
+                final double x75 = cx + radius * cos(angle75) - 15;
+                final double y75 = cy + radius * sin(angle75) - 10;
+
+                // 25% label position - green arc মাঝে
+                final double angle25 = pi + pi * (value + (1 - value) / 2);
+                final double x25 = cx + radius * cos(angle25) - 15;
+                final double y25 = cy + radius * sin(angle25) - 10;
+
+                return SizedBox(
+                  width: w,
+                  height: h,
+                  child: Stack(
+                    children: [
+                      // ── Chart ──
+                      CustomPaint(
+                        size: Size(w, h),
+                        painter: HalfDonutPainter(value: value),
+                      ),
+
+                      // ── 75% label ──
+                      Positioned(
+                        left: x75,
+                        top: y75,
+                        child: const Text(
+                          '75%',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF032526),
+                          ),
+                        ),
+                      ),
+
+                      // ── 25% label ──
+                      Positioned(
+                        left: x25,
+                        top: y25,
+                        child: const Text(
+                          '25%',
+                          style: TextStyle(
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          'Left more',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.white70,
-                          ),
+                      ),
+
+                      // ── Center: 400 UGX + Left more ──
+                      Positioned(
+                        bottom: 40,
+                        left: 0,
+                        right: 0,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              '400 UGX',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'Left more',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-
-                  // ── 75% yellow arc ──
-                  Positioned(
-                    top: 20,
-                    left: 140,
-                    child: const Text(
-                      '75%',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF032526),
                       ),
-                    ),
+                    ],
                   ),
-
-                  // ── 25% teal arc ──
-                  Positioned(
-                    top: 60,
-                    right: 74,
-                    child: const Text(
-                      '25%',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
 
             const SizedBox(height: 10),
 
             // ─── Used & Limit ───
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: const [
                     Text(
                       "1600 UGX",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
                     ),
-                    Text(
-                      "Used",
-                      style: TextStyle(fontSize: 14, color: Colors.white70),
-                    ),
+                    Text("Used", style: TextStyle(fontSize: 14, color: Colors.white70)),
                   ],
                 ),
                 Column(
                   children: const [
                     Text(
                       "2000 UGX",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
                     ),
-                    Text(
-                      "Limit",
-                      style: TextStyle(fontSize: 14, color: Colors.white70),
-                    ),
+                    Text("Limit", style: TextStyle(fontSize: 14, color: Colors.white70)),
                   ],
                 ),
               ],
@@ -199,6 +191,45 @@ class _Budget_Chart_Range_WegState extends State<Budget_Chart_Range_Weg> {
       ),
     );
   }
+}
+
+// ─── Half Donut Painter ───
+class HalfDonutPainter extends CustomPainter {
+  final double value;
+  HalfDonutPainter({required this.value});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const double strokeWidth = 45;
+    final double cx = size.width / 2;
+    final double cy = size.height;
+    final double radius = size.width / 2 - strokeWidth / 2;
+
+    final Rect rect = Rect.fromCircle(center: Offset(cx, cy), radius: radius);
+
+    // Background arc (green)
+    canvas.drawArc(
+      rect, pi, pi, false,
+      Paint()
+        ..color = const Color(0xFF00595B)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..strokeCap = StrokeCap.butt,
+    );
+
+    // Foreground arc (yellow)
+    canvas.drawArc(
+      rect, pi, pi * value, false,
+      Paint()
+        ..color = const Color(0xFFF6F978)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..strokeCap = StrokeCap.butt,
+    );
+  }
+
+  @override
+  bool shouldRepaint(HalfDonutPainter old) => old.value != value;
 }
 
 // ─── Budget Setup Bottom Sheet ───
@@ -254,7 +285,6 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // ─── Header ───
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -277,7 +307,6 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
           const Divider(color: Color(0xFF215051)),
           const SizedBox(height: 10),
 
-          // ─── Input ───
           TextFormField(
             controller: _budgetController,
             keyboardType: TextInputType.number,
@@ -291,24 +320,16 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide:
-                const BorderSide(color: Color(0xFFF6F978), width: 2),
+                borderSide: const BorderSide(color: Color(0xFFF6F978), width: 2),
               ),
             ),
           ),
 
           const SizedBox(height: 20),
 
-          // ─── Quick Presets ───
           Row(
             children: [
-              Text(
-                'Quick Presets',
-                style: GoogleFonts.sourceSans3(
-                  color: const Color(0xFFFFFFFF),
-                  fontSize: 16,
-                ),
-              ),
+              Text('Quick Presets', style: GoogleFonts.sourceSans3(color: const Color(0xFFFFFFFF), fontSize: 16)),
             ],
           ),
           const SizedBox(height: 10),
@@ -323,28 +344,19 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
 
           const SizedBox(height: 80),
 
-          // ─── Set Budget Button ───
           SizedBox(
             height: 52,
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: _isButtonEnabled
-                    ? const Color(0xFFF6F978)
-                    : const Color(0xFF215051),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                backgroundColor: _isButtonEnabled ? const Color(0xFFF6F978) : const Color(0xFF215051),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              onPressed: _isButtonEnabled
-                  ? () => Navigator.pop(context)
-                  : null,
+              onPressed: _isButtonEnabled ? () => Navigator.pop(context) : null,
               child: Text(
                 'Set Budget',
                 style: TextStyle(
-                  color: _isButtonEnabled
-                      ? const Color(0xFF0A3D3E)
-                      : Colors.white54,
+                  color: _isButtonEnabled ? const Color(0xFF0A3D3E) : Colors.white54,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -368,9 +380,7 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
             color: const Color(0xFF0A3D3E),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isSelected
-                  ? const Color(0xFFF6F978)
-                  : const Color(0xFF215051),
+              color: isSelected ? const Color(0xFFF6F978) : const Color(0xFF215051),
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -381,9 +391,7 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 Text(
                   '${amount ~/ 1000}k',
                   style: TextStyle(
-                    color: isSelected
-                        ? const Color(0xFFF6F978)
-                        : const Color(0xFFFFFFFF),
+                    color: isSelected ? const Color(0xFFF6F978) : const Color(0xFFFFFFFF),
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -391,9 +399,7 @@ class _BudgetSetupSheetState extends State<BudgetSetupSheet> {
                 Text(
                   'UGX',
                   style: TextStyle(
-                    color: isSelected
-                        ? const Color(0xFFF6F978)
-                        : const Color(0xFFFFFFFF),
+                    color: isSelected ? const Color(0xFFF6F978) : const Color(0xFFFFFFFF),
                     fontSize: 12,
                   ),
                 ),

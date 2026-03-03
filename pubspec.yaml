@@ -43,7 +43,12 @@ dependencies:
   syncfusion_flutter_gauges: ^27.1.48
   percent_indicator: ^4.2.5
   fl_chart: ^0.68.0
+  get_storage: ^2.1.1
+  #  env
+  flutter_dotenv: ^6.0.0
   # Changed from ^1.1.1 to ^1.1.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +74,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/images/
+      - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

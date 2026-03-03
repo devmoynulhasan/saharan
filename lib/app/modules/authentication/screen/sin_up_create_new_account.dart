@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saharan/app/modules/authentication/controller/authentication_controller.dart';
 import 'package:saharan/app/modules/authentication/screen/sign_up_screen.dart';
 import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
@@ -11,6 +12,7 @@ class SinUpCreateNewAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthenticationController controller = Get.put(AuthenticationController());
     return Scaffold(
       body: GradientBackground(
           child: SafeArea(
@@ -68,7 +70,7 @@ class SinUpCreateNewAccount extends StatelessWidget {
                           AssetPaths.apple,height: 24,width: 24,
                         ),
                         SizedBox(width: 15,),
-                        Text("Continue with Apple",style: TextStyle(
+                        Text("Continue with Apple", style: TextStyle(
                           color: Color(0xFFFFFFFF),
                         ),)
                       ],

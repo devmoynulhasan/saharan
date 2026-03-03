@@ -123,7 +123,7 @@ class Forgot_Weg extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
           ],
         ),
       ),

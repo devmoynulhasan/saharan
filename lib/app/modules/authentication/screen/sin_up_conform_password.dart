@@ -4,15 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/sign_up_conform_password_controller.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
-import 'sign_up_profile.dart';
-
 class SinUpConformPassword extends StatelessWidget {
-  const SinUpConformPassword({super.key});
+  final String email; // ✅ email parameter
+  const SinUpConformPassword({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     final SignUpConformPasswordController controller =
-    Get.put(SignUpConformPasswordController());
+    Get.put(SignUpConformPasswordController(email: email)); // ✅ email pass
 
     return Scaffold(
       body: GradientBackground(
@@ -38,8 +37,7 @@ class SinUpConformPassword extends StatelessWidget {
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color:
-                                  const Color(0xFFF6F978).withOpacity(0.1),
+                                  color: const Color(0xFFF6F978).withOpacity(0.1),
                                   spreadRadius: 7,
                                 ),
                               ],
@@ -114,8 +112,7 @@ class SinUpConformPassword extends StatelessWidget {
                           fontSize: 14,
                         ),
                         filled: true,
-                        fillColor:
-                        const Color(0xFF0A3D3E).withOpacity(0.5),
+                        fillColor: const Color(0xFF0A3D3E).withOpacity(0.5),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
@@ -183,8 +180,7 @@ class SinUpConformPassword extends StatelessWidget {
                           fontSize: 14,
                         ),
                         filled: true,
-                        fillColor:
-                        const Color(0xFF0A3D3E).withOpacity(0.5),
+                        fillColor: const Color(0xFF0A3D3E).withOpacity(0.5),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
@@ -211,8 +207,7 @@ class SinUpConformPassword extends StatelessWidget {
                           vertical: 16,
                         ),
                         suffixIcon: IconButton(
-                          onPressed:
-                          controller.toggleConfirmPasswordVisibility,
+                          onPressed: controller.toggleConfirmPasswordVisibility,
                           icon: Icon(
                             controller.isConfirmPasswordVisible.value
                                 ? Icons.visibility_outlined
@@ -227,12 +222,10 @@ class SinUpConformPassword extends StatelessWidget {
                   const SizedBox(height: 100),
 
                   // Complete Sign Up Button
-                  GestureDetector(
-                    onTap: () {
-                      if (controller.validatePasswords()) {
-                        Get.to(() => SignUpProfile());
-                      }
-                    },
+                  Obx(() => GestureDetector(
+                    onTap: controller.isLoading.value
+                        ? null
+                        : () => controller.singUpConformPassword(), // ✅ সরাসরি call, navigation controller এ হবে
                     child: Container(
                       width: double.infinity,
                       height: 56,
@@ -241,7 +234,12 @@ class SinUpConformPassword extends StatelessWidget {
                         borderRadius: BorderRadius.circular(28),
                       ),
                       child: Center(
-                        child: Text(
+                        child: controller.isLoading.value
+                            ? const CircularProgressIndicator(
+                          color: Color(0xFF0A3D3E),
+                          strokeWidth: 2,
+                        )
+                            : Text(
                           "Complete Sign Up",
                           style: GoogleFonts.manrope(
                             fontSize: 16,
@@ -251,7 +249,7 @@ class SinUpConformPassword extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
+                  )),
 
                   const SizedBox(height: 32),
                 ],

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:saharan/app/data/utilitis/custom_snackbar.dart';
 import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
-
 import '../../../data/app_const/app_const.dart';
 import '../../../data/local_storage/local_storage.dart';
 import '../../../data/network/base_client.dart';
@@ -14,6 +13,9 @@ import '../screen/sin_up_conform_password.dart';
 
 class OtpVerificationController extends GetxController {
   final otpController = TextEditingController();
+
+  final String email; // ✅ email যোগ করা হয়েছে
+  OtpVerificationController({required this.email});
 
   var isLoading = false.obs;
   var isResendLoading = false.obs;
@@ -61,11 +63,13 @@ class OtpVerificationController extends GetxController {
 
       if (responseBody['success'] == true) {
         showCustomSnackBar(
-          message: 'OTP verified successfully. Please login',
+          message: 'OTP verified successfully!',
           type: SnackType.success,
         );
         LocalStorage.removeData(key: AppConst.signUpVarificationToken);
-        Get.offAll(() => const SinUpConformPassword());
+
+        // ✅ email pass করা হচ্ছে
+        Get.offAll(() => SinUpConformPassword(email: email));
       } else {
         showCustomSnackBar(
           message: responseBody['message'] ?? 'Invalid OTP',
@@ -83,7 +87,7 @@ class OtpVerificationController extends GetxController {
   }
 
   Future<void> resendCode({required String email}) async {
-    isLoading.value = true;
+    isResendLoading.value = true;
     try {
       final response = await BaseClient.postRequest(
         api: EndPoint.resendOtpURL,
@@ -116,13 +120,9 @@ class OtpVerificationController extends GetxController {
         type: SnackType.error,
       );
     } finally {
-      isLoading.value = false;
+      isResendLoading.value = false;
     }
   }
-
-  // ────────────────────────────────────────────────
-  // Forgot Password OTP Flow
-  // ────────────────────────────────────────────────
 
   Future<void> forgotOtpVerify({required String otp}) async {
     isLoading.value = true;
@@ -147,7 +147,6 @@ class OtpVerificationController extends GetxController {
           message: 'OTP verified. Now reset your password',
           type: SnackType.success,
         );
-        // Get.to(() => ResetPasswordScreen());  // ← uncomment when ready
       } else {
         showCustomSnackBar(
           message: responseBody['message'] ?? 'Invalid OTP',
@@ -165,7 +164,7 @@ class OtpVerificationController extends GetxController {
   }
 
   Future<void> forgotResendCode({required String email}) async {
-    isLoading.value = true;
+    isResendLoading.value = true;
     try {
       final response = await http.post(
         Uri.parse(EndPoint.resendOtpURL),
@@ -195,7 +194,7 @@ class OtpVerificationController extends GetxController {
         type: SnackType.error,
       );
     } finally {
-      isLoading.value = false;
+      isResendLoading.value = false;
     }
   }
 

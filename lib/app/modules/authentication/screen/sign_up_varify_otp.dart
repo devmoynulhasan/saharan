@@ -13,7 +13,8 @@ class SignUpVarifyOtp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final otpController = Get.put(OtpVerificationController());
+    final otpController = Get.put(OtpVerificationController(email: email));
+
 
     return Scaffold(
       body: GradientBackground(

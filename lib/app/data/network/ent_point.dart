@@ -23,5 +23,9 @@ class EndPoint {
   static String get verifyOtpForForgotPasswordURL => '$BASE_URL/api/v1/auth/verify-otp';
   static String get resendOtpURL => '$BASE_URL/api/v1/auth/send-otp';
 
+  /// sinUp ConformPassword
+  static String get sinUpConformPassword => '$BASE_URL/api/v1/auth/confirm-signup';
+
+
   static String getSingleUser({required String userId}) => '$BASE_URL/user/single/$userId';
 }

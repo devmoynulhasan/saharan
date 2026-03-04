@@ -13,10 +13,11 @@ class SignUpConformPasswordController extends GetxController {
   var isConfirmPasswordVisible = false.obs;
   var isLoading = false.obs;
 
-  final emailController = TextEditingController();
+  final String email;
+  SignUpConformPasswordController({required this.email});
+
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
   void togglePasswordVisibility() {
@@ -71,21 +72,25 @@ class SignUpConformPasswordController extends GetxController {
     return true;
   }
 
-  Future<void> signUp() async {
+  Future<void> singUpConformPassword() async {
+    if (!validatePasswords()) return;
+
     try {
       isLoading.value = true;
+
+      debugPrint('Email being sent: $email'); // ✅ debug করার জন্য
 
       Map<String, String> header = {
         'Content-Type': 'application/json',
       };
 
       Map<String, dynamic> body = {
-        "email": emailController.text,
-        "password": passwordController.text
+        "email": email,
+        "password": passwordController.text,
       };
 
       final response = await BaseClient.postRequest(
-        api: EndPoint.userLoginURL,
+        api: EndPoint.sinUpConformPassword,
         body: body,
         headers: header,
       );
@@ -101,7 +106,7 @@ class SignUpConformPasswordController extends GetxController {
         Get.off(() => SignUpProfile());
       } else {
         showCustomSnackBar(message: 'Sign up failed...');
-        debugPrint('sign up failed');
+        debugPrint('sign up failed: ${response.body}');
       }
     } catch (e) {
       debugPrint('sign up error: $e');
@@ -113,7 +118,6 @@ class SignUpConformPasswordController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.onClose();

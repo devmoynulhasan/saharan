@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saharan/app/data/app_const/app_const.dart';
-import 'package:saharan/app/data/local_storage/local_storage.dart';
 import 'package:saharan/app/data/network/base_client.dart';
 import 'package:saharan/app/data/network/ent_point.dart';
 import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
@@ -78,7 +76,7 @@ class SignUpConformPasswordController extends GetxController {
     try {
       isLoading.value = true;
 
-      debugPrint('Email being sent: $email'); // ✅ debug করার জন্য
+      debugPrint('Email being sent: $email');
 
       Map<String, String> header = {
         'Content-Type': 'application/json',
@@ -95,22 +93,28 @@ class SignUpConformPasswordController extends GetxController {
         headers: header,
       );
 
+      debugPrint('StatusCode: ${response.statusCode}');
+      debugPrint('Response: ${response.body}');
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = jsonDecode(response.body);
-
-        var accessToken = data['data']['user']['accessToken'];
-        debugPrint('accessToken: $accessToken');
-
-        LocalStorage.saveData(key: AppConst.accessToken, data: accessToken);
+        // ✅ response এ accessToken নেই, তাই সরাসরি navigate করো
         showCustomSnackBar(message: 'Sign up success!');
-        Get.off(() => SignUpProfile());
+        Get.off(() => SignUpProfile()); // ✅ সরাসরি ProfileScreen এ যাবে
       } else {
-        showCustomSnackBar(message: 'Sign up failed...');
+        final errorData = jsonDecode(response.body);
+        showCustomSnackBar(
+          message: errorData['message'] ?? 'Sign up failed...',
+        );
         debugPrint('sign up failed: ${response.body}');
       }
     } catch (e) {
       debugPrint('sign up error: $e');
-      Get.rawSnackbar(message: 'Sign up failed: $e');
+      Get.snackbar(
+        'Error', 'Sign up failed: $e',
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saharan/app/data/utilitis/custom_snackbar.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/authentication/widget/sign_in_weg.dart';
 import 'package:saharan/app/modules/authentication/controller/sin_in_controller.dart';
 import 'package:saharan/app/modules/home/view/home_screen.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
+import 'package:saharan/resource/common_widgets/custom_button.dart';
+import 'package:saharan/resource/common_widgets/custom_text.dart';
+import '../../../../resource/common_widgets/custom_text_filed.dart';
+import 'forgot_password.dart';
 import 'sin_up_create_new_account.dart';
 
 class SinInScreen extends StatelessWidget {
@@ -14,7 +19,6 @@ class SinInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignInController());
-
     return Scaffold(
       body: GradientBackground(
         child: SafeArea(
@@ -22,50 +26,33 @@ class SinInScreen extends StatelessWidget {
             builder: (context, constraints) {
               return SingleChildScrollView(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
                         children: [
-                          SizedBox(height: 40),
+                          const SizedBox(height: 40),
 
-                          // Logo
+                          // Logo + brand name + welcome texts (unchanged)
                           Center(
-                            child: Image.asset(
-                              AssetPaths.splash_image_one,
-                              height: 80,
-                              width: 80,
-                            ),
+                            child: Image.asset(AssetPaths.splash_image_one, height: 80, width: 80),
                           ),
-
                           const SizedBox(height: 16),
+                          Image.asset(AssetPaths.splash_image_two, width: 200, height: 24),
+                          SizedBox(height: 20),
 
-                          // Brand Name
-                          Image.asset(
-                            AssetPaths.splash_image_two,
-                            width: 200,
-                            height: 24,
-                          ),
-
-                          SizedBox(height: 32),
-
-                          // Welcome Text
-                          Text(
-                            "Welcome Back!",
+                          CustomText(
+                            title: "Welcome Back!",
                             style: GoogleFonts.orbitron(
                               fontSize: 28,
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-
                           const SizedBox(height: 12),
-
-                          Text(
-                            "Sign in to continue getting smart betting insights",
+                          CustomText(
+                            title: "Sign in to continue getting smart betting insights",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.sourceSans3(
                               fontSize: 14,
@@ -74,84 +61,114 @@ class SinInScreen extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 32),
+                          const SizedBox(height: 32),
 
-                          // Sign In Form
-                          SignIn(),
-
-                          SizedBox(height: 24),
-
-                          // Sign In Button
-                          GestureDetector(
-                            onTap: () {
-                              if (controller.formKey.currentState!.validate()) {
-                                // Validation successful
-                                String email = controller.emailTEController.text;
-                                String password = controller.passwordTEController.text;
-
-                                print("Email: $email");
-                                print("Password: $password");
-                                print("Remember Me: ${controller.rememberMe.value}");
-
-                                // Navigate to home screen
-                                Get.offAll(() => HomeScreen());
-
-                                // Show success message
-                                Get.snackbar(
-                                  'Success',
-                                  'Signed in successfully',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Color(0xFFF6F978),
-                                  colorText: Color(0xFF0A3D3E),
-                                  margin: EdgeInsets.all(16),
-                                  borderRadius: 12,
-                                  duration: Duration(seconds: 2),
-                                );
-                              } else {
-                                // Validation failed
-                                Get.snackbar(
-                                  'Error',
-                                  'Please fill all fields correctly',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.red,
-                                  colorText: Colors.white,
-                                  margin: EdgeInsets.all(16),
-                                  borderRadius: 12,
-                                  duration: Duration(seconds: 2),
-                                );
-                              }
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6F978),
-                                borderRadius: BorderRadius.circular(28),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFFF6F978).withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 8,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Sign In",
-                                  style: GoogleFonts.manrope(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF0A3D3E),
-                                  ),
+                          // ──── Form starts here ────
+                          Form(
+                            key: controller.formKey,   // ← attach the key here
+                            child: Column(
+                              children: [
+                                CustomTextField(
+                                  label: "Email/Phone Number",
+                                  hint: 'Enter your email or phone number',
+                                  controller: controller.emailTEController,
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return "Please enter email/phone";
+                                    }
+                                    return null;
+                                  },
                                 ),
-                              ),
+
+                                const SizedBox(height: 10),
+
+                                CustomTextField(
+                                  label: "Password",
+                                  hint: 'Enter your password',
+                                  obscureText: true,
+                                  controller: controller.passwordTEController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Password is required";
+                                    }
+                                    if (value.length < 6) {
+                                      return "Password must be at least 6 characters";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
                             ),
                           ),
 
-                          Spacer(),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Obx(() => SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Checkbox(
+                                      value: controller.rememberMe.value,
+                                      onChanged: (value) {
+                                        controller.toggleRememberMe();
+                                      },
+                                      activeColor: Color(0xFFF6F978),
+                                      checkColor: Color(0xFF0A3D3E),
+                                      side: BorderSide(
+                                        color: Color(0xFFB2B3BD),
+                                        width: 2,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
+                                  )),
+                                  SizedBox(width: 0),
+                                  CustomText(
+                                    title: "Remember Me",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFFB2B3BD),
+                                  )
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => ForgotPassword());
+                                },
+                                child: CustomText(
+                                  title: "Forgot Password?",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Color(0xFFF6F978),
+                                ),
+                              )
+                            ],
+                          ),
 
-                          // Sign Up Link
+                          const SizedBox(height: 15),
+
+                          CustomButton(
+                            title: 'Sign In',
+                            onTap: () {
+                              if (controller.formKey.currentState!.validate()) {
+                                String email = controller.emailTEController.text.trim();
+                                String password = controller.passwordTEController.text;
+                                controller.signIn();
+                              } else {
+                                showCustomSnackBar(
+                                  message: 'Please fill all fields correctly',
+                                );
+                              }
+                            },
+                          ),
+
+                          const Spacer(),
+
+                          // Sign Up link (unchanged)
                           Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -165,17 +182,15 @@ class SinInScreen extends StatelessWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    Get.to(() => SinUpCreateNewAccount());
-                                  },
+                                  onTap: () => Get.to(() => SinUpCreateNewAccount()),
                                   child: Text(
                                     "Sign Up",
                                     style: GoogleFonts.sourceSans3(
                                       fontSize: 16,
-                                      color: Color(0xFFF6F978),
+                                      color: const Color(0xFFF6F978),
                                       fontWeight: FontWeight.w700,
                                       decoration: TextDecoration.underline,
-                                      decorationColor: Color(0xFFF6F978),
+                                      decorationColor: const Color(0xFFF6F978),
                                     ),
                                   ),
                                 ),
@@ -183,7 +198,7 @@ class SinInScreen extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 32),
+                          const SizedBox(height: 32),
                         ],
                       ),
                     ),

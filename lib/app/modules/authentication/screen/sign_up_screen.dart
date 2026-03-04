@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saharan/app/modules/authentication/controller/sign_up_controller.dart';
+import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
 import 'package:saharan/app/modules/authentication/screen/sign_up_varify_otp.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/resource/common_widgets/custom_button.dart';
+import 'package:saharan/resource/common_widgets/custom_text.dart';
+import 'package:saharan/resource/common_widgets/custom_text_filed.dart';
 
 import '../controller/authentication_controller.dart';
 
@@ -14,9 +16,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-   // final AuthenticationController controller = Get.put(AuthenticationController());
-
-    final SignUPController controller = Get.put(SignUPController());
+   final AuthenticationController controller = Get.put(AuthenticationController());
 
     return Scaffold(
       body: GradientBackground(
@@ -63,8 +63,8 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(height: 32),
 
                 // Title
-                Text(
-                  "Create New Account",
+                CustomText(
+                  title: "Create New Account",
                   style: GoogleFonts.orbitron(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
@@ -76,134 +76,44 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(height: 12),
 
                 // Subtitle
-                Text(
-                  "Enter your email address to get started",
-                  style: GoogleFonts.sourceSans3(
-                    fontSize: 14,
-                    color: Color(0xFFB2B3BD),
-                    height: 1.5,
-                  ),
+                CustomText(
+                  title: "Enter your email address to get started",
+                  fontSize: 14,
+                  color: Color(0xFFB2B3BD),
+                  height: 1.5,
                 ),
 
                 SizedBox(height: 32),
-                Text(
-                  " Email Address ",
-                  style: GoogleFonts.sourceSans3(
-                    fontSize: 16,
-                    color: Color(0xFFFFFFFF),
-                    height: 1.5,
-                  ),
+                CustomText(
+                  title: "Email Address ",
+                  fontSize: 16,
+                  color: Color(0xFFFFFFFF),
+                  height: 1.5,
                 ),
                 SizedBox(height: 8,),
 
                 // Email Input Field
-                TextField(
+                CustomTextField(
                   controller: controller.emailController,
-                  style: GoogleFonts.sourceSans3(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "Enter your email address",
-                    hintStyle: GoogleFonts.sourceSans3(
-                      color: Color(0xFF507B7C),
-                      fontSize: 14,
-                    ),
-                    filled: true,
-                    fillColor: Color(0xFF0A3D3E).withOpacity(0.5),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: Color(0xFF1A5556),
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: Color(0xFF1A5556),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: Color(0xFFF6F978),
-                        width: 1.5,
-                      ),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                  ),
+                    hint: "Enter your email address"
                 ),
 
                 Spacer(),
 
-                // Obx(
-                //   ()=> CustomButton(
-                //       title: 'Continue',
-                //       isLoading: controller.isLoading.value,
-                //       onTap: () {
-                //         controller.createUser();
-                //       },
-                //   ),
-                // ),
-
-                // Continue Button
-                Obx(() => GestureDetector(
-                  onTap: controller.isLoading.value ? null : controller.onContinue,
-                  child: Container(
-                    width: double.infinity,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: controller.isLoading.value
-                          ? Color(0xFFF6F978).withOpacity(0.5)
-                          : Color(0xFFF6F978),
-                      borderRadius: BorderRadius.circular(28),
-                    ),
-                    child: controller.isLoading.value
-                        ? Center(
-                      child: SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFF0A3D3E),
-                          ),
-                        ),
-                      ),
-                    )
-                        :
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Continue",
-                          style: GoogleFonts.manrope(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF0A3D3E),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Color(0xFF0A3D3E),
-                          size: 20,
-                        ),
-                      ],
-                    ),
+                Obx(()=> CustomButton(
+                      title: 'Continue',
+                      isLoading: controller.isLoading.value,
+                      onTap: () {
+                        if(controller.emailController.text.isEmpty){
+                          showCustomSnackBar(message: 'Email is required', type: SnackType.error,
+                          );
+                        }else{
+                          controller.createUser();
+                          // Get.to(() => SignUpVarifyOtp(email: controller.emailController.text));
+                        }
+                      },
                   ),
-                )),
-
-                SizedBox(height: 20),
-
-                // Sign In Text
-
+                ),
 
                 SizedBox(height: 32),
               ],

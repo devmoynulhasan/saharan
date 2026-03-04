@@ -3,48 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:saharan/app/modules/authentication/controller/sin_up_otp_verify_controller.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
+import '../controller/otp_verification_controller.dart';
+
 class SignUpVarifyOtp extends StatelessWidget {
-  // ✅ email parameter যোগ করুন
   final String email;
   const SignUpVarifyOtp({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    // ✅ Controller এ email pass করুন
-    final OtpVerifyController controller = Get.put(OtpVerifyController(email: email));
+    final otpController = Get.put(OtpVerificationController());
 
     return Scaffold(
       body: GradientBackground(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: () => Get.back(),
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height: 44,
+                          width: 44,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xFFF6F978).withOpacity(0.1),
-                                spreadRadius: 7,
+                                color: const Color(0xFFF6F978).withOpacity(0.12),
+                                spreadRadius: 6,
+                                blurRadius: 8,
                               ),
                             ],
                             shape: BoxShape.circle,
-                            color: Color(0xFF053030),
+                            color: const Color(0xFF053030),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.arrow_back_ios_new,
                               color: Color(0xFFF6F978),
@@ -53,42 +51,39 @@ class SignUpVarifyOtp extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 15),
                     ],
                   ),
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20),
+                      const SizedBox(height: 32),
                       Text(
                         "Verify Your Account",
                         style: GoogleFonts.orbitron(
-                          fontSize: 24,
+                          fontSize: 26,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       RichText(
                         text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 14,
+                          style: const TextStyle(
+                            fontSize: 15,
                             color: Color(0xFFb1b2bd),
                             height: 1.5,
                           ),
                           children: [
-                            TextSpan(
-                              text: "Enter the verification code we sent to your email ",
+                            const TextSpan(
+                              text: "Enter the verification code we sent to ",
                             ),
                             TextSpan(
-                              // ✅ এখন dynamic email দেখাবে
                               text: email,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xFFF6F978),
                                 fontWeight: FontWeight.w600,
                               ),
@@ -96,84 +91,91 @@ class SignUpVarifyOtp extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 40),
 
                       PinCodeTextField(
-                        controller: controller.otpController,
+                        controller: otpController.otpController,
                         length: 4,
                         obscureText: false,
                         animationType: AnimationType.fade,
                         keyboardType: TextInputType.number,
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(8),
                           fieldHeight: 60,
                           fieldWidth: 60,
-                          activeFillColor: Color(0xFF0A3D3E),
-                          inactiveFillColor: Color(0xFF0A3D3E),
-                          selectedFillColor: Color(0xFF0A3D3E),
-                          activeColor: Color(0xFFF6F978),
-                          inactiveColor: Color(0xFF00595B),
-                          selectedColor: Color(0xFF00595B),
+                          activeFillColor: const Color(0xFF0A3D3E),
+                          inactiveFillColor: const Color(0xFF0A3D3E),
+                          selectedFillColor: const Color(0xFF0A3D3E),
+                          activeColor: const Color(0xFFF6F978),
+                          inactiveColor: const Color(0xFF00595B),
+                          selectedColor: const Color(0xFF00595B),
+                          borderWidth: 1.5,
                         ),
-                        animationDuration: Duration(milliseconds: 300),
+                        animationDuration: const Duration(milliseconds: 300),
                         backgroundColor: Colors.transparent,
                         enableActiveFill: true,
                         appContext: context,
-                        onChanged: controller.onOtpChanged,
+                        onCompleted: (value) {
+                          otpController.verifyOtp(otp: value);
+                        },
+                        onChanged: (value) {},
                       ),
 
-                      SizedBox(height: 24),
+                      const SizedBox(height: 32),
 
                       Center(
-                        child: Obx(() => RichText(
-                          text: TextSpan(
-                            style: GoogleFonts.sourceSans3(
-                              color: Color(0xFFB2B3BD),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.5,
-                            ),
-                            text: "Didn't get OTP? ",
-                            children: [
-                              TextSpan(
-                                style: GoogleFonts.sourceSans3(
-                                  color: controller.canResend.value
-                                      ? Color(0xFFF6F978)
-                                      : Color(0xFF507B7C),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                        child: Obx(
+                              () => RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.sourceSans3(
+                                color: const Color(0xFFB2B3BD),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              children: [
+                                const TextSpan(text: "Didn't receive code? "),
+                                TextSpan(
+                                  text: otpController.enableResend.value
+                                      ? "Resend"
+                                      : "Resend in ${otpController.secondsRemaining.value}s",
+                                  style: GoogleFonts.sourceSans3(
+                                    color: otpController.enableResend.value
+                                        ? const Color(0xFFF6F978)
+                                        : const Color(0xFF507B7C),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = otpController.enableResend.value
+                                        ? () => otpController.resendCode(email: email)
+                                        : null,
                                 ),
-                                text: controller.canResend.value
-                                    ? "Resend"
-                                    : "Resend in ${controller.resendTimer.value}s",
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = controller.canResend.value
-                                      ? controller.resendOtp
-                                      : null,
-                              )
-                            ],
-                          ),
-                        )),
-                      ),
-
-                      Spacer(),
-
-                      Obx(() => controller.isLoading.value
-                          ? Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFFF6F978),
+                              ],
+                            ),
                           ),
                         ),
-                      )
-                          : SizedBox.shrink()),
+                      ),
 
-                      SizedBox(height: 20),
+                      const SizedBox(height: 40),
+
+                      Obx(
+                            () => otpController.isLoading.value
+                            ? const Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFF6F978),
+                            ),
+                          ),
+                        )
+                            : const SizedBox.shrink(),
+                      ),
+
+                      const SizedBox(height: 24),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

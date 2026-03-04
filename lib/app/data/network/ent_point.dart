@@ -17,8 +17,11 @@ class EndPoint {
   /// authentication url
   static String get createUserURL => '$BASE_URL/api/v1/auth/create-account';
   static String get userLoginURL => '$BASE_URL/api/v1/auth/login';
-  // static String get verifyOtpURL => '$BASE_URL/auth/verify-user-by-otp';
-  // static String get resendOtpURL => '$BASE_URL/auth/send-otp-for-verify-email';
+
+  /// otp verify
+  static String get signUpVerify => '$BASE_URL/api/v1/auth/verify-otp';
+  static String get verifyOtpForForgotPasswordURL => '$BASE_URL/api/v1/auth/verify-otp';
+  static String get resendOtpURL => '$BASE_URL/api/v1/auth/send-otp';
 
   static String getSingleUser({required String userId}) => '$BASE_URL/user/single/$userId';
 }

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saharan/resource/app_colours/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
     this.width = double.infinity,
     this.paddingVertical = 12.0,
     this.borderRadius = 100.0,
-    this.buttonColor = const Color(0xFFf8fa78),
+    this.buttonColor = AppColors.mainColor,
     this.border,
     this.titleColor = Colors.black,
     this.widget,
@@ -38,7 +39,9 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return isLoading
         ? Center(
-      child: CircularProgressIndicator())
+      child: CircularProgressIndicator(
+        color: AppColors.mainColor,
+      ))
         : InkWell(
       onTap: onTap,
       child: AnimatedContainer(
@@ -47,7 +50,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(borderRadius),
-          border: border ?? Border.all(color: borderColor ?? Color(0xFFf8fa78)),
+          border: border ?? Border.all(color: borderColor ?? AppColors.mainColor),
           // gradient: LinearGradient(
           //     colors: [Color(0xff4F7E65), Color(0xff002B14)],
           //     begin: Alignment.topCenter,

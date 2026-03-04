@@ -4,4 +4,6 @@ class AppConst {
   static String myId = 'myId';
   static String role = 'role';
   static String signUpVarificationToken = 'signUpVarificationToken';
+  static String forgotToken = 'forgotToken';
+  static String resetToken = 'resetToken';
 }

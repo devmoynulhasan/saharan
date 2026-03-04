@@ -16,6 +16,7 @@ class CustomText extends StatelessWidget {
   final int? maxLines;
   final TextStyle? style;
   final double? letterSpacing;
+  final double? height;
   const CustomText({super.key,
     required this.title,
     this.fontSize=12,
@@ -27,7 +28,7 @@ class CustomText extends StatelessWidget {
     this.textAlign=TextAlign.start,
     this.overflow,
     this.maxLines,
-    this.style, this.letterSpacing,
+    this.style, this.letterSpacing, this.height,
   });
 
   @override
@@ -37,14 +38,15 @@ class CustomText extends StatelessWidget {
       maxLines:maxLines ?? null,
       overflow: overflow,
       textAlign: textAlign,
-      style: style ?? GoogleFonts.poppins(
+      style: style ?? GoogleFonts.sourceSans3(
           fontSize: fontSize,
           color: color,
           fontWeight: fontWeight,
           decoration: decoration,
           decorationColor:decorationColor,
           decorationThickness: decorationThickness,
-          letterSpacing: letterSpacing
+          letterSpacing: letterSpacing,
+        height: height
       ),
     );
   }

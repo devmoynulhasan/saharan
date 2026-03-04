@@ -1,63 +1,65 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:saharan/app/data/utilitis/custom_snackbar.dart';
+import 'package:saharan/app/modules/home/view/home_screen.dart';
+
+import '../../../data/app_const/app_const.dart';
+import '../../../data/local_storage/local_storage.dart';
+import '../../../data/network/base_client.dart';
+import '../../../data/network/ent_point.dart';
 
 class SignInController extends GetxController {
-  RxBool isPasswordVisible = false.obs;
   RxBool rememberMe = false.obs;
+  var isLoading = false.obs;
 
-  // Public controllers (underscore সরিয়ে দিন)
   final TextEditingController emailTEController = TextEditingController();
   final TextEditingController passwordTEController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (!GetUtils.isEmail(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    return null;
-  }
-
-  void togglePasswordVisibility() {
-    isPasswordVisible.value = !isPasswordVisible.value;
-  }
 
   void toggleRememberMe() {
     rememberMe.value = !rememberMe.value;
   }
 
-  void signIn() {
-    if (formKey.currentState!.validate()) {
-      // Sign in logic here
-      String email = emailTEController.text;
-      String password = passwordTEController.text;
-      bool remember = rememberMe.value;
 
-      print('Email: $email');
-      print('Password: $password');
-      print('Remember Me: $remember');
 
-      // API call বা authentication logic এখানে
+  Future<void> signIn() async{
+    try {
+      Map<String, String> header = {
+        'Content-Type': 'application/json',
+      };
+
+      Map<String, dynamic> body = {
+        "email": emailTEController.text,
+        "password": passwordTEController.text
+      };
+
+      final response = await BaseClient.postRequest(
+        api: EndPoint.userLoginURL,
+        body: body,
+        headers: header,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        print(data);
+
+        var accessToken = data['data']['user']['accessToken'];
+        debugPrint('accessToken: $accessToken');
+
+        LocalStorage.saveData(key: AppConst.accessToken, data: accessToken);
+        showCustomSnackBar(message: 'Login success...');
+        Get.offAll(()=>HomeScreen());
+      } else {
+        showCustomSnackBar(message: 'Login failed...');
+        debugPrint('login creation failed');
+      }
+    } catch (e) {
+      debugPrint('login error: $e');
+      Get.rawSnackbar(message:'login failed $e');
+    } finally {
+      isLoading.value = false;
     }
   }
-
-  // @override
-  // void onClose() {
-  //   emailTEController.dispose();
-  //   passwordTEController.dispose();
-  //   super.onClose();
-  // }
 }
 

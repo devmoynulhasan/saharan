@@ -21,7 +21,7 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
   void _navigateAfterDelay() {
     Future.delayed(const Duration(seconds: 2), () {
       if (isLoggedIn == null) {
-        Get.toNamed(AppRoutes.SININSCREEN);
+        Get.offNamed(AppRoutes.SININSCREEN);
       } else {
         // Get.toNamed(AppRoutes.HOMESCREEN);
       }

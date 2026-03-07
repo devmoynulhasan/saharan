@@ -25,6 +25,7 @@ class EndPoint {
 
   /// sinUp ConformPassword
   static String get sinUpConformPassword => '$BASE_URL/api/v1/auth/confirm-signup';
+  static String get singUpProfile => '$BASE_URL/api/v1/auth/update-profile';
 
 
   static String getSingleUser({required String userId}) => '$BASE_URL/user/single/$userId';

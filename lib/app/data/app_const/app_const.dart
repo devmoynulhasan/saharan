@@ -6,4 +6,5 @@ class AppConst {
   static String signUpVarificationToken = 'signUpVarificationToken';
   static String forgotToken = 'forgotToken';
   static String resetToken = 'resetToken';
+  static const String userEmail = 'userEmail';
 }

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:saharan/app/data/network/base_client.dart';
 import 'package:saharan/app/data/network/ent_point.dart';
 import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
+import '../../../data/app_const/app_const.dart';
+import '../../../data/local_storage/local_storage.dart';
 import '../screen/sign_up_profile.dart';
 
 class SignUpConformPasswordController extends GetxController {
@@ -97,9 +99,9 @@ class SignUpConformPasswordController extends GetxController {
       debugPrint('Response: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // ✅ response এ accessToken নেই, তাই সরাসরি navigate করো
+        LocalStorage.saveData(key: AppConst.userEmail, data: email); // ✅ email save
         showCustomSnackBar(message: 'Sign up success!');
-        Get.off(() => SignUpProfile()); // ✅ সরাসরি ProfileScreen এ যাবে
+        Get.off(() => SignUpProfile());
       } else {
         final errorData = jsonDecode(response.body);
         showCustomSnackBar(

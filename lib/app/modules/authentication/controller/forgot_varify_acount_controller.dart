@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:saharan/app/modules/authentication/screen/forgot_conform_password.dart';
 
 class ForgotOtpController extends GetxController {
+  final String email;
+  ForgotOtpController({required this.email});
+
   var currentOtp = ''.obs;
   var contactType = ''.obs;
   var contactValue = ''.obs;

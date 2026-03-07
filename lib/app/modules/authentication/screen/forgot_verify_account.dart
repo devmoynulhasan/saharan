@@ -8,11 +8,14 @@ import 'package:saharan/app/modules/authentication/widget/background_color.dart'
 
 
 class ForgotVerifyAccount extends StatelessWidget {
-  const ForgotVerifyAccount({super.key});
+  final String email;
+  const ForgotVerifyAccount({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    final ForgotOtpController controller = Get.put(ForgotOtpController());
+    final ForgotOtpController controller = Get.put(
+      ForgotOtpController(email: email),
+    );
 
     return Scaffold(
       body: GradientBackground(

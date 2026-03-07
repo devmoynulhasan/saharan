@@ -93,36 +93,46 @@ class Forgot_Weg extends StatelessWidget {
             Spacer(),
 
             // Continue Button
-            GestureDetector(
-              onTap: controller.continueToOTP,
+            // Forgot_Weg এ button ঠিক করো
+            Obx(() => GestureDetector(
+              onTap: controller.isLoading.value
+                  ? null
+                  : () => controller.continueToOTP(), // ✅
               child: Container(
                 width: double.infinity,
                 height: 52,
                 decoration: BoxDecoration(
-                  color: Color(0xFFF6F978),
+                  color: const Color(0xFFF6F978),
                   borderRadius: BorderRadius.circular(26),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Continue",
-                      style: GoogleFonts.manrope(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF0A3D3E),
+                child: Center(
+                  child: controller.isLoading.value
+                      ? const CircularProgressIndicator(
+                    color: Color(0xFF0A3D3E),
+                    strokeWidth: 2,
+                  )
+                      : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Continue",
+                        style: GoogleFonts.manrope(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF0A3D3E),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Color(0xFF0A3D3E),
-                      size: 20,
-                    ),
-                  ],
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.arrow_forward,
+                        color: Color(0xFF0A3D3E),
+                        size: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            )),
             SizedBox(height: 50),
           ],
         ),

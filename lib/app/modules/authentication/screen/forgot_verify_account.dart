@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:saharan/app/modules/authentication/controller/forgot_varify_acount_controller.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
-
+import '../controller/otp_verification_controller.dart';
 
 class ForgotVerifyAccount extends StatelessWidget {
   final String email;
@@ -13,8 +12,10 @@ class ForgotVerifyAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ForgotOtpController controller = Get.put(
-      ForgotOtpController(email: email),
+    // ✅ type ঠিক করা হয়েছে, tag দেওয়া হয়েছে
+    final OtpVerificationController controller = Get.put(
+      OtpVerificationController(email: email),
+      tag: 'forgot',
     );
 
     return Scaffold(
@@ -29,9 +30,7 @@ class ForgotVerifyAccount extends StatelessWidget {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: () => Get.back(),
                         child: Container(
                           height: 40,
                           width: 40,
@@ -46,11 +45,8 @@ class ForgotVerifyAccount extends StatelessWidget {
                             color: Color(0xFF053030),
                           ),
                           child: Center(
-                            child: Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Color(0xFFF6F978),
-                              size: 20,
-                            ),
+                            child: Icon(Icons.arrow_back_ios_new,
+                                color: Color(0xFFF6F978), size: 20),
                           ),
                         ),
                       ),
@@ -83,31 +79,26 @@ class ForgotVerifyAccount extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 12),
-                      Obx(() {
-                        return RichText(
-                          text: TextSpan(
-                            style: TextStyle(
+                      // ✅ contactType/Value সরিয়ে সরাসরি email দেখানো হচ্ছে
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
                               fontSize: 14,
                               color: Color(0xFFb1b2bd),
-                              height: 1.5,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: controller.contactType.value == 'email'
-                                    ? "Enter the verification code we sent to your email "
-                                    : "Enter the verification code we sent to your phone ",
-                              ),
-                              TextSpan(
-                                text: controller.contactValue.value,
-                                style: TextStyle(
+                              height: 1.5),
+                          children: [
+                            TextSpan(
+                                text:
+                                "Enter the verification code we sent to "),
+                            TextSpan(
+                              text: email,
+                              style: TextStyle(
                                   color: Color(0xFFF6F978),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 24),
                       PinCodeTextField(
                         length: 4,
@@ -130,15 +121,15 @@ class ForgotVerifyAccount extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         enableActiveFill: true,
                         appContext: context,
-                        onChanged: (value) {
-                          controller.updateOtp(value);
-                        },
+                        onChanged: (value) {},
+                        // ✅ সঠিক method call
                         onCompleted: (value) {
-                          controller.verifyOTP();
+                          controller.forgotOtpVerify(otp: value);
                         },
                       ),
                       SizedBox(height: 24),
-                      Center(
+                      // ✅ Obx দিয়ে timer দেখানো হচ্ছে
+                      Obx(() => Center(
                         child: RichText(
                           text: TextSpan(
                             style: GoogleFonts.sourceSans3(
@@ -147,28 +138,34 @@ class ForgotVerifyAccount extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               letterSpacing: 0.5,
                             ),
-                            text: " Didn't get OTP? ",
+                            text: controller.enableResend.value
+                                ? " Didn't get OTP? "
+                                : " Resend in ${controller.secondsRemaining.value}s ",
                             children: [
-                              TextSpan(
-                                style: GoogleFonts.sourceSans3(
-                                  color: Color(0xFFF6F978),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                              if (controller.enableResend.value)
+                                TextSpan(
+                                  style: GoogleFonts.sourceSans3(
+                                    color: Color(0xFFF6F978),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                  text: controller.isResendLoading.value
+                                      ? "Sending..."
+                                      : "Resend",
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      controller.forgotResendCode(
+                                          email: email);
+                                    },
                                 ),
-                                text: "Resend",
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    controller.resendOTP();
-                                  },
-                              )
                             ],
                           ),
                         ),
-                      ),
+                      )),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/forgot_conform_password_controller.dart';
 
-class forgot_confrom_password_weg extends StatelessWidget {
-  const forgot_confrom_password_weg({
+class ForgotConformPasswordWidget extends StatelessWidget {
+  const ForgotConformPasswordWidget({
     super.key,
     required this.controller,
   });
@@ -148,8 +148,8 @@ class forgot_confrom_password_weg extends StatelessWidget {
             Spacer(),
 
             // Reset Password Button
-            GestureDetector(
-              onTap: controller.resetPassword,
+            Obx(() => GestureDetector(
+              onTap: controller.isLoading.value ? null : controller.resetPassword,
               child: Container(
                 width: double.infinity,
                 height: 52,
@@ -157,24 +157,24 @@ class forgot_confrom_password_weg extends StatelessWidget {
                   color: Color(0xFFF6F978),
                   borderRadius: BorderRadius.circular(26),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Set New Password",
-                      style: GoogleFonts.manrope(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF0A3D3E),
-                      ),
+                child: Center(
+                  child: controller.isLoading.value
+                      ? CircularProgressIndicator(
+                    color: Color(0xFF0A3D3E),
+                    strokeWidth: 2,
+                  )
+                      : Text(
+                    "Set New Password",
+                    style: GoogleFonts.manrope(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0A3D3E),
                     ),
-                    SizedBox(width: 8),
-
-                  ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
+            )),
+            SizedBox(height: 0),
           ],
         ),
       ),

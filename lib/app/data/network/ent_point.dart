@@ -30,6 +30,7 @@ class EndPoint {
   //forget password
 
   static String get  forgotPasswordURL => '$BASE_URL/api/v1/auth/send-otp';
+  static String get  forgotConformPasswordURL => '$BASE_URL/api/v1/auth/confirm-signup';
 
 
   static String getSingleUser({required String userId}) => '$BASE_URL/user/single/$userId';

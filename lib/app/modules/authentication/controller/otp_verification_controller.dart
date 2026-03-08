@@ -1,20 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:saharan/app/data/utilitis/custom_snackbar.dart';
-import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
+import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
 import '../../../data/app_const/app_const.dart';
 import '../../../data/local_storage/local_storage.dart';
 import '../../../data/network/base_client.dart';
 import '../../../data/network/ent_point.dart';
 import '../screen/sin_up_conform_password.dart';
+import '../screen/forgot_conform_password.dart'; // ✅ import
 
 class OtpVerificationController extends GetxController {
-  final otpController = TextEditingController();
-
-  final String email; // ✅ email যোগ করা হয়েছে
+  // ❌ TextEditingController সরানো হয়েছে
+  final String email;
   OtpVerificationController({required this.email});
 
   var isLoading = false.obs;
@@ -34,7 +32,6 @@ class OtpVerificationController extends GetxController {
     enableResend.value = false;
     secondsRemaining.value = 60;
     _timer?.cancel();
-
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining.value > 0) {
         secondsRemaining.value--;
@@ -49,7 +46,6 @@ class OtpVerificationController extends GetxController {
     isLoading.value = true;
     try {
       final token = LocalStorage.getData(key: AppConst.signUpVarificationToken);
-
       final response = await BaseClient.postRequest(
         api: EndPoint.signUpVerify,
         headers: {
@@ -58,18 +54,12 @@ class OtpVerificationController extends GetxController {
         },
         body: {"otp": otp},
       );
-
       final responseBody = jsonDecode(response.body);
-
       if (responseBody['success'] == true) {
-        showCustomSnackBar(
-          message: 'OTP verified successfully!',
-          type: SnackType.success,
-        );
         LocalStorage.removeData(key: AppConst.signUpVarificationToken);
-
-        // ✅ email pass করা হচ্ছে
         Get.offAll(() => SinUpConformPassword(email: email));
+        Get.snackbar('Success', 'OTP verified successfully!',
+            snackPosition: SnackPosition.TOP);
       } else {
         showCustomSnackBar(
           message: responseBody['message'] ?? 'Invalid OTP',
@@ -94,31 +84,22 @@ class OtpVerificationController extends GetxController {
         headers: {'Content-Type': 'application/json'},
         body: {"email": email},
       );
-
       final data = jsonDecode(response.body);
-
       if (response.statusCode == 200 && data['success'] == true) {
         startTimer();
         final newToken = data['data']['verifyEmailToken'];
         LocalStorage.saveData(
-          key: AppConst.signUpVarificationToken,
-          data: newToken,
-        );
+            key: AppConst.signUpVarificationToken, data: newToken);
         showCustomSnackBar(
-          message: 'New OTP sent successfully',
-          type: SnackType.success,
-        );
+            message: 'New OTP sent successfully', type: SnackType.success);
       } else {
         showCustomSnackBar(
-          message: data['message'] ?? 'Failed to resend OTP',
-          type: SnackType.error,
-        );
+            message: data['message'] ?? 'Failed to resend OTP',
+            type: SnackType.error);
       }
     } catch (e) {
       showCustomSnackBar(
-        message: 'Error resending OTP',
-        type: SnackType.error,
-      );
+          message: 'Error resending OTP', type: SnackType.error);
     } finally {
       isResendLoading.value = false;
     }
@@ -129,7 +110,12 @@ class OtpVerificationController extends GetxController {
     try {
       final token = LocalStorage.getData(key: AppConst.forgotToken);
 
-      final response = await http.patch(
+      print('=== FORGOT OTP VERIFY ===');
+      print('Token: $token');
+      print('OTP: $otp');
+      print('URL: ${EndPoint.verifyOtpForForgotPasswordURL}');
+
+      final response = await http.post(
         Uri.parse(EndPoint.verifyOtpForForgotPasswordURL),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -138,26 +124,24 @@ class OtpVerificationController extends GetxController {
         body: jsonEncode({"otp": otp}),
       );
 
-      final responseBody = jsonDecode(response.body);
+      print('StatusCode: ${response.statusCode}');
+      print('Response: ${response.body}');
 
+      final responseBody = jsonDecode(response.body);
       if (response.statusCode == 200 && responseBody['success'] == true) {
         final resetToken = responseBody['data']['resetToken'];
         LocalStorage.saveData(key: AppConst.resetToken, data: resetToken);
-        showCustomSnackBar(
-          message: 'OTP verified. Now reset your password',
-          type: SnackType.success,
-        );
+        Get.offAll(() => ForgotConformPassword(email: email));
+        Get.snackbar('Success', 'OTP verified. Now reset your password',
+            snackPosition: SnackPosition.TOP);
       } else {
         showCustomSnackBar(
-          message: responseBody['message'] ?? 'Invalid OTP',
-          type: SnackType.error,
-        );
+            message: responseBody['message'] ?? 'Invalid OTP',
+            type: SnackType.error);
       }
     } catch (e) {
       showCustomSnackBar(
-        message: 'Verification failed',
-        type: SnackType.error,
-      );
+          message: 'Verification failed', type: SnackType.error);
     } finally {
       isLoading.value = false;
     }
@@ -171,28 +155,21 @@ class OtpVerificationController extends GetxController {
         headers: {'Content-Type': 'application/json; charset=utf-8'},
         body: jsonEncode({"email": email}),
       );
-
       final data = jsonDecode(response.body);
-
       if (response.statusCode == 200 && data['success'] == true) {
         startTimer();
         final newToken = data['data']['resetToken'];
         LocalStorage.saveData(key: AppConst.forgotToken, data: newToken);
         showCustomSnackBar(
-          message: 'New OTP sent to your email',
-          type: SnackType.success,
-        );
+            message: 'New OTP sent to your email', type: SnackType.success);
       } else {
         showCustomSnackBar(
-          message: data['message'] ?? 'Failed to resend OTP',
-          type: SnackType.error,
-        );
+            message: data['message'] ?? 'Failed to resend OTP',
+            type: SnackType.error);
       }
     } catch (e) {
       showCustomSnackBar(
-        message: 'Error resending OTP',
-        type: SnackType.error,
-      );
+          message: 'Error resending OTP', type: SnackType.error);
     } finally {
       isResendLoading.value = false;
     }
@@ -201,7 +178,7 @@ class OtpVerificationController extends GetxController {
   @override
   void onClose() {
     _timer?.cancel();
-    otpController.dispose();
+    // ❌ otpController.dispose() সরানো হয়েছে
     super.onClose();
   }
 }

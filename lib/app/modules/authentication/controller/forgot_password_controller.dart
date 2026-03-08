@@ -5,6 +5,8 @@ import 'package:saharan/app/data/network/base_client.dart';
 import 'package:saharan/app/data/network/ent_point.dart';
 import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
 import 'package:saharan/app/modules/authentication/screen/forgot_verify_account.dart';
+import '../../../data/app_const/app_const.dart';
+import '../../../data/local_storage/local_storage.dart';
 
 class ForgotPasswordController extends GetxController {
   var isLoading = false.obs;
@@ -39,33 +41,29 @@ class ForgotPasswordController extends GetxController {
   Future<void> createForgetPasswordUser() async {
     isLoading.value = true;
     try {
-      Map<String, String> header = {
-        'Content-Type': 'application/json',
-      };
-
-      Map<String, dynamic> body = {
-        "email": emailController.text.trim(),
-      };
-
-      debugPrint('Forgot password email: ${emailController.text}');
-
       final response = await BaseClient.postRequest(
-        api: EndPoint.forgotPasswordURL, // ✅ সঠিক endpoint
-        body: body,
-        headers: header,
+        api: EndPoint.forgotPasswordURL,
+        body: {"email": emailController.text.trim()},
+        headers: {'Content-Type': 'application/json'},
       );
 
       debugPrint('StatusCode: ${response.statusCode}');
       debugPrint('Response: ${response.body}');
 
+      final data = jsonDecode(response.body);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // ✅ data নেই তাই token save করার দরকার নেই
-        showCustomSnackBar(message: 'OTP sent to your email!');
+        LocalStorage.saveData(
+          key: AppConst.forgotToken,
+          data: emailController.text.trim(),
+        );
+
+        // ✅ আগে navigate, তারপর snackbar
         Get.to(() => ForgotVerifyAccount(email: emailController.text.trim()));
+        showCustomSnackBar(message: 'OTP sent to your email!');
       } else {
-        final errorData = jsonDecode(response.body);
         showCustomSnackBar(
-          message: errorData['message'] ?? 'Failed to send OTP',
+          message: data['message'] ?? 'Failed to send OTP',
         );
       }
     } catch (e) {

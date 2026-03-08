@@ -38,7 +38,7 @@ final List<GetPage> routes = [
   GetPage(name: AppRoutes.SINUPPROFILEPHOTO, page: () => SignUpProfilePhoto(), binding: SinUpProfilePhotoBinding(),),
   GetPage(name: AppRoutes.FORGOTPASSWORD, page: () => ForgotPassword(), binding: ForgotPasswordBinding(),),
   //GetPage(name: AppRoutes.FORGOTVARIFYACCOUNT, page: () => ForgotVerifyAccount(email: '',), binding: ForgotVarifyBinging(),),
-  GetPage(name: AppRoutes.FORGOTCONFORMPASSWORD, page: () => ForgotConformPassword(), binding: ForgotConformPasswordBinding(),),
+  //GetPage(name: AppRoutes.FORGOTCONFORMPASSWORD, page: () => ForgotConformPassword(), binding: ForgotConformPasswordBinding(),),
 
 
 

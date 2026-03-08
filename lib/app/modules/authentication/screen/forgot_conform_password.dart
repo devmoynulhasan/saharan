@@ -6,11 +6,14 @@ import 'package:saharan/app/modules/authentication/controller/forgot_conform_pas
 import 'package:saharan/app/modules/authentication/widget/forget_confrom_password.dart';
 
 class ForgotConformPassword extends StatelessWidget {
-  const ForgotConformPassword({super.key});
+  final String email; // ✅ email যোগ করা হয়েছে
+  const ForgotConformPassword({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    final ForgotConformPasswordController controller = Get.put(ForgotConformPasswordController());
+    final ForgotConformPasswordController controller = Get.put(
+      ForgotConformPasswordController(email: email), // ✅ email pass করা হচ্ছে
+    );
 
     return Scaffold(
       body: GradientBackground(
@@ -24,9 +27,7 @@ class ForgotConformPassword extends StatelessWidget {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: () => Get.back(),
                         child: Container(
                           height: 40,
                           width: 40,
@@ -62,8 +63,7 @@ class ForgotConformPassword extends StatelessWidget {
                   ),
                 ),
               ),
-
-              forgot_confrom_password_weg(controller: controller),
+              ForgotConformPasswordWidget(controller: controller),
             ],
           ),
         ),

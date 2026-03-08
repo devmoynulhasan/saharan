@@ -95,7 +95,7 @@ class SignUpVarifyOtp extends StatelessWidget {
                       const SizedBox(height: 40),
 
                       PinCodeTextField(
-                        controller: otpController.otpController,
+                        // ❌ controller: otpController.otpController, → সরানো হয়েছে
                         length: 4,
                         obscureText: false,
                         animationType: AnimationType.fade,

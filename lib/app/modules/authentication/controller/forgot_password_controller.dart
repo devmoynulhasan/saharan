@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saharan/app/data/app_const/app_const.dart';
-import 'package:saharan/app/data/local_storage/local_storage.dart';
 import 'package:saharan/app/data/network/base_client.dart';
 import 'package:saharan/app/data/network/ent_point.dart';
 import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPosition;
 import 'package:saharan/app/modules/authentication/screen/forgot_verify_account.dart';
 
 class ForgotPasswordController extends GetxController {
-  var isLoading = false.obs; // ✅ ঠিক করা হয়েছে
+  var isLoading = false.obs;
   final emailController = TextEditingController();
 
-  Future<void> continueToOTP() async { // ✅ async করা হয়েছে
+  Future<void> continueToOTP() async {
     String email = emailController.text.trim();
 
     if (email.isEmpty) {
@@ -35,7 +33,7 @@ class ForgotPasswordController extends GetxController {
       return;
     }
 
-    await createForgetPasswordUser(); // ✅ API call করো
+    await createForgetPasswordUser();
   }
 
   Future<void> createForgetPasswordUser() async {

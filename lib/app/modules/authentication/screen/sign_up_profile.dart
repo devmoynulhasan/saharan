@@ -157,7 +157,7 @@ class SignUpProfile extends StatelessWidget {
                   ),
                 )),
 
-                SizedBox(height: 32),
+                SizedBox(height: 12),
               ],
             ),
           ),

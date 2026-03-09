@@ -42,17 +42,18 @@ class SignInController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
-        print(data);
 
-        var accessToken = data['data']['user']['accessToken'];
-        debugPrint('accessToken: $accessToken');
+        // ✅ user বাদ দাও
+        var accessToken = data['data']['accessToken'];
+        var refreshToken = data['data']['refreshToken'];
+        var role = data['data']['role'];
 
         LocalStorage.saveData(key: AppConst.accessToken, data: accessToken);
+        LocalStorage.saveData(key: AppConst.refreshToken, data: refreshToken);
+        LocalStorage.saveData(key: AppConst.role, data: role);
+
+        Get.offAll(() => HomeScreen());
         showCustomSnackBar(message: 'Login success...');
-        Get.offAll(()=>HomeScreen());
-      } else {
-        showCustomSnackBar(message: 'Login failed...');
-        debugPrint('login creation failed');
       }
     } catch (e) {
       debugPrint('login error: $e');

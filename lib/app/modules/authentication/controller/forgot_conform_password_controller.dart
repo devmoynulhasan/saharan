@@ -80,8 +80,7 @@ class ForgotConformPasswordController extends GetxController {
       final responseBody = jsonDecode(response.body);
 
       if (response.statusCode == 200 && responseBody['success'] == true) {
-        LocalStorage.removeData(key: AppConst.resetToken); // ✅ token মুছে দাও
-        // ✅ আগে navigate, পরে snackbar
+        LocalStorage.removeData(key: AppConst.resetToken);
         Get.offAll(() => SinInScreen());
         Get.snackbar('Success', 'Password reset successfully!',
             snackPosition: SnackPosition.TOP,

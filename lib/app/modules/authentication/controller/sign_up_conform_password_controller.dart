@@ -30,45 +30,33 @@ class SignUpConformPasswordController extends GetxController {
 
   bool validatePasswords() {
     if (passwordController.text.isEmpty) {
-      Get.snackbar(
-        'Error', 'Please enter a password',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Please enter a password',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (passwordController.text.length < 6) {
-      Get.snackbar(
-        'Error', 'Password must be at least 6 characters',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Password must be at least 6 characters',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (confirmPasswordController.text.isEmpty) {
-      Get.snackbar(
-        'Error', 'Please confirm your password',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Please confirm your password',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (passwordController.text != confirmPasswordController.text) {
-      Get.snackbar(
-        'Error', 'Passwords do not match',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Passwords do not match',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     return true;
   }
 
@@ -78,12 +66,7 @@ class SignUpConformPasswordController extends GetxController {
     try {
       isLoading.value = true;
 
-      debugPrint('Email being sent: $email');
-
-      Map<String, String> header = {
-        'Content-Type': 'application/json',
-      };
-
+      Map<String, String> header = {'Content-Type': 'application/json'};
       Map<String, dynamic> body = {
         "email": email,
         "password": passwordController.text,
@@ -95,28 +78,26 @@ class SignUpConformPasswordController extends GetxController {
         headers: header,
       );
 
-      debugPrint('StatusCode: ${response.statusCode}');
-      debugPrint('Response: ${response.body}');
-
       if (response.statusCode == 200 || response.statusCode == 201) {
-        LocalStorage.saveData(key: AppConst.userEmail, data: email); // ✅ email save
+        final data = jsonDecode(response.body);
+        final userId = data['data']['_id'];
+        debugPrint('userId: $userId');
+
+        LocalStorage.saveData(key: AppConst.userEmail, data: email);
         showCustomSnackBar(message: 'Sign up success!');
-        Get.off(() => SignUpProfile());
+
+        // ✅ LocalStorage বাদ দিয়ে সরাসরি pass করো
+        Get.off(() => SignUpProfile(userId: userId ?? ''));
       } else {
         final errorData = jsonDecode(response.body);
-        showCustomSnackBar(
-          message: errorData['message'] ?? 'Sign up failed...',
-        );
-        debugPrint('sign up failed: ${response.body}');
+        showCustomSnackBar(message: errorData['message'] ?? 'Sign up failed...');
       }
     } catch (e) {
       debugPrint('sign up error: $e');
-      Get.snackbar(
-        'Error', 'Sign up failed: $e',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Sign up failed: $e',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
     }

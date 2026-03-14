@@ -46,6 +46,7 @@ dependencies:
   get_storage: ^2.1.1
   #  env
   flutter_dotenv: ^6.0.0
+  http_parser: ^4.1.2
   # Changed from ^1.1.1 to ^1.1.0
 
 

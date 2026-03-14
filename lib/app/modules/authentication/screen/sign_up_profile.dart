@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/sin_up_profile_controller.dart';
-import 'package:saharan/app/modules/authentication/screen/sign_up_profile_photo.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 
 class SignUpProfile extends StatelessWidget {
-  const SignUpProfile({super.key});
+  final String userId; // ✅ this. যোগ করা হয়েছে
+  const SignUpProfile({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
-    final SignUpProfileController controller = Get.put(SignUpProfileController());
+    final controller = Get.put(SignUpProfileController(userId: userId));
 
     return Scaffold(
       body: GradientBackground(
@@ -21,10 +21,7 @@ class SignUpProfile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 36),
-
                 SizedBox(height: 32),
-
-                // Title
                 Text(
                   "Set Up Your Profile",
                   style: GoogleFonts.orbitron(
@@ -33,10 +30,7 @@ class SignUpProfile extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-
                 SizedBox(height: 12),
-
-                // Subtitle
                 Text(
                   "Tell us your name so we can personalize your experience",
                   style: GoogleFonts.sourceSans3(
@@ -45,21 +39,15 @@ class SignUpProfile extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
-
                 SizedBox(height: 24),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "First Name",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Text("First Name",
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
                     SizedBox(height: 8),
                     TextFormField(
-                      controller: controller.firstNameController, // Controller যোগ করুন
+                      controller: controller.firstNameController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: 'Write your first name',
@@ -68,29 +56,27 @@ class SignUpProfile extends StatelessWidget {
                         fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                          borderSide: BorderSide(
+                              color: Colors.white.withOpacity(0.3)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                          borderSide: BorderSide(
+                              color: Colors.white.withOpacity(0.3)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                          borderSide:
+                          BorderSide(color: Color(0xFFF6F978), width: 2),
                         ),
                       ),
                     ),
                     SizedBox(height: 24),
-                    Text(
-                      "Last Name",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Text("Last Name",
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
                     SizedBox(height: 8),
                     TextFormField(
-                      controller: controller.lastNameController, // Controller যোগ করুন
+                      controller: controller.lastNameController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: 'Write your last name',
@@ -99,24 +85,24 @@ class SignUpProfile extends StatelessWidget {
                         fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                          borderSide: BorderSide(
+                              color: Colors.white.withOpacity(0.3)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                          borderSide: BorderSide(
+                              color: Colors.white.withOpacity(0.3)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Color(0xFFF6F978), width: 2),
+                          borderSide:
+                          BorderSide(color: Color(0xFFF6F978), width: 2),
                         ),
                       ),
                     ),
                   ],
                 ),
-
                 Spacer(),
-
-                // Bottom Button
                 Obx(() => GestureDetector(
                   onTap: controller.isLoading.value
                       ? null
@@ -156,7 +142,6 @@ class SignUpProfile extends StatelessWidget {
                     ),
                   ),
                 )),
-
                 SizedBox(height: 12),
               ],
             ),

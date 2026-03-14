@@ -108,7 +108,7 @@ class Sign_Up_profile_Photo_Widget extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 60), // ✅ Spacer() এর বদলে SizedBox
+            const SizedBox(height: 60),
 
             // Skip for now button
             Center(

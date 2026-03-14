@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/controller/sign_up_profile_photo_controller.dart';
-import 'package:saharan/app/modules/authentication/screen/sin_in_screen.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/app/modules/authentication/widget/sign_up_profile_photo_weg.dart';
 
-
-
 class SignUpProfilePhoto extends StatelessWidget {
-  const SignUpProfilePhoto({super.key});
+  final String userId; // ✅ যোগ করা হয়েছে
+  const SignUpProfilePhoto({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
-    final SignUpProfilePhotoController controller = Get.put(SignUpProfilePhotoController());
+    // ✅ userId pass করা হয়েছে
+    final SignUpProfilePhotoController controller = Get.put(
+      SignUpProfilePhotoController(userId: userId),
+    );
 
     return Scaffold(
       body: GradientBackground(
@@ -24,12 +25,8 @@ class SignUpProfilePhoto extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 16),
-
-                // Back Button
                 GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
+                  onTap: () => Get.back(),
                   child: Container(
                     height: 40,
                     width: 40,
@@ -52,10 +49,7 @@ class SignUpProfilePhoto extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 32),
-
-                // Title
                 Text(
                   "Add a Profile Photo",
                   style: GoogleFonts.orbitron(
@@ -65,10 +59,7 @@ class SignUpProfilePhoto extends StatelessWidget {
                     letterSpacing: 0.5,
                   ),
                 ),
-
                 SizedBox(height: 12),
-
-                // Subtitle
                 Text(
                   "Upload a photo to personalize your profile",
                   style: GoogleFonts.sourceSans3(
@@ -77,23 +68,15 @@ class SignUpProfilePhoto extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
-
                 SizedBox(height: 60),
-
-                // Profile Photo Circle with Image
-               Sign_Up_profile_Photo_Widget(controller: controller),
-
-                // Get Started Button (Enabled/Disabled based on image)
+                Sign_Up_profile_Photo_Widget(controller: controller),
                 Obx(() {
                   bool isEnabled = controller.selectedImage.value != null;
+                  bool isLoading = controller.isLoading.value;
 
                   return GestureDetector(
-                    onTap: isEnabled
-                        ? () {
-                      // Get started action
-                      print("Get Started tapped");
-                       Get.to( SinInScreen());
-                    }
+                    onTap: isEnabled && !isLoading
+                        ? () => controller.uploadProfilePhoto()
                         : null,
                     child: Container(
                       width: double.infinity,
@@ -104,7 +87,13 @@ class SignUpProfilePhoto extends StatelessWidget {
                             : Color(0xFF00595B).withOpacity(0.7),
                         borderRadius: BorderRadius.circular(28),
                       ),
-                      child: Row(
+                      child: isLoading
+                          ? Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF0A3D3E),
+                        ),
+                      )
+                          : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -130,7 +119,6 @@ class SignUpProfilePhoto extends StatelessWidget {
                     ),
                   );
                 }),
-
                 SizedBox(height: 32),
               ],
             ),
@@ -140,4 +128,3 @@ class SignUpProfilePhoto extends StatelessWidget {
     );
   }
 }
-

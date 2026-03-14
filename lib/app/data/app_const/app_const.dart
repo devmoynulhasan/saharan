@@ -7,4 +7,5 @@ class AppConst {
   static String forgotToken = 'forgotToken';
   static String resetToken = 'resetToken';
   static const String userEmail = 'userEmail';
+  static const String userId = 'userId';
 }

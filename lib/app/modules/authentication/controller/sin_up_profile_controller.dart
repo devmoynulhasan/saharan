@@ -9,6 +9,9 @@ import 'package:saharan/app/data/utilitis/custom_snackbar.dart' hide SnackPositi
 import '../screen/sign_up_profile_photo.dart';
 
 class SignUpProfileController extends GetxController {
+  final String userId; // ✅ যোগ করা হয়েছে
+  SignUpProfileController({required this.userId});
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
@@ -16,45 +19,33 @@ class SignUpProfileController extends GetxController {
 
   bool validateProfile() {
     if (firstNameController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Error', 'Please enter your first name',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Please enter your first name',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (firstNameController.text.trim().length < 2) {
-      Get.snackbar(
-        'Error', 'First name must be at least 2 characters',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'First name must be at least 2 characters',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (lastNameController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Error', 'Please enter your last name',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Please enter your last name',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     if (lastNameController.text.trim().length < 2) {
-      Get.snackbar(
-        'Error', 'Last name must be at least 2 characters',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Last name must be at least 2 characters',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
-
     return true;
   }
 
@@ -64,24 +55,18 @@ class SignUpProfileController extends GetxController {
     try {
       isLoading.value = true;
 
-      final accessToken = LocalStorage.getData(key: AppConst.accessToken);
-      final email = LocalStorage.getData(key: AppConst.userEmail); // ✅ email LocalStorage থেকে
+      final email = LocalStorage.getData(key: AppConst.userEmail);
 
-      debugPrint('accessToken: $accessToken');
+      debugPrint('userId: $userId');
       debugPrint('email: $email');
       debugPrint('firstName: ${firstNameController.text}');
       debugPrint('lastName: ${lastNameController.text}');
 
-      // ✅ form-data multipart request
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(EndPoint.singUpProfile),
       );
 
-      // ✅ Authorization header
-      request.headers['Authorization'] = 'Bearer $accessToken';
-
-      // ✅ data field এ email সহ JSON
       request.fields['data'] = jsonEncode({
         "firstName": firstNameController.text.trim(),
         "lastName": lastNameController.text.trim(),
@@ -98,21 +83,18 @@ class SignUpProfileController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         showCustomSnackBar(message: 'Profile saved!');
-        Get.off(() => SignUpProfilePhoto());
+        Get.off(() => SignUpProfilePhoto(userId: userId)); // ✅ userId pass
       } else {
         final errorData = jsonDecode(response.body);
         showCustomSnackBar(
-          message: errorData['message'] ?? 'Profile update failed',
-        );
+            message: errorData['message'] ?? 'Profile update failed');
       }
     } catch (e) {
       debugPrint('profile error: $e');
-      Get.snackbar(
-        'Error', 'Profile update failed: $e',
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Error', 'Profile update failed: $e',
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
     }

@@ -5,6 +5,8 @@ import 'package:saharan/app/modules/home/view/account/account_setting.dart';
 import 'package:saharan/app/modules/home/view/account/spending_history.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
+import '../../view/account/premium_plan.dart';
+
 class Account_Mote_Tools extends StatelessWidget {
   const Account_Mote_Tools({super.key});
 
@@ -78,13 +80,52 @@ class Account_Mote_Tools extends StatelessWidget {
               ),
             ),
           ),
+          const Divider(color: Color(0xFF215051), height: 1),
+
+          // ─── Education ───
+          InkWell(
+            onTap: () {
+               Get.to(PremiumPlan());
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded( // ✅
+                    child: Row(
+                      children: [
+                       Image.asset(AssetPaths.premium_plan, height: 24, width: 24),
+
+                        const SizedBox(width: 10),
+                        Flexible( // ✅
+                          child: Text(
+                            'Premium Plan',
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.sourceSans3(
+                              fontSize: 16,
+                              color: const Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.asset(AssetPaths.back_icon, height: 24, width: 7),
+                ],
+              ),
+            ),
+          ),
 
           const Divider(color: Color(0xFF215051), height: 1),
 
           // ─── Account Settings ───
           InkWell(
             borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
-            onTap: () => Get.to(AccountSetting()),
+            onTap: () =>
+                Get.to(AccountSetting()
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
               child: Row(

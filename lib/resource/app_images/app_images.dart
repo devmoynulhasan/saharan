@@ -22,6 +22,7 @@ class AssetPaths{
   static const String terms ='assets/images/account_terms.png';
   static const String logout ='assets/images/Logout.png';
   static const String back_icon ='assets/images/account_back_icon.png';
+  static const String premium_plan = 'assets/images/premium_plan.png';
 
   //Favourites
 

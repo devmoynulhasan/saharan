@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
+import 'AIPredication.dart' show AIPrediction;
 import 'matches_headtoheadtab.dart';
 import 'matches_overviewtab.dart';
 import 'matches_riskanalysistab.dart';
@@ -136,6 +137,14 @@ class MatchesDetails extends StatelessWidget {
                           onTap: () => controller.changeTab(2),
                         ),
                       ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: CustomTab(
+                          text: 'AI Prediction',
+                          isSelected: controller.selectedIndex.value == 3, // ✅ fix
+                          onTap: () => controller.changeTab(3),            // ✅ fix
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -150,6 +159,8 @@ class MatchesDetails extends StatelessWidget {
                       return HeadToHeadTab();
                     case 2:
                       return RiskAnalysisTab();
+                    case 3:
+                      return AIPrediction();   // ✅ fix
                     default:
                       return OverviewTab();
                   }

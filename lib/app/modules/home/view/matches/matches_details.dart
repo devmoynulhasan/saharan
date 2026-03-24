@@ -192,7 +192,7 @@ class CustomTab extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFFF6F978) : const Color(0xFF0D3B3B),
           borderRadius: BorderRadius.circular(100),
@@ -202,11 +202,13 @@ class CustomTab extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
+            maxLines: 2,              // ✅ 2 লাইনে দেখাবে
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: isSelected
                   ? const Color(0xFF053030)
                   : const Color(0xFF7A9999),
-              fontSize: 14,
+              fontSize: 13,           // ✅ font size কমানো
               fontWeight: FontWeight.w600,
             ),
           ),

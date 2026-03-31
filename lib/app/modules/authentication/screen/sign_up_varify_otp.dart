@@ -125,38 +125,37 @@ class SignUpVarifyOtp extends StatelessWidget {
 
                       const SizedBox(height: 32),
 
-                      Center(
-                        child: Obx(
-                              () => RichText(
-                            text: TextSpan(
-                              style: GoogleFonts.sourceSans3(
-                                color: const Color(0xFFB2B3BD),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              children: [
-                                const TextSpan(text: "Didn't receive code? "),
-                                TextSpan(
-                                  text: otpController.enableResend.value
-                                      ? "Resend"
-                                      : "Resend in ${otpController.secondsRemaining.value}s",
-                                  style: GoogleFonts.sourceSans3(
-                                    color: otpController.enableResend.value
-                                        ? const Color(0xFFF6F978)
-                                        : const Color(0xFF507B7C),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = otpController.enableResend.value
-                                        ? () => otpController.resendCode(email: email)
-                                        : null,
-                                ),
-                              ],
-                            ),
+                    Obx(() => Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.sourceSans3(
+                            color: const Color(0xFFB2B3BD),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
                           ),
+                          children: [
+                            TextSpan(
+                              text: otpController.enableResend.value
+                                  ? "Didn't receive code? "
+                                  : "Resend in ${otpController.secondsRemaining.value}s",
+                            ),
+                            if (otpController.enableResend.value)
+                              TextSpan(
+                                text: otpController.isResendLoading.value
+                                    ? "Sending..."
+                                    : "Resend",
+                                style: GoogleFonts.sourceSans3(
+                                  color: const Color(0xFFF6F978),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => otpController.resendCode(email: email),
+                              ),
+                          ],
                         ),
                       ),
+                    )),
 
                       const SizedBox(height: 40),
 

@@ -79,10 +79,10 @@ class OtpVerificationController extends GetxController {
   Future<void> resendCode({required String email}) async {
     isResendLoading.value = true;
     try {
-      final response = await BaseClient.postRequest(
-        api: EndPoint.resendOtpURL,
-        headers: {'Content-Type': 'application/json'},
-        body: {"email": email},
+      final response = await http.post(
+        Uri.parse(EndPoint.resendOtpURL),
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
+        body: jsonEncode({"email": email}),
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['success'] == true) {

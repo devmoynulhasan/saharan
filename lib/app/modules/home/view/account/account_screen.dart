@@ -16,7 +16,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AccountController controller = Get.put(AccountController());
+    final AccountController controller = Get.find<AccountController>();
 
     return Scaffold(
       body: GradientBackground(

@@ -35,6 +35,9 @@ class EndPoint {
   // Profile photo
   static String get  uploadProfilePhotoURL => '$BASE_URL/api/v1/auth/update-profile';
 
+  // account profile
+  static  String userProfile = '$BASE_URL/api/v1/auth/user';
+
 
   static String getSingleUser({required String userId}) => '$BASE_URL/user/single/$userId';
 }

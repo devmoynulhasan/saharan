@@ -47,6 +47,7 @@ dependencies:
   #  env
   flutter_dotenv: ^6.0.0
   http_parser: ^4.1.2
+  shared_preferences: ^2.3.2
   # Changed from ^1.1.1 to ^1.1.0
 
 

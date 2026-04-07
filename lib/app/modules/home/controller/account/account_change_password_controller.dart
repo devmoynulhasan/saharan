@@ -75,12 +75,12 @@ class AccountChangePasswordController extends GetxController {
 
       Map<String, String> header = {'Content-Type': 'application/json'};
       Map<String, dynamic> body = {
-        "newPassword": newPasswordController.text,   // ✅ fix
-        "oldPassword": currentPasswordController.text, // ✅ fix
+        "newPassword": newPasswordController.text,
+        "oldPassword": currentPasswordController.text,
       };
 
       final response = await BaseClient.postRequest(
-        api: EndPoint.changePassword, // ✅ signup endpoint সরিয়ে change-password দাও
+        api: EndPoint.changePassword,
         body: body,
         headers: header,
       );

@@ -26,6 +26,7 @@ import '../modules/authentication/screen/forgot_password.dart';
 import '../modules/authentication/screen/sign_up_profile.dart';
 import '../modules/authentication/screen/sign_up_varify_otp.dart';
 import '../modules/authentication/screen/sin_up_conform_password.dart';
+import '../modules/home/view/home_screen.dart';
 
 final List<GetPage> routes = [
   //Authentication
@@ -40,11 +41,12 @@ final List<GetPage> routes = [
   //GetPage(name: AppRoutes.FORGOTVARIFYACCOUNT, page: () => ForgotVerifyAccount(email: '',), binding: ForgotVarifyBinging(),),
   //GetPage(name: AppRoutes.FORGOTCONFORMPASSWORD, page: () => ForgotConformPassword(), binding: ForgotConformPasswordBinding(),),
 
-
+  GetPage(name: '/home', page: () => HomeScreen()),
 
   GetPage(name: AppRoutes.ACCOUNTSETTINGCHANGEPASSWORDSCREEN, page: () => AccountSettingChangePasswordScreen(), binding: ChangePasswordBinding(),),
   GetPage(name: AppRoutes.MATCHLIVE, page: () => const MatchesLive(),binding: MatchesBinding(),),
   GetPage(name: AppRoutes.MATCHLIVE, page: () => const MatchesLive(),binding: MatchesBinding(),),
+
 
   //GetPage(name: AppRoutes.EMAIL_VERIFICATION, page: () => const EmailVerificationScreen(),),
 

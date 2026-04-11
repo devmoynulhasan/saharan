@@ -43,14 +43,15 @@ class SignInController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
 
-        // ✅ user বাদ দাও
-        var accessToken = data['data']['accessToken'];
-        var refreshToken = data['data']['refreshToken'];
-        var role = data['data']['role'];
+        LocalStorage.saveData(key: AppConst.accessToken, data: data['data']['accessToken']);
+        LocalStorage.saveData(key: AppConst.refreshToken, data: data['data']['refreshToken']);
+        LocalStorage.saveData(key: AppConst.role, data: data['data']['role']);
+        LocalStorage.saveData(key: 'user_email', data: emailTEController.text.trim());
 
-        LocalStorage.saveData(key: AppConst.accessToken, data: accessToken);
-        LocalStorage.saveData(key: AppConst.refreshToken, data: refreshToken);
-        LocalStorage.saveData(key: AppConst.role, data: role);
+        // ✅ পুরনো Google cached data মুছে দাও
+        LocalStorage.saveData(key: 'user_firstName', data: '');
+        LocalStorage.saveData(key: 'user_lastName', data: '');
+        LocalStorage.saveData(key: 'user_image', data: '');
 
         Get.offAll(() => HomeScreen());
         showCustomSnackBar(message: 'Login success...');

@@ -11,6 +11,9 @@ import 'package:saharan/app/modules/home/widget/account/account_profile_weg.dart
 import 'package:saharan/app/modules/home/widget/account/accout_more_tools.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
+import '../../../../data/app_const/app_const.dart';
+import '../../../../data/local_storage/local_storage.dart';
+
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
@@ -159,7 +162,14 @@ class AccountScreen extends StatelessWidget {
 
                     InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      onTap: () => Get.to(SinInScreen()),
+                      onTap: () {
+                        // ✅ শুধু token clear করো
+                        LocalStorage.saveData(key: AppConst.accessToken, data: '');
+                        LocalStorage.saveData(key: AppConst.refreshToken, data: '');
+
+                        Get.delete<AccountController>();
+                        Get.offAll(() => SinInScreen());
+                      },
                       child: Container(
                         padding: const EdgeInsets.all(22),
                         width: double.infinity,

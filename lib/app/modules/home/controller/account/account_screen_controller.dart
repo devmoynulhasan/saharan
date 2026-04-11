@@ -18,11 +18,10 @@ class AccountController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _loadFromLocalFirst(); // ✅ আগে local data দেখাবে (fast)
-    fetchUserProfile();    // ✅ তারপর API থেকে update করবে
+    _loadFromLocalFirst();
+    fetchUserProfile();
   }
 
-  // ✅ Local storage থেকে আগে load করো — যাতে screen instantly দেখা যায়
   void _loadFromLocalFirst() {
     final firstName = LocalStorage.getData(key: 'user_firstName') ?? '';
     final lastName = LocalStorage.getData(key: 'user_lastName') ?? '';
@@ -50,7 +49,7 @@ class AccountController extends GetxController {
         Uri.parse(EndPoint.userProfile),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token', // ✅ Bearer prefix যোগ
+          'Authorization': token, // ✅ Bearer ছাড়া
         },
       );
 
@@ -62,12 +61,13 @@ class AccountController extends GetxController {
       if (response.statusCode == 200 && data['success'] == true) {
         final user = data['data'];
         final first = user['firstName'] ?? '';
-        final last = user['lastName'] ?? '';
+        final last = user['lastName'] ?? ''; // API তে না থাকলে empty হবে
 
         userName.value = '$first $last'.trim();
         userEmail.value = user['email'] ?? '';
         profileImageUrl.value = user['imageUrl'] ?? '';
 
+        // ✅ Local storage update করো
         LocalStorage.saveData(key: 'user_firstName', data: first);
         LocalStorage.saveData(key: 'user_lastName', data: last);
         LocalStorage.saveData(key: 'user_email', data: user['email'] ?? '');
@@ -79,7 +79,6 @@ class AccountController extends GetxController {
       }
     } catch (e) {
       print('❌ Error fetching profile: $e');
-      // ✅ Error হলে local data আগে থেকেই দেখাচ্ছে — কোনো সমস্যা নেই
     } finally {
       isLoading.value = false;
     }

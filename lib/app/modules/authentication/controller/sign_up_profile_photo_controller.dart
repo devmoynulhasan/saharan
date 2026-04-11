@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,6 +67,11 @@ class SignUpProfilePhotoController extends GetxController {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
+        final data = jsonDecode(response.body);
+        final newImageUrl = data['data']?['imageUrl'] ?? '';
+        LocalStorage.saveData(key: 'user_image', data: newImageUrl);
+
         showCustomSnackBar(message: 'Profile updated successfully!');
         Get.offAll(() => SinInScreen());
       } else {

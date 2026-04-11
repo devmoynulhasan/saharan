@@ -82,6 +82,11 @@ class SignUpProfileController extends GetxController {
       debugPrint('Response: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
+        LocalStorage.saveData(key: 'user_firstName', data: firstNameController.text.trim());
+        LocalStorage.saveData(key: 'user_lastName', data: lastNameController.text.trim());
+        LocalStorage.saveData(key: 'user_image', data: '');
+
         showCustomSnackBar(message: 'Profile saved!');
         Get.off(() => SignUpProfilePhoto(userId: userId)); // ✅ userId pass
       } else {

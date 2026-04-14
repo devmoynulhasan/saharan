@@ -80,7 +80,7 @@ class OtpVerificationController extends GetxController {
     isResendLoading.value = true;
     try {
       final response = await http.post(
-        Uri.parse(EndPoint.resendOtpURL),
+        Uri.parse(EndPoint.signUpresendOtpURL),
         headers: {'Content-Type': 'application/json; charset=utf-8'},
         body: jsonEncode({"email": email}),
       );

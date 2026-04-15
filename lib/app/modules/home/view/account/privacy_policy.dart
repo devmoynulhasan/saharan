@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/authentication/widget/background_color.dart';
+import '../../controller/account/about_us_controller.dart';
+
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final PagesController controller = Get.put(PagesController());
+
     return Scaffold(
       body: GradientBackground(
         child: Column(
@@ -45,7 +49,7 @@ class PrivacyPolicy extends StatelessWidget {
                     ),
                     SizedBox(width: 15),
                     Text(
-                      "Spending History",
+                      "Privacy Policy",
                       style: GoogleFonts.orbitron(
                         fontSize: 22,
                         fontWeight: FontWeight.w500,
@@ -56,27 +60,27 @@ class PrivacyPolicy extends StatelessWidget {
                 ),
               ),
             ),
-        
-            SizedBox(height: 34,),
+
+            SizedBox(height: 34),
+
+            // ✅ API থেকে privacy_policy দেখাবে
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text("Your privacy is important to us."
-                  " We collect only the information necessary to provide and improve our services,"
-                  " such as account details and usage data. "
-                  "All personal information is handled securely and is "
-                  "never sold or shared with third parties without your consent, "
-                  "except where required by law.We use industry-standard security "
-                  "measures to protect your data and ensure a safe experience. "
-                  "By using our app, you agree to the collection and use of information"
-                  " in accordance with this policy.",
-                style: TextStyle(
-                  color: Color(0xFFEEEEF0),
-                  fontSize: 16,
-                ),
-
-              ),
-            )
-        
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  );
+                }
+                return Text(
+                  controller.privacyPolicy.value,
+                  style: TextStyle(
+                    color: Color(0xFFEEEEF0),
+                    fontSize: 16,
+                  ),
+                );
+              }),
+            ),
           ],
         ),
       ),

@@ -4,8 +4,10 @@ import 'dart:convert';
 
 import '../../../../data/network/ent_point.dart';
 
-class AboutUsController extends GetxController {
+class PagesController extends GetxController {
   var aboutUs = ''.obs;
+  var privacyPolicy = ''.obs;   // ✅ নতুন
+  var termsCondition = ''.obs;  // ✅ পরে Terms এর জন্য
   var isLoading = true.obs;
 
   @override
@@ -17,24 +19,26 @@ class AboutUsController extends GetxController {
   Future<void> fetchPages() async {
     try {
       isLoading(true);
-      print('>>> API CallS');
+      print('========= API CALL START =========');
 
       final response = await http.get(
         Uri.parse(EndPoint.aboutUsURL),
       );
 
-      print('>>> Status Code: ${response.statusCode}');
-      print('>>> Response Body: ${response.body}');
+      print('========= STATUS CODE: ${response.statusCode} =========');
+      print('========= RESPONSE: ${response.body} =========');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['success'] == true) {
-          aboutUs.value = data['data'][0]['about_us'];
-          print('>>> About Us: ${aboutUs.value}');
+          aboutUs.value        = data['data'][0]['about_us'];
+          privacyPolicy.value  = data['data'][0]['privacy_policy'];
+          termsCondition.value = data['data'][0]['terms_condition'];
+          print('========= DATA SET SUCCESSFULLY =========');
         }
       }
     } catch (e) {
-      print('>>> Error: $e');
+      print('========= ERROR: $e =========');
     } finally {
       isLoading(false);
     }

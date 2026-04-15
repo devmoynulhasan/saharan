@@ -11,7 +11,7 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Controller initialize করো
-    final AboutUsController controller = Get.put(AboutUsController());
+    final PagesController controller = Get.put(PagesController());
 
     return Scaffold(
       body: GradientBackground(

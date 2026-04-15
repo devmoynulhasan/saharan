@@ -23,8 +23,10 @@ class SignInController extends GetxController {
 
 
 
-  Future<void> signIn() async{
+  Future<void> signIn() async {
     try {
+      isLoading.value = true;
+
       Map<String, String> header = {
         'Content-Type': 'application/json',
       };
@@ -48,7 +50,6 @@ class SignInController extends GetxController {
         LocalStorage.saveData(key: AppConst.role, data: data['data']['role']);
         LocalStorage.saveData(key: 'user_email', data: emailTEController.text.trim());
 
-        // ✅ পুরনো Google cached data মুছে দাও
         LocalStorage.saveData(key: 'user_firstName', data: '');
         LocalStorage.saveData(key: 'user_lastName', data: '');
         LocalStorage.saveData(key: 'user_image', data: '');
@@ -58,9 +59,9 @@ class SignInController extends GetxController {
       }
     } catch (e) {
       debugPrint('login error: $e');
-      Get.rawSnackbar(message:'login failed $e');
+      Get.rawSnackbar(message: 'login failed $e');
     } finally {
-      isLoading.value = false;
+      isLoading.value = false; // ✅ শেষে false
     }
   }
 }

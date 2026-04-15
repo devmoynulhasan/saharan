@@ -151,12 +151,16 @@ class SinInScreen extends StatelessWidget {
 
                           const SizedBox(height: 15),
 
-                          CustomButton(
+                          Obx(() => controller.isLoading.value
+                              ? Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFF6F978),
+                            ),
+                          )
+                              : CustomButton(
                             title: 'Sign In',
                             onTap: () {
                               if (controller.formKey.currentState!.validate()) {
-                                String email = controller.emailTEController.text.trim();
-                                String password = controller.passwordTEController.text;
                                 controller.signIn();
                               } else {
                                 showCustomSnackBar(
@@ -164,6 +168,7 @@ class SinInScreen extends StatelessWidget {
                                 );
                               }
                             },
+                          ),
                           ),
 
                           const Spacer(),

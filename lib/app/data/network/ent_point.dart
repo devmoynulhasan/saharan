@@ -40,6 +40,10 @@ class EndPoint {
   static  String userProfile = '$BASE_URL/api/v1/auth/user';
   static  String changePassword = '$BASE_URL/api/v1/auth/change-password';
 
+  static String get aboutUsURL => '$BASE_URL/api/v1/pages/all-pages';
+  //static String get termsConditionURL => '$BASE_URL/api/v1/pages/all-pages';
+ // static String get privacyPolicyURL => '$BASE_URL/api/v1/pages/all-pages';
+
   static String googleSignIn = '$BASE_URL/api/v1/auth/google-login';
 
 

@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saharan/app/modules/home/view/account/about_us.dart';
 import 'package:saharan/resource/app_images/app_images.dart';
 
+import '../../view/account/contact_support.dart';
+
 class Account_More_Support extends StatelessWidget {
   const Account_More_Support({super.key});
 
@@ -51,7 +53,7 @@ class Account_More_Support extends StatelessWidget {
           // ─── Contact Support ───
           InkWell(
             onTap: () {
-              // Get.to(ContactSupport());
+               Get.to(ContactSupport());
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
